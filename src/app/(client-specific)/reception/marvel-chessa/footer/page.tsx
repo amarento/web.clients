@@ -2,7 +2,7 @@ export default function Footer() {
   return (
     <div className="text-center font-lastik text-[#43423D]">
       <div className="bg-[#FFFFF8] pb-5 pt-4 sm:pb-6 sm:pt-5 md:pb-7 md:pt-6 lg:py-8 lg:pt-7">
-        <h5 className="font-foret text-[14px] sm:text-[16px] md:text-[18px]">Amarento</h5>
+        <h5 className="lg:mb-1 font-foret text-[14px] sm:text-[16px] md:text-[18px]">Amarento</h5>
         <p className="text-[6px] sm:text-[8px] md:text-[10px]">
           Copyright © 2025. All rights reserved.
         </p>

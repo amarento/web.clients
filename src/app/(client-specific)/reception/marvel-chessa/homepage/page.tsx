@@ -1,32 +1,79 @@
 "use client";
 
-import Image from "next/image";
-import { motion } from "motion/react";
+import Lenis from "lenis";
+import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { MdOutlineMusicNote, MdOutlineMusicOff } from "react-icons/md";
-import { FaChevronDown } from "react-icons/fa";
 
-import homepage from "../_images/homepage.png";
-
+const video = "/vid-marvel-chessa.mp4";
 const music = "/music-felix-celine.mp3";
 
 export default function Homepage() {
-  const showAnimations = true;
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2,
-      },
-    },
+  // Element refs for viewport-based triggers
+  const containerRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const dateRef = useRef<HTMLDivElement>(null);
+
+  // Initialize Lenis smooth scroll
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom spring-like easing
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
+  // Viewport-based animation hook for text elements - triggers when element is 10% from bottom
+  const useViewportAnimation = (
+    ref: React.RefObject<HTMLElement>,
+    yValue = 60,
+  ) => {
+    const { scrollYProgress } = useScroll({
+      target: ref,
+      offset: ["start end", "end 90%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
+    });
+
+    const opacityRaw = useTransform(scrollYProgress, [0, 1], [0, 1]);
+    const yRaw = useTransform(scrollYProgress, [0, 1], [yValue, 0]);
+
+    return {
+      opacity: useSpring(opacityRaw, { stiffness: 120, damping: 25, mass: 1 }),
+      y: useSpring(yRaw, { stiffness: 100, damping: 20, mass: 1 }),
+    };
   };
 
-  const fadeIn = {
-    hidden: { opacity: 0, x: 0, y: 0 },
-    visible: { opacity: 1, x: 0, y: 0 },
-  };
+  // Text animations with viewport-based triggers
+  const title = useViewportAnimation(titleRef);
+  const date = useViewportAnimation(dateRef);
+
+  // Get overall scroll position for fixed homepage animation
+  const { scrollY } = useScroll();
+
+  // Three-stage scroll animation with spring physics
+  const overlayOpacityRaw = useTransform(scrollY, [0, 100, 200], [0, 0.3, 1]);
+  const homepageOpacityRaw = useTransform(scrollY, [0, 100, 200], [1, 1, 0]);
+
+  // Apply spring animation to the transforms for smooth, natural motion
+  const overlayOpacity = useSpring(overlayOpacityRaw, {
+    stiffness: 300,
+    damping: 30,
+    mass: 0.8,
+  });
+  const homepageOpacity = useSpring(homepageOpacityRaw, {
+    stiffness: 300,
+    damping: 30,
+    mass: 0.8,
+  });
 
   // Music player state
   const [isPlaying, setIsPlaying] = useState(false);
@@ -76,43 +123,46 @@ export default function Homepage() {
   // }, [hasScrolled]);
 
   return (
-    <div
-      className="relative flex h-screen flex-col items-center justify-center overflow-hidden text-center text-[#F0F0F0]"
-      // style={{ height: "calc(100vh - 80px)" }}
+    <motion.div
+      className="fixed inset-0 z-10 flex h-screen w-full flex-col items-center justify-center overflow-hidden text-center text-[#F0F0F0]"
+      style={{
+        opacity: homepageOpacity,
+        pointerEvents: "none",
+      }}
     >
-      <Image
-        alt="Homepage background"
-        className="absolute inset-0 -z-10"
-        fill
-        priority
-        src={homepage}
-        style={{
-          objectFit: "cover",
-          objectPosition: "center",
-        }}
+      <video
+        autoPlay
+        className="absolute inset-0 -z-10 h-full w-full object-cover"
+        loop
+        muted
+        playsInline
+        src={video}
       />
+      {/* Dark overlay that increases with scroll */}
       <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate={showAnimations ? "visible" : "hidden"}
-      >
+        className="-z-5 absolute inset-0 h-screen w-screen bg-black"
+        style={{ opacity: overlayOpacity }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+      />
+      <motion.div ref={containerRef}>
         <motion.h1
-          className="font-cormorant text-[20px] lg:text-[22px] drop-shadow-2xl"
-          initial="hidden"
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          variants={fadeIn}
-          viewport={{ once: true, margin: "-100px" }}
-          whileInView="visible"
+          ref={titleRef}
+          className="font-cormorant text-[20px] drop-shadow-2xl lg:text-[25px]"
+          style={{
+            opacity: title.opacity,
+            y: title.y,
+          }}
         >
-          MARVEL <span className="text-[16px] italic"> & </span> CHESSA
+          MARVEL <span className="text-[16px] italic lg:text-[20px]"> & </span>{" "}
+          CHESSA
         </motion.h1>
         <motion.h5
-          className="font-cormorant text-[18px] lg:text-[20px] italic drop-shadow-2xl"
-          initial="hidden"
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          variants={fadeIn}
-          viewport={{ once: true, margin: "-100px" }}
-          whileInView="visible"
+          ref={dateRef}
+          className="font-cormorant text-[16px] italic drop-shadow-2xl lg:text-[18px]"
+          style={{
+            opacity: date.opacity,
+            y: date.y,
+          }}
         >
           Bali, 20 June 2026
         </motion.h5>
@@ -152,7 +202,8 @@ export default function Homepage() {
       <audio loop preload="auto" ref={audioRef} src={music} />
       <button
         aria-label={isPlaying ? "Mute music" : "Play music"}
-        className="fixed bottom-6 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-[#333333] shadow-lg transition hover:bg-[#444] focus:outline-none"
+        className="fixed bottom-6 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-[#222222]/50 shadow-lg transition hover:bg-[#222222] focus:outline-none"
+        style={{ pointerEvents: "auto" }}
         onClick={toggleMusic}
         type="button"
       >
@@ -164,6 +215,6 @@ export default function Homepage() {
           <MdOutlineMusicOff className="h-5 w-5" />
         )}
       </button>
-    </div>
+    </motion.div>
   );
 }

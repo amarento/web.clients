@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform, useSpring } from "motion/react";
+import { useRef } from "react";
 import { Button } from "~/components/ui/button";
 import Image from "next/image";
 import { useState } from "react";
@@ -18,37 +19,80 @@ type TabType =
 
 export default function Baliguide() {
   const [activeTab, setActiveTab] = useState<TabType>("activities");
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.2,
-      },
-    },
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Element refs for viewport-based triggers
+  const titleRef = useRef<HTMLDivElement>(null);
+  const tabRow1Ref = useRef<HTMLDivElement>(null);
+  const tabRow2Ref = useRef<HTMLDivElement>(null);
+  const image1Ref = useRef<HTMLDivElement>(null);
+  const image2Ref = useRef<HTMLDivElement>(null);
+
+  // Viewport-based animation hook - triggers when element is 5% from bottom
+  const useViewportAnimation = (
+    ref: React.RefObject<HTMLElement>,
+    yValue = 10,
+  ) => {
+    const { scrollYProgress } = useScroll({
+      target: ref,
+      offset: ["start end", "end 95%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
+    });
+
+    const opacityRaw = useTransform(scrollYProgress, [0, 1], [0, 1]);
+    const yRaw = useTransform(scrollYProgress, [0, 1], [yValue, 0]);
+
+    return {
+      opacity: useSpring(opacityRaw, { stiffness: 120, damping: 25, mass: 1 }),
+      y: useSpring(yRaw, { stiffness: 100, damping: 20, mass: 1 }),
+    };
   };
 
+  // Viewport-based image animation hook
+  const useViewportImageAnimation = (ref: React.RefObject<HTMLDivElement>) => {
+    const { scrollYProgress } = useScroll({
+      target: ref,
+      offset: ["start end", "end 95%"],
+    });
+
+    const opacityRaw = useTransform(scrollYProgress, [0, 1], [0, 1]);
+    const scaleRaw = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
+
+    return {
+      opacity: useSpring(opacityRaw, {
+        stiffness: 150,
+        damping: 30,
+        mass: 0.8,
+      }),
+      scale: useSpring(scaleRaw, { stiffness: 120, damping: 25, mass: 0.8 }),
+    };
+  };
+
+  // Keep fadeIn for dynamic tab content (not viewport-based)
   const fadeIn = {
     hidden: { opacity: 0, x: 0, y: 0 },
     visible: { opacity: 1, x: 0, y: 0 },
   };
 
+  // All animations with viewport-based triggers
+  const title = useViewportAnimation(titleRef);
+  const tabRow1 = useViewportAnimation(tabRow1Ref);
+  const tabRow2 = useViewportAnimation(tabRow2Ref);
+  const image1 = useViewportImageAnimation(image1Ref);
+  const image2 = useViewportImageAnimation(image2Ref);
+
   return (
     <motion.div
-      className="flex flex-col bg-[#F6F4F1] pb-20 pt-24 lg:pt-32 text-[#111111] md:px-14"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
+      ref={containerRef}
+      className="flex flex-col bg-[#F6F4F1] pb-20 pt-24 text-[#111111] md:px-14 lg:pt-32"
     >
       <div className="text-center">
         <motion.h1
+          ref={titleRef}
           className="mx-auto mb-8 font-cormorant text-[31px] tracking-tight drop-shadow-2xl"
-          initial="hidden"
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          variants={fadeIn}
-          viewport={{ once: true, margin: "-100px" }}
-          whileInView="visible"
+          style={{
+            opacity: title.opacity,
+            y: title.y,
+          }}
         >
           BALI GUIDE
         </motion.h1>
@@ -56,12 +100,12 @@ export default function Baliguide() {
         {/* Tab Buttons */}
         <div className="mb-10 flex flex-wrap justify-center gap-4">
           <motion.div
+            ref={tabRow1Ref}
             className="flex gap-5"
-            initial="hidden"
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            variants={fadeIn}
-            viewport={{ once: true, margin: "-100px" }}
-            whileInView="visible"
+            style={{
+              opacity: tabRow1.opacity,
+              y: tabRow1.y,
+            }}
           >
             <Button
               type="button"
@@ -118,12 +162,12 @@ export default function Baliguide() {
             </Button>
           </motion.div>
           <motion.div
+            ref={tabRow2Ref}
             className="flex gap-4"
-            initial="hidden"
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            variants={fadeIn}
-            viewport={{ once: true, margin: "-100px" }}
-            whileInView="visible"
+            style={{
+              opacity: tabRow2.opacity,
+              y: tabRow2.y,
+            }}
           >
             <Button
               type="button"
@@ -185,13 +229,13 @@ export default function Baliguide() {
         <motion.div
           className="mb-20 min-h-[400px] px-8 sm:px-12 md:px-14"
           key={activeTab}
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.6 }}
         >
           {activeTab === "activities" && (
             <motion.div
-              className="text-left"
+              className="text-center lg:mx-auto lg:w-[80%]"
               initial="hidden"
               transition={{ duration: 0.8, ease: "easeOut" }}
               variants={fadeIn}
@@ -281,7 +325,7 @@ export default function Baliguide() {
 
           {activeTab === "cafes" && (
             <motion.div
-              className="text-left"
+              className="text-center lg:mx-auto lg:w-[80%]"
               initial="hidden"
               transition={{ duration: 0.8, ease: "easeOut" }}
               variants={fadeIn}
@@ -372,7 +416,7 @@ export default function Baliguide() {
 
           {activeTab === "local" && (
             <motion.div
-              className="text-left"
+              className="text-center lg:mx-auto lg:w-[80%]"
               initial="hidden"
               transition={{ duration: 0.8, ease: "easeOut" }}
               variants={fadeIn}
@@ -441,7 +485,7 @@ export default function Baliguide() {
 
           {activeTab === "restaurants" && (
             <motion.div
-              className="text-left"
+              className="text-center lg:mx-auto lg:w-[80%]"
               initial="hidden"
               transition={{ duration: 0.8, ease: "easeOut" }}
               variants={fadeIn}
@@ -509,7 +553,7 @@ export default function Baliguide() {
 
           {activeTab === "clubs" && (
             <motion.div
-              className="text-left"
+              className="text-center lg:mx-auto lg:w-[80%]"
               initial="hidden"
               transition={{ duration: 0.8, ease: "easeOut" }}
               variants={fadeIn}
@@ -562,7 +606,7 @@ export default function Baliguide() {
 
           {activeTab === "wellness" && (
             <motion.div
-              className="text-left"
+              className="text-center lg:mx-auto lg:w-[80%]"
               initial="hidden"
               transition={{ duration: 0.8, ease: "easeOut" }}
               variants={fadeIn}
@@ -624,28 +668,30 @@ export default function Baliguide() {
         </motion.div>
       </div>
       <motion.div
-        initial="hidden"
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        variants={fadeIn}
-        viewport={{ once: true, margin: "-100px" }}
-        whileInView="visible"
+      className="relative z-20"
+        ref={image1Ref}
+        style={{
+          opacity: image1.opacity,
+          scale: image1.scale,
+        }}
       >
         <Image
-          className="z-10 w-[50%] sm:ml-20 sm:w-[45%] md:ml-24 md:w-[40%] lg:ml-48 lg:w-[35%]"
+          className="w-[50%] sm:ml-20 sm:w-[45%] md:ml-24 md:w-[40%] lg:ml-72 lg:w-[26%]"
           src={img10}
           alt="IMG10"
           priority
         />
       </motion.div>
       <motion.div
-        initial="hidden"
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        variants={fadeIn}
-        viewport={{ once: true, margin: "-100px" }}
-        whileInView="visible"
+      className="relative z-10"
+        ref={image2Ref}
+        style={{
+          opacity: image2.opacity,
+          scale: image2.scale,
+        }}
       >
         <Image
-          className="-mt-10 ml-auto w-[55%] sm:-mt-12 sm:mr-20 sm:w-[50%] md:-mt-16 md:mr-24 md:w-[43%] lg:mr-48 lg:w-[38%]"
+          className="-mt-10 ml-auto w-[55%] sm:-mt-12 sm:mr-20 sm:w-[50%] md:-mt-16 md:mr-24 md:w-[43%] lg:mr-72 lg:w-[28%]"
           src={img11}
           alt="IMG11"
           priority
