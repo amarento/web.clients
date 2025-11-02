@@ -95,6 +95,9 @@ const config: Config = {
         beth: ['var(--font-beth)', 'serif', ...fontFamily.serif],
         apple: ['var(--font-apple)', 'serif', ...fontFamily.serif],
         schoolbell: ['var(--font-schoolbell)', 'serif', ...fontFamily.serif],
+        hanken: ['var(--font-hanken)', 'sans-serif', ...fontFamily.sans],
+        freight: ['var(--font-freight)', 'serif', ...fontFamily.serif],
+        foret: ['var(--font-foret)', 'serif', ...fontFamily.serif],
       },
       borderRadius: {
         lg: "var(--radius)",
