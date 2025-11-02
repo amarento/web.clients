@@ -5,12 +5,11 @@ import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { MdOutlineMusicNote, MdOutlineMusicOff } from "react-icons/md";
 import { FaChevronDown } from "react-icons/fa";
-import { HiMenu, HiX } from "react-icons/hi";
 
 const video = "/vid-marvel-chessa.mp4";
 const music = "/music-felix-celine.mp3";
 
-export default function Homepage({ showAnimations = true }: { showAnimations?: boolean }) {
+export default function Homepage() {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -98,7 +97,6 @@ export default function Homepage({ showAnimations = true }: { showAnimations?: b
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Mobile menu state
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const toggleMusic = async () => {
     if (!audioRef.current) return;
 
@@ -194,7 +192,7 @@ export default function Homepage({ showAnimations = true }: { showAnimations?: b
         className="absolute bottom-3 flex flex-col items-center justify-center"
         variants={containerVariants}
         initial="hidden"
-        animate={showAnimations ? "visible" : "hidden"}
+        animate="visible"
         style={{ pointerEvents: "none" }}
       >
         <motion.div
