@@ -10,7 +10,7 @@ import Dresscode from "./dresscode/page";
 import Travel from "./travel/page";
 import PhotoAlbum from "./photoalbum/page";
 import Baliguide from "./baliguide/page";
-import Gifts from "./gifts/page";
+import Gifts from "./gift/page";
 import Wish from "./letters/wish";
 import Contact from "./contact/page";
 import Outro from "./outro/page";

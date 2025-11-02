@@ -130,7 +130,7 @@ export default function Intro() {
             y: firstText.y,
           }}
         >
-          <h5 className="font-freight text-[16px] italic drop-shadow-2xl md:text-[18px] lg:text-center lg:font-cormorant lg:text-[18px] lg:uppercase lg:not-italic">
+          <h5 className="font-freight text-[16px] italic drop-shadow-2xl md:text-[18px] lg:text-center lg:font-cormorant lg:text-[18px] lg:uppercase lg:not-italic lg:tracking-[-0.015em]">
             By the grace of God, we’re getting married!
           </h5>
         </motion.div>
@@ -141,7 +141,7 @@ export default function Intro() {
             y: secondText.y,
           }}
         >
-          <h5 className="font-freight text-[16px] italic drop-shadow-2xl md:text-[18px] lg:text-center lg:font-cormorant lg:text-[18px] lg:uppercase lg:not-italic">
+          <h5 className="font-freight text-[16px] italic drop-shadow-2xl md:text-[18px] lg:text-center lg:font-cormorant lg:text-[18px] lg:uppercase lg:not-italic lg:tracking-[-0.015em]">
             We’d love for you to come and share in the joy of our wedding
             celebration.
           </h5>
@@ -161,15 +161,19 @@ export default function Intro() {
         }}
       >
         <motion.div
-          className="center w-full overflow-hidden"
+          className="center max-h-screen w-full overflow-hidden"
           style={{ scale: imageScaleSpring }}
         >
           <Image
             key={currentImageIndex}
-            className="w-screen"
+            className="w-screen lg:-translate-y-12 xl:-translate-y-[80px]"
             alt={`Photo slide ${currentImageIndex + 1}`}
             priority
             src={images[currentImageIndex] ?? img1}
+            style={{
+              objectFit: "cover",
+              objectPosition: "center 5%",
+            }}
           />
         </motion.div>
       </motion.div>

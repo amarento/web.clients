@@ -18,7 +18,7 @@ export default function Contact() {
   ) => {
     const { scrollYProgress } = useScroll({
       target: ref,
-      offset: ["start end", "end 95%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
+      offset: ["start end", "end 90%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
     });
 
     const opacityRaw = useTransform(scrollYProgress, [0, 1], [0, 1]);
@@ -40,7 +40,7 @@ export default function Contact() {
       <motion.div ref={containerRef} className="px-8 text-center sm:px-12">
         <motion.hr
           ref={dividerRef}
-          className="mx-auto mb-8 w-72 lg:w-[50%] border-t border-[#111111]"
+          className="mx-auto mb-8 w-72 lg:w-[40%] border-t border-[#111111]"
           style={{
             opacity: divider.opacity,
             y: divider.y,
@@ -58,7 +58,7 @@ export default function Contact() {
         </motion.h1>
         <motion.h3
           ref={descriptionRef}
-          className="mb-24 text-center font-freight text-[14px] lg:text-[16px] tracking-wide drop-shadow-2xl"
+          className="mb-24 text-center font-freight text-[14px] lg:text-[16px] md:w-[70%] lg:w-[55%] xl:w-[45%] mx-auto tracking-wide drop-shadow-2xl"
           style={{
             opacity: description.opacity,
             y: description.y,

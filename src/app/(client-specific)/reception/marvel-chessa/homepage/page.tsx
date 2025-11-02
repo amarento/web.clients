@@ -4,11 +4,29 @@ import Lenis from "lenis";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { MdOutlineMusicNote, MdOutlineMusicOff } from "react-icons/md";
+import { FaChevronDown } from "react-icons/fa";
+import { HiMenu, HiX } from "react-icons/hi";
 
 const video = "/vid-marvel-chessa.mp4";
 const music = "/music-felix-celine.mp3";
 
-export default function Homepage() {
+export default function Homepage({ showAnimations = true }: { showAnimations?: boolean }) {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.7, // 0.5s delay + 0.2s original delay
+      },
+    },
+  };
+
+  const fadeIn = {
+    hidden: { opacity: 0, x: 0, y: 0 },
+    visible: { opacity: 1, x: 0, y: 0 },
+  };
+
   // Element refs for viewport-based triggers
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
@@ -78,6 +96,9 @@ export default function Homepage() {
   // Music player state
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Mobile menu state
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const toggleMusic = async () => {
     if (!audioRef.current) return;
 
@@ -108,19 +129,19 @@ export default function Homepage() {
     };
   }, []);
 
-  // const [showScrollIndicator, setShowScrollIndicator] = useState(true);
-  // const [hasScrolled, setHasScrolled] = useState(false);
+  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     if (!hasScrolled && window.scrollY > 40) {
-  //       setShowScrollIndicator(false);
-  //       setHasScrolled(true);
-  //     }
-  //   };
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, [hasScrolled]);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!hasScrolled && window.scrollY > 40) {
+        setShowScrollIndicator(false);
+        setHasScrolled(true);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [hasScrolled]);
 
   return (
     <motion.div
@@ -169,7 +190,7 @@ export default function Homepage() {
       </motion.div>
 
       {/* Scroll indicator */}
-      {/* <motion.div
+      <motion.div
         className="absolute bottom-3 flex flex-col items-center justify-center"
         variants={containerVariants}
         initial="hidden"
@@ -182,21 +203,15 @@ export default function Homepage() {
           animate={{ opacity: showScrollIndicator ? 1 : 0 }}
           transition={{ duration: 0.3 }}
         >
-          <motion.p
-            className="font-cormorant text-[16px]"
-            variants={fadeIn}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            Scroll down
-          </motion.p>
           <motion.div
             variants={fadeIn}
             transition={{ duration: 0.8, ease: "easeOut" }}
+            className="mb-2 xl:mb-4"
           >
-            <FaChevronDown />
+            <FaChevronDown className="h-3 w-3 lg:h-4 lg:w-4" />
           </motion.div>
         </motion.div>
-      </motion.div> */}
+      </motion.div>
 
       {/* Music player button */}
       <audio loop preload="auto" ref={audioRef} src={music} />

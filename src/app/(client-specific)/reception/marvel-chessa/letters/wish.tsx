@@ -110,7 +110,7 @@ export default function Wish({ guestName, guestId }: IWishProps) {
   ) => {
     const { scrollYProgress } = useScroll({
       target: ref,
-      offset: ["start end", "end 95%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
+      offset: ["start end", "end 90%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
     });
 
     const opacityRaw = useTransform(scrollYProgress, [0, 1], [0, 1]);
@@ -131,7 +131,7 @@ export default function Wish({ guestName, guestId }: IWishProps) {
   const submitButton = useViewportAnimation(submitButtonRef);
 
   return (
-    <div className="bg-[#F6F4F1] pb-20 text-center font-freight text-[#43423D]">
+    <div className="bg-[#F6F4F1] pb-16 text-center font-freight text-[#43423D]">
       <div className="relative pt-16">
         <motion.div>
           <motion.h1
@@ -155,10 +155,10 @@ export default function Wish({ guestName, guestId }: IWishProps) {
           >
             <div className="relative">
               {/* Left Gradient Overlay */}
-              <div className="pointer-events-none absolute bottom-0 left-0 top-0 z-10 w-8 bg-gradient-to-r from-[#F8F8F7] to-transparent lg:w-80" />
+              <div className="pointer-events-none absolute bottom-0 left-0 top-0 z-10 w-8 lg:w-80" />
 
               {/* Right Gradient Overlay */}
-              <div className="pointer-events-none absolute bottom-0 right-0 top-0 z-10 w-8 bg-gradient-to-l from-[#F8F8F7] to-transparent lg:w-80" />
+              <div className="pointer-events-none absolute bottom-0 right-0 top-0 z-10 w-8 lg:w-80" />
 
               {/* Embla Carousel */}
               <div className="embla overflow-hidden px-4 pb-12" ref={emblaRef}>
@@ -166,13 +166,13 @@ export default function Wish({ guestName, guestId }: IWishProps) {
                   {wishes && wishes.length > 0
                     ? [...wishes].reverse().map((wish, index) => (
                         <div
-                          className="embla__slide flex h-[200px] w-[85vw] flex-col items-center justify-center rounded-sm border border-solid border-[#555555] bg-[#F6F4F1] p-6 text-center shadow md:w-[95vw] md:p-8 lg:w-[40vw] lg:p-10"
+                          className="embla__slide flex h-[210px] w-[85vw] flex-col items-center justify-center rounded-sm border border-solid border-[#555555] bg-[#F6F4F1] p-6 text-center shadow md:h-[300px] lg:h-[350px] md:w-[80vw] lg:w-[65vw] xl:h-[400px] md:p-12 lg:p-14 xl:p-16"
                           key={index.toString()}
                         >
-                          <p className="w-full text-[12px] text-[#43423D] md:text-[14px] lg:text-[16px]">
+                          <p className="overflow-wrap-anywhere w-full break-words text-[12px] leading-relaxed text-[#43423D] md:text-[16px] lg:text-[18px] xl:text-[20px]">
                             {wish.wish}
                           </p>
-                          <p className="mt-2 text-[12px] italic text-[#43423D] md:text-[14px] lg:text-[16px]">
+                          <p className="mt-2 text-[12px] italic text-[#43423D] md:text-[14px] lg:text-[16px] xl:text-[18px]">
                             – {wish.name}
                           </p>
                         </div>
@@ -187,7 +187,7 @@ export default function Wish({ guestName, guestId }: IWishProps) {
       <motion.div className="relative">
         <motion.form
           ref={formRef}
-          className="mx-auto w-[75vw] lg:w-[60vw] xl:w-[50vw]"
+          className="mx-auto w-[75%] lg:w-[60%] xl:w-[45%]"
           onSubmit={handleSubmit(onSubmit)}
           style={{
             opacity: form.opacity,
@@ -202,12 +202,12 @@ export default function Wish({ guestName, guestId }: IWishProps) {
               y: nameField.y,
             }}
           >
-            <p className="pl-1 text-[16px] text-[#333333] md:text-[16px] lg:text-[18px]">
+            <p className="pl-1 text-[16px] text-[#333333] md:text-[16px] lg:text-[18px] xl:text-[20px]">
               from:
             </p>
             <input
               {...register("name")}
-              className="mb-4 block w-full rounded-sm border bg-[#FCFCFC] p-2 text-[14px] text-muted-foreground md:text-[16px] lg:text-[18px]"
+              className="mb-4 block w-full rounded-sm border bg-[#FCFCFC] p-2 text-[14px] text-muted-foreground md:mb-6 md:text-[16px] lg:text-[18px]"
               disabled={!!guestName}
             />
           </motion.div>
@@ -221,7 +221,7 @@ export default function Wish({ guestName, guestId }: IWishProps) {
             }}
           >
             <div className="flex items-center justify-between">
-              <p className="pl-1 text-[16px] text-[#333333] md:text-[16px] lg:text-[18px]">
+              <p className="pl-1 text-[16px] text-[#333333] md:text-[16px] lg:text-[18px] xl:text-[20px]">
                 wish:
               </p>
               <p
@@ -244,17 +244,17 @@ export default function Wish({ guestName, guestId }: IWishProps) {
 
           <motion.div
             ref={submitButtonRef}
-            className="flex justify-center gap-6 pt-7 md:pt-8"
+            className="flex justify-center gap-6 pt-8 md:pt-10"
             style={{
               opacity: submitButton.opacity,
               y: submitButton.y,
             }}
           >
             <Button
-              className="group rounded-none border-[1px] border-[#555555] bg-[#F6F4F1] px-5 py-2 hover:bg-[#FFFFFF] active:bg-[#1D1A1B]"
+              className="active:scale-98 group rounded-none border-[1px] border-[#555555] bg-[#F6F4F1] px-5 py-2 transition-all duration-200 ease-out hover:bg-[#FFFFFF] active:bg-[#1D1A1B] lg:px-6 lg:py-3"
               type="submit"
             >
-              <p className="font-cormorant text-[12px] text-[#111111] group-active:text-[#FFFFFF]">
+              <p className="font-cormorant text-[12px] text-[#111111] transition-colors duration-200 group-active:text-[#FFFFFF] lg:text-[14px]">
                 SEND WISH
               </p>
             </Button>

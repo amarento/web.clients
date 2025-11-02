@@ -20,32 +20,34 @@ export default function PhotoAlbum() {
   const image4Ref = useRef<HTMLDivElement>(null);
   const image5Ref = useRef<HTMLDivElement>(null);
 
-  // Viewport-based image animation hook - triggers when element is 5% from bottom
-  const useViewportImageAnimation = (ref: React.RefObject<HTMLDivElement>) => {
+  // Viewport-based image animation hook with parallax scrolling effect
+  const useViewportImageAnimation = (
+    ref: React.RefObject<HTMLDivElement>,
+    startY = 50,
+    parallaxMultiplier = 1,
+  ) => {
     const { scrollYProgress } = useScroll({
       target: ref,
-      offset: ["start end", "end 95%"], // Animation starts when element enters viewport, completes when it's 5% from bottom
+      offset: ["start 120%", "end -20%"], // Extended range outside viewport for enhanced parallax effect
     });
 
-    const opacityRaw = useTransform(scrollYProgress, [0, 1], [0, 1]);
-    const scaleRaw = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
+    const yRaw = useTransform(
+      scrollYProgress,
+      [0, 1],
+      [startY, -startY * 0.5 * parallaxMultiplier],
+    );
 
     return {
-      opacity: useSpring(opacityRaw, {
-        stiffness: 150,
-        damping: 30,
-        mass: 0.8,
-      }),
-      scale: useSpring(scaleRaw, { stiffness: 120, damping: 25, mass: 0.8 }),
+      y: useSpring(yRaw, { stiffness: 120, damping: 25, mass: 0.8 }),
     };
   };
 
-  // All animations with viewport-based triggers
-  const image1 = useViewportImageAnimation(image1Ref);
-  const image2 = useViewportImageAnimation(image2Ref);
-  const image3 = useViewportImageAnimation(image3Ref);
-  const image4 = useViewportImageAnimation(image4Ref);
-  const image5 = useViewportImageAnimation(image5Ref);
+  // All animations with viewport-based parallax triggers
+  const image1 = useViewportImageAnimation(image1Ref, 100, 2); // Slower parallax layer
+  const image2 = useViewportImageAnimation(image2Ref, 200, 2); // Medium parallax layer
+  const image3 = useViewportImageAnimation(image3Ref, 120, 1.2); // Standard parallax layer
+  const image4 = useViewportImageAnimation(image4Ref, 150, 2); // Faster parallax layer
+  const image5 = useViewportImageAnimation(image5Ref, 60, 1); // Slowest parallax layer
 
   return (
     <motion.div
@@ -54,13 +56,13 @@ export default function PhotoAlbum() {
     >
       <motion.div
         ref={image1Ref}
+        className="relative"
         style={{
-          opacity: image1.opacity,
-          scale: image1.scale,
+          y: image1.y,
         }}
       >
         <Image
-          className="w-[80%] sm:w-[65%] md:w-[60%] lg:w-[45%]"
+          className="h-auto w-[80%] object-cover sm:w-[65%] md:w-[60%] lg:w-[45%] lg:ml-12"
           src={img5}
           alt="IMG5"
           priority
@@ -68,13 +70,13 @@ export default function PhotoAlbum() {
       </motion.div>
       <motion.div
         ref={image2Ref}
+        className="relative"
         style={{
-          opacity: image2.opacity,
-          scale: image2.scale,
+          y: image2.y,
         }}
       >
         <Image
-          className="ml-auto mt-10 w-[65%] sm:mt-24 sm:w-[48%] md:w-[45%] lg:mt-24 lg:w-[35%]"
+          className="ml-auto mt-10 h-auto w-[65%] object-cover sm:mt-24 sm:w-[48%] lg:mr-64 md:w-[45%] lg:w-[35%]"
           src={img6}
           alt="IMG6"
           priority
@@ -82,13 +84,13 @@ export default function PhotoAlbum() {
       </motion.div>
       <motion.div
         ref={image3Ref}
+        className="relative"
         style={{
-          opacity: image3.opacity,
-          scale: image3.scale,
+          y: image3.y,
         }}
       >
         <Image
-          className="mt-20 w-[46%] sm:mt-28 sm:w-[45%] md:w-[42%] lg:mt-32 lg:w-[27%]"
+          className="h-auto w-[46%] object-cover sm:mt-20 sm:w-[45%] md:mt-12 md:w-[42%] lg:ml-16 lg:mt-18 lg:w-[32%]"
           src={img7}
           alt="IMG7"
           priority
@@ -96,14 +98,13 @@ export default function PhotoAlbum() {
       </motion.div>
       <motion.div
         ref={image4Ref}
-        className="relative"
+        className="relative z-20"
         style={{
-          opacity: image4.opacity,
-          scale: image4.scale,
+          y: image4.y,
         }}
       >
         <Image
-          className="relative z-20 -mt-36 ml-auto w-[47%] sm:-mt-[360px] sm:w-[45%] lg:w-[32%] md:-mt-[410px] md:w-[42%] lg:-mt-[580px]"
+          className="relative -mt-60 ml-auto h-auto w-[47%] object-cover sm:-mt-[360px] lg:mr-16 sm:w-[45%] md:-mt-[410px] md:w-[42%] lg:-mt-[580px] lg:w-[34%]"
           src={img8}
           alt="IMG8"
           priority
@@ -111,13 +112,13 @@ export default function PhotoAlbum() {
       </motion.div>
       <motion.div
         ref={image5Ref}
+        className="relative z-10"
         style={{
-          opacity: image5.opacity,
-          scale: image5.scale,
+          y: image5.y,
         }}
       >
         <Image
-          className="relative z-10 -mt-40 ml-[15%] w-[45%] sm:-mt-32 sm:ml-[25%] lg:w-[30%] sm:w-[42%] md:w-[40%]"
+          className="-mt-32 ml-[15%] h-auto w-[45%] object-cover sm:-mt-40 sm:ml-[25%] sm:w-[42%] md:w-[40%] lg:w-[33%] lg:ml-[35%]"
           src={img9}
           alt="IMG9"
           priority

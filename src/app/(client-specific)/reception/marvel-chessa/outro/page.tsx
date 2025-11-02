@@ -20,7 +20,7 @@ export default function Outro() {
   ) => {
     const { scrollYProgress } = useScroll({
       target: ref,
-      offset: ["start end", "end 95%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
+      offset: ["start end", "end 90%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
     });
 
     const opacityRaw = useTransform(scrollYProgress, [0, 1], [0, 1]);

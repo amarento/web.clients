@@ -24,7 +24,7 @@ export default function Dresscode() {
   ) => {
     const { scrollYProgress } = useScroll({
       target: ref,
-      offset: ["start end", "end 95%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
+      offset: ["start end", "end 90%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
     });
 
     const opacityRaw = useTransform(scrollYProgress, [0, 1], [0, 1]);
@@ -36,23 +36,32 @@ export default function Dresscode() {
     };
   };
 
-  // Viewport-based image animation hook
-  const useViewportImageAnimation = (ref: React.RefObject<HTMLDivElement>) => {
+  // Viewport-based image animation hook with true parallax scrolling effect
+  const useViewportImageAnimation = (
+    ref: React.RefObject<HTMLDivElement>,
+    startY = 20,
+    // startScale = 0.8,
+    parallaxMultiplier = 1,
+  ) => {
     const { scrollYProgress } = useScroll({
       target: ref,
-      offset: ["start end", "end 95%"], // Same trigger: 5% from viewport bottom
+      offset: ["start 120%", "end -20%"], // Extended range for better parallax effect
     });
 
-    const opacityRaw = useTransform(scrollYProgress, [0, 1], [0, 1]);
-    const scaleRaw = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
+    const yRaw = useTransform(
+      scrollYProgress,
+      [0, 1],
+      [startY, -startY * 0.5 * parallaxMultiplier],
+    );
+    // const scaleRaw = useTransform(
+    //   scrollYProgress,
+    //   [0, 0.5, 1],
+    //   [startScale, 1, 1 + (parallaxMultiplier - 1) * 0.1],
+    // );
 
     return {
-      opacity: useSpring(opacityRaw, {
-        stiffness: 150,
-        damping: 30,
-        mass: 0.8,
-      }),
-      scale: useSpring(scaleRaw, { stiffness: 120, damping: 25, mass: 0.8 }),
+      y: useSpring(yRaw, { stiffness: 120, damping: 25, mass: 0.8 }),
+      // scale: useSpring(scaleRaw, { stiffness: 120, damping: 25, mass: 0.8 }),
     };
   };
 
@@ -60,17 +69,17 @@ export default function Dresscode() {
   const title = useViewportAnimation(titleRef);
   const welcome = useViewportAnimation(welcomeRef);
   const ceremony = useViewportAnimation(ceremonyRef);
-  const image1 = useViewportImageAnimation(image1Ref);
-  const image2 = useViewportImageAnimation(image2Ref);
+  const image1 = useViewportImageAnimation(image1Ref, 200, 1); // Slower parallax layer (200px travel, 80% scale, 2x speed)
+  const image2 = useViewportImageAnimation(image2Ref, 100, 2); // Faster parallax layer (100px travel, 80% scale, 2.5x speed)
 
   return (
     <motion.div
       ref={containerRef}
-      className="flex flex-col bg-[#F6F4F1] pb-20 text-[#111111] sm:pb-24"
+      className="flex flex-col bg-[#F6F4F1] pb-20 text-[#111111] md:pb-24"
     >
       <motion.h1
         ref={titleRef}
-        className="mx-auto mb-8 lg:mb-16 font-cormorant text-[31px] tracking-tight drop-shadow-2xl xl:text-[39px]"
+        className="mx-auto mb-8 font-cormorant text-[31px] tracking-tight drop-shadow-2xl lg:mb-16 lg:text-[39px]"
         style={{
           opacity: title.opacity,
           y: title.y,
@@ -78,61 +87,83 @@ export default function Dresscode() {
       >
         DRESSCODE
       </motion.h1>
+
+      {/* 6 Small Circles */}
+      <div className="flex flex-col items-center md:mb-12 md:flex-row md:justify-center md:gap-3 lg:mb-16 lg:gap-4">
+        <div className="mx-auto mb-2 flex gap-3 md:mx-0 md:mb-0 lg:gap-4">
+          <div className="h-8 w-8 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#F2F3EE] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
+          <div className="h-8 w-8 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#D6D1C3] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
+          <div className="h-8 w-8 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#C9C4B9] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
+          <div className="h-8 w-8 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#AFA699] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
+        </div>
+        <div className="mx-auto mb-8 flex gap-3 md:mx-0 md:mb-0 lg:gap-4">
+          <div className="h-8 w-8 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#908375] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
+          <div className="h-8 w-8 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#696158] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
+          <div className="h-8 w-8 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#A2967D] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
+          <div className="h-8 w-8 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#000000] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
+        </div>
+      </div>
+
       <motion.div
         ref={welcomeRef}
-        className="mb-10 lg:mb-16 flex flex-col items-center"
+        className="mx-auto mb-10 flex w-[80%] flex-col items-center text-center md:mb-12 lg:mb-16"
         style={{
           opacity: welcome.opacity,
           y: welcome.y,
         }}
       >
-        <h3 className="font-freight text-[18px] drop-shadow-2xl lg:text-[20px]">
-          Welcome Dinner
+        <h3 className="mb-2 font-cormorant text-[20px] drop-shadow-2xl md:text-[25px]">
+          SHADES OF BEIGE | <br className="md:hidden" /> TAUPE | BLACK
         </h3>
-        <h5 className="mb-[6px] font-hanken text-[12px] font-light drop-shadow-2xl lg:text-[14px]">
-          Casual and Comfortable
+        <h5 className="mb-[6px] font-freight text-[14px] font-light drop-shadow-2xl md:text-[16px] lg:text-[18px]">
+          If you don’t have any of these colours, please opt for neutral tones
+          and kindly{" "}
+          <span className="font-medium underline underline-offset-4">
+            avoid white
+          </span>
         </h5>
       </motion.div>
       <motion.div
         ref={ceremonyRef}
-        className="mb-20 flex flex-col items-center sm:mb-24"
+        className="mx-auto mb-10 flex w-[80%] flex-col items-center text-center md:mb-12"
         style={{
           opacity: ceremony.opacity,
           y: ceremony.y,
         }}
       >
-        <h3 className="font-freight text-[18px] drop-shadow-2xl lg:text-[20px]">
-          Tea Ceremony, Holy Matrimony, Reception
+        <h3 className="mb-2 text-center font-cormorant text-[20px] drop-shadow-2xl md:text-[25px]">
+          LONG DRESS | BLACK SUIT
         </h3>
-        <h5 className="mb-[6px] font-hanken text-[12px] font-light drop-shadow-2xl lg:text-[14px]">
-          TBC
+        <h5 className="mb-[6px] font-freight text-[14px] font-light drop-shadow-2xl md:text-[16px] lg:text-[18px]">
+          We recommend bringing a scarf or light wrap, as it may get
+          breezy in the evening!
         </h5>
       </motion.div>
       <motion.div
-        className="relative z-20"
+        className="relative z-10"
         ref={image1Ref}
         style={{
-          opacity: image1.opacity,
-          scale: image1.scale,
+          y: image1.y,
+          // scale: image1.scale,
         }}
       >
         <Image
-          className="w-[60%] sm:ml-20 sm:w-[45%] md:ml-24 md:w-[42%] lg:ml-80 lg:w-[24%]"
+          className="w-[50%] sm:ml-[12%] sm:w-[45%] md:ml-[13%] md:w-[42%] lg:ml-[30%] lg:w-[25%]"
           src={img3}
           alt="IMG3"
           priority
         />
       </motion.div>
       <motion.div
-        className="relative z-10"
+        className="relative z-20"
         ref={image2Ref}
         style={{
-          opacity: image2.opacity,
-          scale: image2.scale,
+          y: image2.y,
+          // scale: image2.scale,
         }}
       >
         <Image
-          className="-mt-10 ml-auto w-[65%] sm:-mt-16 sm:mr-20 sm:w-[50%] md:mr-24 md:w-[45%] lg:mr-80 lg:w-[26%]"
+          className="-mt-48 ml-auto w-[55%] sm:-mt-20 sm:mr-[12%] sm:w-[50%] md:-mt-24 md:mr-[13%] md:w-[45%] lg:mr-[30%] lg:w-[26%]"
           src={img4}
           alt="IMG4"
           priority
