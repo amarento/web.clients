@@ -129,6 +129,37 @@ export default function Homepage() {
 
   const [showScrollIndicator, setShowScrollIndicator] = useState(true);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Force video autoplay for production
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      // Try to play the video
+      const playPromise = video.play();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            // Autoplay started successfully
+          })
+          .catch((error) => {
+            // Autoplay was prevented
+            console.log("Autoplay was prevented:", error);
+
+            // Try to play on first user interaction
+            const playOnInteraction = () => {
+              video.play().catch(console.error);
+              document.removeEventListener("click", playOnInteraction);
+              document.removeEventListener("touchstart", playOnInteraction);
+            };
+
+            document.addEventListener("click", playOnInteraction);
+            document.addEventListener("touchstart", playOnInteraction);
+          });
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -150,11 +181,18 @@ export default function Homepage() {
       }}
     >
       <video
+        ref={videoRef}
         autoPlay
         className="absolute inset-0 -z-10 h-full w-full object-cover"
         loop
         muted
         playsInline
+        preload="auto"
+        controls={false}
+        disablePictureInPicture
+        webkit-playsinline="true"
+        x5-video-player-type="h5"
+        x5-video-player-fullscreen="true"
         src={video}
       />
       {/* Dark overlay that increases with scroll */}
