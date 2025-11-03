@@ -44,14 +44,24 @@ function PageContent() {
     <div>
       <Homepage />
       <Intro />
-      <Lovestory />
-      <Thewedding />
-      <Dresscode />
-      <Travel />
-      <PhotoAlbum />
-      <Baliguide />
+      <section id="our-story">
+        <Lovestory />
+      </section>
+      <section id="the-wedding">
+        <Thewedding />
+      </section>
+      <section id="dresscode">
+        <Dresscode />
+      </section>
+        <Travel />
+        <PhotoAlbum />
+      <section id="bali-guide">
+        <Baliguide />
+      </section>
       <Gifts />
-      <Wish guestId={guestId} guestName={guestName} />
+      <section id="love-letters">
+        <Wish guestId={guestId} guestName={guestName} />
+      </section>
       <Contact />
       <Outro />
       <Footer />

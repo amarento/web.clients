@@ -132,7 +132,7 @@ export default function Dresscode() {
         }}
       >
         <h3 className="mb-2 text-center font-cormorant text-[20px] drop-shadow-2xl md:text-[25px]">
-          LONG DRESS | BLACK SUIT
+          LONG DRESS | BLACK SUIT | <br /> (NO BATIK)
         </h3>
         <h5 className="mb-[6px] font-freight text-[14px] font-light drop-shadow-2xl md:text-[16px] lg:text-[18px]">
           We recommend bringing a scarf or light wrap, as it may get
