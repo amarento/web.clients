@@ -91,9 +91,6 @@ export default function LoveStory() {
         <h1 className="text-center font-cormorant text-[31px] drop-shadow-2xl lg:text-[39px] xl:text-[49px]">
           HOW IT ALL BEGAN
         </h1>
-        <h5 className="text-center font-freight text-[14px] tracking-wide drop-shadow-2xl lg:text-[16px] xl:text-[18px]">
-          told by Marvel’s Sister and Chessa’s Best Friend (Marcelyn)
-        </h5>
       </motion.div>
       <motion.div
         ref={story1Ref}
@@ -114,9 +111,12 @@ export default function LoveStory() {
             2019 — Aug
           </h3>
           <h5 className="font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
-            Marvel’s POV: “She was a friend of a friend”. Chessa’s intrigued and
-            slightly befuddled inner monologue: “Who wears his name on a
-            T-shirt?” (IYKYK)
+            They first met at a university Christian Fellowship welcome tea.
+            Marvel, a fourth-year senior; Chessa, a freshman. The committee (or
+            fate?) happened to put them in the same small group. Marvel thought
+            she was just “a friend of a friend.” Chessa thought he was that guy
+            wearing a T-shirt with his own name on it. Confidence? Questionable.
+            Memorable? Absolutely.
           </h5>
         </div>
       </motion.div>
@@ -139,10 +139,12 @@ export default function LoveStory() {
             2020 — Apr
           </h3>
           <h5 className="font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
-            Marvel, ever the strategist, picked the perfect moment to confess
-            his feelings: mere hours before the infamous lockdown. It was the
-            modern day Romeo & Juliet: if feuding families can&apos;t separate
-            these star-crossed lovers, what chance did the COVID pandemic have?
+            For months, they barely talked, unless you count math assignments
+            and study room bookings. What Chessa didn’t know was that Marvel was
+            already quietly drawn to her. So, with some encouragement from
+            friends and impeccable timing, he confessed his feelings at the
+            study spot they frequent right before Singapore’s lockdown. Talk
+            about cutting it close.
           </h5>
         </div>
       </motion.div>
@@ -165,15 +167,11 @@ export default function LoveStory() {
             2020 — Sep
           </h3>
           <h5 className="font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
-            Social distancing kept them 2 metres apart, but hearts don&apos;t
-            follow government guidelines. At Hai Di Lao, Marvel poured his heart
-            out in a handwritten letter and asked Chessa to be his girlfriend.
-            She said yes, and hotpot never tasted so shiok!
-            <br />
-            <br />
-            Marvel likes football, Chessa likes K-drama. Two very different
-            people but on occasion, two lines cross in sweet intersections. And
-            as they journeyed through life together, 5 years went by.
+            Lockdown rules said two metres apart, but hearts had other plans.
+            Between late-night calls, “study sessions”, and a few suspicious
+            supermarket runs, they grew closer. Five months and four handwritten
+            letters later, Marvel made it official — with one more letter, this
+            time asking her to be his girlfriend.
           </h5>
         </div>
       </motion.div>
@@ -196,11 +194,17 @@ export default function LoveStory() {
             2025 — May
           </h3>
           <h5 className="font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
-            Marvel’s sense of timing struck again. He planned to propose… but
-            the day before, Chessa fell sick (don’t worry, not COVID). The big
-            moment was postponed. On D+1 month, she rocked up with perfectly
-            washed hair and freshly manicured nails, not suspecting a thing, but
-            with a gut instinct even Marvel couldn’t predict. 
+            What started as an awkward encounter turned into five years of love,
+            growth, and a shared addiction to Netflix and snacks. Though
+            opposites in many ways, they learned to meet in the middle.
+            Somewhere along the way, they realised they didn’t just want to
+            share a Netflix account, but a lifetime.
+            <br />
+            <br />
+            With help from a few friends, Marvel planned the proposal (after one
+            reschedule and many decoy errands). On the day itself, Chessa showed
+            up with freshly washed hair and manicured nails, blissfully unaware
+            — though her gut hinted something was up.
             <br />
             <br />
             <Image
@@ -210,7 +214,8 @@ export default function LoveStory() {
               priority
             />
             <p className="text-center text-[12px] italic md:text-[14px] lg:text-[16px] xl:text-[18px]">
-              He got down on one knee, and the rest is history.
+              Under the city skyline where it all began, he got down on one
+              knee. The rest, as they say, is beautifully predictable.
             </p>
           </h5>
         </div>
@@ -237,7 +242,7 @@ export default function LoveStory() {
         }}
       >
         <Image
-          className="-mt-20 ml-auto mr-8 w-[65%] sm:mr-[12%] sm:w-[47%] sm:-mt-24 md:-mt-28 md:mr-[13%] md:w-[45%] lg:-mt-32 lg:mr-[30%] lg:w-[25%]"
+          className="-mt-20 ml-auto mr-8 w-[65%] sm:-mt-24 sm:mr-[12%] sm:w-[47%] md:-mt-28 md:mr-[13%] md:w-[45%] lg:-mt-32 lg:mr-[30%] lg:w-[25%]"
           src={img2}
           alt="IMG2"
           priority

@@ -78,7 +78,7 @@ export default function Header() {
       }`}
     >
       <div className="mx-[4%] mt-4">
-        <div className="mt-xs mb-xs flex items-end justify-start">
+        <div className="mt-xs mb-xs z-50 flex items-end justify-start">
           <Image
             alt="Logo"
             className="-ml-3 h-16 w-16 transition duration-300"

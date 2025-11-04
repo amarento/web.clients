@@ -141,7 +141,7 @@ export default function Intro() {
             y: secondText.y,
           }}
         >
-          <h5 className="font-freight -ml-2 lg:ml-0 text-[16px] italic drop-shadow-2xl md:text-[18px] lg:text-center lg:font-cormorant lg:text-[18px] lg:uppercase lg:not-italic lg:tracking-[-0.015em]">
+          <h5 className="font-freight -ml-[2px] lg:ml-0 text-[16px] italic drop-shadow-2xl md:text-[18px] lg:text-center lg:font-cormorant lg:text-[18px] lg:uppercase lg:not-italic lg:tracking-[-0.015em]">
             We’d love for you to come and share in the joy of our wedding
             celebration.
           </h5>

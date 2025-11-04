@@ -14,7 +14,7 @@ import { FaChevronDown } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
 
 const video = "/vid-marvel-chessa.mp4";
-const music = "/music-felix-celine.mp3";
+const music = "/music-marvel-chessa.mp3";
 
 export default function Homepage() {
   const containerVariants = {
@@ -57,28 +57,35 @@ export default function Homepage() {
     };
   }, []);
 
-  // Viewport-based animation hook for text elements - triggers when element is 10% from bottom
-  const useViewportAnimation = (
-    ref: React.RefObject<HTMLElement>,
-    yValue = 60,
-  ) => {
-    const { scrollYProgress } = useScroll({
-      target: ref,
-      offset: ["start end", "end 90%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
-    });
+  // Simple animation values without scroll targeting to avoid hydration issues
+  const titleOpacity = useSpring(0, { stiffness: 120, damping: 25, mass: 1 });
+  const titleY = useSpring(60, { stiffness: 100, damping: 20, mass: 1 });
 
-    const opacityRaw = useTransform(scrollYProgress, [0, 1], [0, 1]);
-    const yRaw = useTransform(scrollYProgress, [0, 1], [yValue, 0]);
+  const dateOpacity = useSpring(0, { stiffness: 120, damping: 25, mass: 1 });
+  const dateY = useSpring(60, { stiffness: 100, damping: 20, mass: 1 });
 
-    return {
-      opacity: useSpring(opacityRaw, { stiffness: 120, damping: 25, mass: 1 }),
-      y: useSpring(yRaw, { stiffness: 100, damping: 20, mass: 1 }),
+  // Set initial values and animate on mount
+  useEffect(() => {
+    // Animate in with staggered delays
+    const titleTimer = setTimeout(() => {
+      titleOpacity.set(1);
+      titleY.set(0);
+    }, 700);
+
+    const dateTimer = setTimeout(() => {
+      dateOpacity.set(1);
+      dateY.set(0);
+    }, 900);
+
+    return () => {
+      clearTimeout(titleTimer);
+      clearTimeout(dateTimer);
     };
-  };
+  }, [titleOpacity, titleY, dateOpacity, dateY]);
 
-  // Text animations with viewport-based triggers
-  const title = useViewportAnimation(titleRef);
-  const date = useViewportAnimation(dateRef);
+  // Animation objects for consistency with original code
+  const title = { opacity: titleOpacity, y: titleY };
+  const date = { opacity: dateOpacity, y: dateY };
 
   // Get overall scroll position for fixed homepage animation
   const { scrollY } = useScroll();
@@ -210,8 +217,36 @@ export default function Homepage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isHamburgerVisible, setIsHamburgerVisible] = useState(true);
+  const [isHeaderNavVisible, setIsHeaderNavVisible] = useState(true);
   const [scrollingTimeout, setScrollingTimeout] =
     useState<NodeJS.Timeout | null>(null);
+
+  // Authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authCode, setAuthCode] = useState("");
+  const [authError, setAuthError] = useState("");
+  const correctCode = "2026"; // Change this to your desired 4-digit code
+
+  const handleAuthSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (authCode === correctCode) {
+      // Add a small delay for smooth exit animation
+      setTimeout(() => {
+        setIsAuthenticated(true);
+      }, 300);
+      setAuthError("");
+    } else {
+      setAuthError("Invalid code. Please try again.");
+      setAuthCode("");
+    }
+  };
+
+  const handleAuthCodeChange = (value: string) => {
+    // Only allow numbers and limit to 4 digits
+    const numericValue = value.replace(/\D/g, "").slice(0, 4);
+    setAuthCode(numericValue);
+    setAuthError("");
+  };
 
   // Scroll to section function
   const scrollToSection = (sectionId: string) => {
@@ -275,6 +310,42 @@ export default function Homepage() {
     };
   }, [isSidebarOpen]);
 
+  // Prevent scrolling when authentication modal is open
+  useEffect(() => {
+    const preventScroll = (e: Event) => {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    };
+
+    if (!isAuthenticated) {
+      document.body.classList.add("auth-modal-open");
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+
+      // Add event listeners to prevent scroll
+      document.addEventListener("wheel", preventScroll, { passive: false });
+      document.addEventListener("touchmove", preventScroll, { passive: false });
+    } else {
+      document.body.classList.remove("auth-modal-open");
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+
+      // Remove event listeners
+      document.removeEventListener("wheel", preventScroll);
+      document.removeEventListener("touchmove", preventScroll);
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.classList.remove("auth-modal-open");
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      document.removeEventListener("wheel", preventScroll);
+      document.removeEventListener("touchmove", preventScroll);
+    };
+  }, [isAuthenticated]);
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -297,6 +368,13 @@ export default function Homepage() {
         }
       }
 
+      // Header navigation visibility
+      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        setIsHeaderNavVisible(false);
+      } else if (currentScrollY < lastScrollY) {
+        setIsHeaderNavVisible(true);
+      }
+
       if (!hasScrolled && currentScrollY > 40) {
         setShowScrollIndicator(false);
         setHasScrolled(true);
@@ -308,239 +386,379 @@ export default function Homepage() {
 
   return (
     <>
-      {/* Hamburger menu button */}
-      {!isSidebarOpen && (
-        <button
-          aria-label="Open menu"
-          className={`fixed right-4 top-6 z-50 flex h-12 w-12 items-center justify-center duration-300 ${
-            isHamburgerVisible ? "opacity-100" : "opacity-0"
-          }`}
-          onClick={() => setIsSidebarOpen(true)}
-          type="button"
-          style={{
-            color: `rgb(${246 - Math.min(229, Math.max(0, ((lastScrollY - 100) / 100) * 229))}, ${244 - Math.min(227, Math.max(0, ((lastScrollY - 100) / 100) * 227))}, ${241 - Math.min(224, Math.max(0, ((lastScrollY - 100) / 100) * 224))})`,
-          }}
-        >
-          <RxHamburgerMenu className="h-6 w-6 transition-colors duration-300" />
-        </button>
-      )}
-
-      {/* Sidebar */}
+      {/* Authentication Modal */}
       <AnimatePresence>
-        {isSidebarOpen && (
+        {!isAuthenticated && (
           <motion.div
-            className="fixed inset-0 z-40"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
+            transition={{ duration: 0.8 }}
           >
-            {/* Full Screen Sidebar Background */}
             <motion.div
-              className="absolute inset-0 bg-gradient-to-t from-black via-black/95 to-black/80 backdrop-blur-lg"
-              onClick={() => setIsSidebarOpen(false)}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
-            />
-
-            {/* Sidebar content container */}
-            <motion.div
-              className="absolute inset-0 flex items-center justify-center"
-              onClick={() => setIsSidebarOpen(false)}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{
-                type: "spring",
-                stiffness: 200,
-                damping: 25,
-                mass: 0.8,
-                delay: 0.2,
-              }}
+              className="w-full max-w-md rounded-2xl p-8 text-center"
+              initial={{ scale: 1, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 1, opacity: 0 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
             >
-              <div className="w-full max-w-md px-8 py-12 text-center">
-                <motion.nav
-                  className="space-y-8"
-                  onClick={(e) => e.stopPropagation()}
-                  initial="hidden"
-                  animate="visible"
-                  exit="hidden"
-                  variants={{
-                    visible: {
-                      transition: { staggerChildren: 0.15, delayChildren: 0.4 },
-                    },
-                    hidden: {
-                      transition: {
-                        staggerChildren: 0.05,
-                        staggerDirection: -1,
-                      },
-                    },
-                  }}
+              <motion.h1
+                className="mb-10 font-cormorant text-[20px] lg:text-[25px] xl:text-[31px] text-white"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8, duration: 0.8 }}
+              >
+                MARVEL & CHESSA
+              </motion.h1>
+              <motion.p
+                className="mb-2 xl:mb-4 font-freight text-[18px] lg:text-[20px] xl:text-[25px] text-white/80"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 0.8, duration: 0.8 }}
+              >
+                Please enter the 4-digit access code
+              </motion.p>
+
+              <motion.form
+                onSubmit={handleAuthSubmit}
+                className="flex flex-col items-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 0.8, duration: 0.8 }}
+              >
+                <div className="mb-4">
+                  <input
+                    type="text"
+                    value={authCode}
+                    onChange={(e) => handleAuthCodeChange(e.target.value)}
+                    placeholder="••••"
+                    className="w-24 bg-transparent p-2 text-center font-freight text-[25px] xl:text-[31px] tracking-widest text-white placeholder-white/50 outline-none"
+                    maxLength={4}
+                    autoComplete="off"
+                  />
+                </div>
+
+                {authError && (
+                  <motion.p
+                    className="-mt-3 xl:-mt-1 mb-4 xl:mb-6 font-freight text-[14px] lg:text-[16px] xl:text-[18px] text-red-300"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    {authError}
+                  </motion.p>
+                )}
+
+                <motion.button
+                  type="submit"
+                  disabled={authCode.length !== 4}
+                  className="border-1 mx-auto block border px-8 py-[6px] font-cormorant text-[14px] lg:text-[16px] xl:text-[18px] text-[#F0F0F0] transition-all duration-200 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <motion.button
-                    className="mx-auto block py-2 font-cormorant text-3xl text-[#F0F0F0] transition-all duration-200 hover:text-white lg:text-4xl"
-                    onClick={() => scrollToSection("our-story")}
-                    whileHover={{ scale: 1.05, x: 10 }}
-                    whileTap={{ scale: 0.95 }}
-                    variants={{
-                      hidden: { opacity: 0 },
-                      visible: { opacity: 1 },
-                    }}
-                  >
-                    Our Story
-                  </motion.button>
-                  <motion.button
-                    className="mx-auto block py-2 font-cormorant text-3xl text-[#F0F0F0] transition-all duration-200 hover:text-white lg:text-4xl"
-                    onClick={() => scrollToSection("the-wedding")}
-                    whileHover={{ scale: 1.05, x: 10 }}
-                    whileTap={{ scale: 0.95 }}
-                    variants={{
-                      hidden: { opacity: 0 },
-                      visible: { opacity: 1 },
-                    }}
-                  >
-                    The Wedding
-                  </motion.button>
-                  <motion.button
-                    className="mx-auto block py-2 font-cormorant text-3xl text-[#F0F0F0] transition-all duration-200 hover:text-white lg:text-4xl"
-                    onClick={() => scrollToSection("dresscode")}
-                    whileHover={{ scale: 1.05, x: 10 }}
-                    whileTap={{ scale: 0.95 }}
-                    variants={{
-                      hidden: { opacity: 0 },
-                      visible: { opacity: 1 },
-                    }}
-                  >
-                    Dresscode
-                  </motion.button>
-                  <motion.button
-                    className="mx-auto block py-2 font-cormorant text-3xl text-[#F0F0F0] transition-all duration-200 hover:text-white lg:text-4xl"
-                    onClick={() => scrollToSection("bali-guide")}
-                    whileHover={{ scale: 1.05, x: 10 }}
-                    whileTap={{ scale: 0.95 }}
-                    variants={{
-                      hidden: { opacity: 0 },
-                      visible: { opacity: 1 },
-                    }}
-                  >
-                    Bali Guide
-                  </motion.button>
-                  <motion.button
-                    className="mx-auto block py-2 font-cormorant text-3xl text-[#F0F0F0] transition-all duration-200 hover:text-white lg:text-4xl"
-                    onClick={() => scrollToSection("love-letters")}
-                    whileHover={{ scale: 1.05, x: 10 }}
-                    whileTap={{ scale: 0.95 }}
-                    variants={{
-                      hidden: { opacity: 0 },
-                      visible: { opacity: 1 },
-                    }}
-                  >
-                    Love Letters
-                  </motion.button>
-                </motion.nav>
-              </div>
+                  ENTER
+                </motion.button>
+              </motion.form>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <motion.div
-        className="fixed inset-0 z-10 flex h-screen w-full flex-col items-center justify-center overflow-hidden text-center text-[#F0F0F0]"
-        style={{
-          opacity: homepageOpacity,
-          pointerEvents: "none",
-        }}
-      >
-        <video
-          ref={videoRef}
-          autoPlay
-          className="absolute inset-0 -z-10 h-full w-full object-cover"
-          loop
-          muted
-          playsInline
-          preload="auto"
-          controls={false}
-          disablePictureInPicture
-          webkit-playsinline="true"
-          x5-video-player-type="h5"
-          x5-video-player-fullscreen="true"
-          src={video}
-        />
-        {/* Dark overlay that increases with scroll */}
-        <motion.div
-          className="-z-5 absolute inset-0 h-screen w-screen bg-black"
-          style={{ opacity: overlayOpacity }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
-        />
-        <motion.div ref={containerRef}>
-          <motion.h1
-            ref={titleRef}
-            className="font-cormorant text-[20px] drop-shadow-2xl lg:text-[25px]"
-            style={{
-              opacity: title.opacity,
-              y: title.y,
-            }}
+      {/* Main Content - Only show when authenticated */}
+      {isAuthenticated && (
+        <>
+          {/* Header Navigation Links - Large screens only */}
+          <nav
+            className={`fixed inset-x-0 top-6 z-50 mt-3 hidden duration-300 lg:block ${
+              isHeaderNavVisible ? "opacity-100" : "opacity-0"
+            }`}
           >
-            MARVEL{" "}
-            <span className="text-[16px] italic lg:text-[20px]"> & </span>{" "}
-            CHESSA
-          </motion.h1>
-          <motion.h5
-            ref={dateRef}
-            className="font-cormorant text-[16px] italic drop-shadow-2xl lg:text-[18px]"
-            style={{
-              opacity: date.opacity,
-              y: date.y,
-            }}
-          >
-            Bali, 20 June 2026
-          </motion.h5>
-        </motion.div>
+            <div className="flex items-center justify-center space-x-8">
+              <button
+                onClick={() => scrollToSection("our-story")}
+                className="font-cormorant text-sm text-[#F0F0F0] transition-colors duration-200 hover:text-white"
+                style={{
+                  color: `rgb(${246 - Math.min(229, Math.max(0, ((lastScrollY - 100) / 100) * 229))}, ${244 - Math.min(227, Math.max(0, ((lastScrollY - 100) / 100) * 227))}, ${241 - Math.min(224, Math.max(0, ((lastScrollY - 100) / 100) * 224))})`,
+                }}
+              >
+                OUR STORY
+              </button>
+              <button
+                onClick={() => scrollToSection("the-wedding")}
+                className="font-cormorant text-sm text-[#F0F0F0] transition-colors duration-200 hover:text-white"
+                style={{
+                  color: `rgb(${246 - Math.min(229, Math.max(0, ((lastScrollY - 100) / 100) * 229))}, ${244 - Math.min(227, Math.max(0, ((lastScrollY - 100) / 100) * 227))}, ${241 - Math.min(224, Math.max(0, ((lastScrollY - 100) / 100) * 224))})`,
+                }}
+              >
+                THE WEDDING
+              </button>
+              <button
+                onClick={() => scrollToSection("dresscode")}
+                className="font-cormorant text-sm text-[#F0F0F0] transition-colors duration-200 hover:text-white"
+                style={{
+                  color: `rgb(${246 - Math.min(229, Math.max(0, ((lastScrollY - 100) / 100) * 229))}, ${244 - Math.min(227, Math.max(0, ((lastScrollY - 100) / 100) * 227))}, ${241 - Math.min(224, Math.max(0, ((lastScrollY - 100) / 100) * 224))})`,
+                }}
+              >
+                DRESSCODE
+              </button>
+              <button
+                onClick={() => scrollToSection("bali-guide")}
+                className="font-cormorant text-sm text-[#F0F0F0] transition-colors duration-200 hover:text-white"
+                style={{
+                  color: `rgb(${246 - Math.min(229, Math.max(0, ((lastScrollY - 100) / 100) * 229))}, ${244 - Math.min(227, Math.max(0, ((lastScrollY - 100) / 100) * 227))}, ${241 - Math.min(224, Math.max(0, ((lastScrollY - 100) / 100) * 224))})`,
+                }}
+              >
+                BALI GUIDE
+              </button>
+              <button
+                onClick={() => scrollToSection("love-letters")}
+                className="font-cormorant text-sm text-[#F0F0F0] transition-colors duration-200 hover:text-white"
+                style={{
+                  color: `rgb(${246 - Math.min(229, Math.max(0, ((lastScrollY - 100) / 100) * 229))}, ${244 - Math.min(227, Math.max(0, ((lastScrollY - 100) / 100) * 227))}, ${241 - Math.min(224, Math.max(0, ((lastScrollY - 100) / 100) * 224))})`,
+                }}
+              >
+                LOVE LETTERS
+              </button>
+            </div>
+          </nav>
 
-        {/* Scroll indicator */}
-        <motion.div
-          className="absolute bottom-3 flex flex-col items-center justify-center"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          style={{ pointerEvents: "none" }}
-        >
-          <motion.div
-            className="flex flex-col items-center"
-            initial={{ opacity: 1 }}
-            animate={{ opacity: showScrollIndicator ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <motion.div
-              variants={fadeIn}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="mb-2 xl:mb-4"
+          {/* Hamburger menu button - Small screens only */}
+          {!isSidebarOpen && (
+            <button
+              aria-label="Open menu"
+              className={`fixed right-4 top-6 z-50 flex h-12 w-12 items-center justify-center duration-300 lg:hidden ${
+                isHamburgerVisible ? "opacity-100" : "opacity-0"
+              }`}
+              onClick={() => setIsSidebarOpen(true)}
+              type="button"
+              style={{
+                color: `rgb(${246 - Math.min(229, Math.max(0, ((lastScrollY - 100) / 100) * 229))}, ${244 - Math.min(227, Math.max(0, ((lastScrollY - 100) / 100) * 227))}, ${241 - Math.min(224, Math.max(0, ((lastScrollY - 100) / 100) * 224))})`,
+              }}
             >
-              <FaChevronDown className="h-3 w-3 lg:h-4 lg:w-4" />
-            </motion.div>
-          </motion.div>
-        </motion.div>
-
-        {/* Music player button */}
-        <audio loop preload="auto" ref={audioRef} src={music} />
-        <button
-          aria-label={isPlaying ? "Mute music" : "Play music"}
-          className="fixed bottom-6 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-[#222222]/50 shadow-lg transition hover:bg-[#222222] focus:outline-none"
-          style={{ pointerEvents: "auto" }}
-          onClick={toggleMusic}
-          type="button"
-        >
-          {isPlaying ? (
-            // Mute icon (simple SVG)
-            <MdOutlineMusicNote className="h-5 w-5" />
-          ) : (
-            // Play icon (simple SVG)
-            <MdOutlineMusicOff className="h-5 w-5" />
+              <RxHamburgerMenu className="h-6 w-6 transition-colors duration-300" />
+            </button>
           )}
-        </button>
-      </motion.div>
+
+          {/* Sidebar - Small screens only */}
+          <AnimatePresence>
+            {isSidebarOpen && (
+              <motion.div
+                className="fixed inset-0 z-40 lg:hidden"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+              >
+                {/* Full Screen Sidebar Background */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-t from-black via-black/95 to-black/80 backdrop-blur-lg"
+                  onClick={() => setIsSidebarOpen(false)}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.8, ease: "easeInOut" }}
+                />
+
+                {/* Sidebar content container */}
+                <motion.div
+                  className="absolute inset-0 flex items-center justify-center"
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  <div className="w-full max-w-md px-8 py-12 text-center">
+                    <motion.nav
+                      className="space-y-8"
+                      onClick={(e) => e.stopPropagation()}
+                      initial="hidden"
+                      animate="visible"
+                      exit="hidden"
+                      variants={{
+                        visible: {
+                          transition: {
+                            staggerChildren: 0.1,
+                            delayChildren: 0.3,
+                          },
+                        },
+                        hidden: {
+                          transition: {
+                            staggerChildren: 0.03,
+                            staggerDirection: -1,
+                          },
+                        },
+                      }}
+                    >
+                      <motion.button
+                        className="mx-auto block py-2 font-cormorant text-3xl text-[#F0F0F0] hover:text-white lg:text-4xl"
+                        onClick={() => scrollToSection("our-story")}
+                        whileHover={{ scale: 1.05, x: 10 }}
+                        whileTap={{ scale: 0.95 }}
+                        variants={{
+                          hidden: { opacity: 0, y: 20 },
+                          visible: { opacity: 1, y: 0 },
+                        }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                      >
+                        Our Story
+                      </motion.button>
+                      <motion.button
+                        className="mx-auto block py-2 font-cormorant text-3xl text-[#F0F0F0] hover:text-white lg:text-4xl"
+                        onClick={() => scrollToSection("the-wedding")}
+                        whileHover={{ scale: 1.05, x: 10 }}
+                        whileTap={{ scale: 0.95 }}
+                        variants={{
+                          hidden: { opacity: 0, y: 20 },
+                          visible: { opacity: 1, y: 0 },
+                        }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                      >
+                        The Wedding
+                      </motion.button>
+                      <motion.button
+                        className="mx-auto block py-2 font-cormorant text-3xl text-[#F0F0F0] hover:text-white lg:text-4xl"
+                        onClick={() => scrollToSection("dresscode")}
+                        whileHover={{ scale: 1.05, x: 10 }}
+                        whileTap={{ scale: 0.95 }}
+                        variants={{
+                          hidden: { opacity: 0, y: 20 },
+                          visible: { opacity: 1, y: 0 },
+                        }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                      >
+                        Dresscode
+                      </motion.button>
+                      <motion.button
+                        className="mx-auto block py-2 font-cormorant text-3xl text-[#F0F0F0] hover:text-white lg:text-4xl"
+                        onClick={() => scrollToSection("bali-guide")}
+                        whileHover={{ scale: 1.05, x: 10 }}
+                        whileTap={{ scale: 0.95 }}
+                        variants={{
+                          hidden: { opacity: 0, y: 20 },
+                          visible: { opacity: 1, y: 0 },
+                        }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                      >
+                        Bali Guide
+                      </motion.button>
+                      <motion.button
+                        className="mx-auto block py-2 font-cormorant text-3xl text-[#F0F0F0] hover:text-white lg:text-4xl"
+                        onClick={() => scrollToSection("love-letters")}
+                        whileHover={{ scale: 1.05, x: 10 }}
+                        whileTap={{ scale: 0.95 }}
+                        variants={{
+                          hidden: { opacity: 0, y: 20 },
+                          visible: { opacity: 1, y: 0 },
+                        }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                      >
+                        Love Letters
+                      </motion.button>
+                    </motion.nav>
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <motion.div
+            className="fixed inset-0 z-10 flex h-screen w-full flex-col items-center justify-center overflow-hidden text-center text-[#F0F0F0]"
+            style={{
+              opacity: homepageOpacity,
+              pointerEvents: "none",
+            }}
+          >
+            <video
+              ref={videoRef}
+              autoPlay
+              className="absolute inset-0 -z-10 h-full w-full object-cover"
+              loop
+              muted
+              playsInline
+              preload="auto"
+              controls={false}
+              disablePictureInPicture
+              webkit-playsinline="true"
+              x5-video-player-type="h5"
+              x5-video-player-fullscreen="true"
+              src={video}
+            />
+            {/* Dark overlay that increases with scroll */}
+            <motion.div
+              className="-z-5 absolute inset-0 h-screen w-screen bg-black"
+              style={{ opacity: overlayOpacity }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+            />
+            <motion.div ref={containerRef}>
+              <motion.h1
+                ref={titleRef}
+                className="font-cormorant text-[20px] drop-shadow-2xl lg:text-[25px]"
+                style={{
+                  opacity: title.opacity,
+                  y: title.y,
+                }}
+              >
+                MARVEL{" "}
+                <span className="text-[16px] italic lg:text-[20px]"> & </span>{" "}
+                CHESSA
+              </motion.h1>
+              <motion.h5
+                ref={dateRef}
+                className="font-cormorant text-[16px] italic drop-shadow-2xl lg:text-[18px]"
+                style={{
+                  opacity: date.opacity,
+                  y: date.y,
+                }}
+              >
+                Bali, 20 June 2026
+              </motion.h5>
+            </motion.div>
+
+            {/* Scroll indicator */}
+            <motion.div
+              className="absolute bottom-3 flex flex-col items-center justify-center"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              style={{ pointerEvents: "none" }}
+            >
+              <motion.div
+                className="flex flex-col items-center"
+                initial={{ opacity: 1 }}
+                animate={{ opacity: showScrollIndicator ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <motion.div
+                  variants={fadeIn}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  className="mb-2 xl:mb-4"
+                >
+                  <FaChevronDown className="h-3 w-3 lg:h-4 lg:w-4" />
+                </motion.div>
+              </motion.div>
+            </motion.div>
+
+            {/* Music player button */}
+            <audio loop preload="auto" ref={audioRef} src={music} />
+            <button
+              aria-label={isPlaying ? "Mute music" : "Play music"}
+              className="fixed bottom-6 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-[#222222]/50 shadow-lg transition hover:bg-[#222222] focus:outline-none"
+              style={{ pointerEvents: "auto" }}
+              onClick={toggleMusic}
+              type="button"
+            >
+              {isPlaying ? (
+                // Mute icon (simple SVG)
+                <MdOutlineMusicNote className="h-5 w-5" />
+              ) : (
+                // Play icon (simple SVG)
+                <MdOutlineMusicOff className="h-5 w-5" />
+              )}
+            </button>
+          </motion.div>
+        </>
+      )}
     </>
   );
 }
