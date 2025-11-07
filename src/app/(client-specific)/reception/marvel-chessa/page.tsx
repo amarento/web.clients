@@ -10,6 +10,7 @@ import Dresscode from "./dresscode/page";
 import Travel from "./travel/page";
 import PhotoAlbum from "./photoalbum/page";
 import Baliguide from "./baliguide/page";
+import PhotoAlbum2 from "./photoalbum2/page";
 import Gifts from "./gift/page";
 import Wish from "./letters/wish";
 import Contact from "./contact/page";
@@ -34,7 +35,7 @@ function PageContent() {
 
   const { data: guestName } = useServerActionQuery(getGuestNameByIdAction, {
     input: {
-      clientId: 4,
+      clientId: 13,
       guestId,
     },
     queryKey: ["guest-name"],
@@ -53,11 +54,12 @@ function PageContent() {
       <section id="dresscode">
         <Dresscode />
       </section>
-        <Travel />
-        <PhotoAlbum />
+      <Travel />
+      <PhotoAlbum />
       <section id="bali-guide">
         <Baliguide />
       </section>
+      <PhotoAlbum2 />
       <Gifts />
       <section id="love-letters">
         <Wish guestId={guestId} guestName={guestName} />
