@@ -26,7 +26,7 @@ export default function LoveStory() {
       offset: ["start end", "end 90%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
     });
 
-    const opacityRaw = useTransform(scrollYProgress, [0, 1], [0, 1]);
+    const opacityRaw = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
     const yRaw = useTransform(scrollYProgress, [0, 1], [yValue, 0]);
 
     return {

@@ -35,7 +35,7 @@ export default function LoveStory() {
       offset: ["start end", "end end"], // Animation starts when element enters viewport, completes when it's 10% from bottom
     });
 
-    const opacityRaw = useTransform(scrollYProgress, [0, 1], [0, 1]);
+    const opacityRaw = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
     const yRaw = useTransform(scrollYProgress, [0, 1], [yValue, 0]);
 
     return {
@@ -78,7 +78,7 @@ export default function LoveStory() {
   return (
     <motion.div
       ref={containerRef}
-      className="flex flex-col bg-[#F6F4F1] pb-10 pt-16 text-[#111111] md:pb-12"
+      className="flex flex-col bg-[#F6F4F1] pb-10 pt-4 text-[#111111] md:pb-12"
     >
       <motion.div
         ref={headerRef}
@@ -88,29 +88,23 @@ export default function LoveStory() {
           y: header.y,
         }}
       >
-        <h1 className="text-center font-cormorant text-[31px] drop-shadow-2xl lg:text-[39px] xl:text-[49px]">
+        {/* <h1 className="text-center font-cormorant text-[31px] drop-shadow-2xl lg:text-[39px] xl:text-[49px]">
           HOW IT ALL BEGAN
-        </h1>
+        </h1> */}
       </motion.div>
       <motion.div
         ref={story1Ref}
-        className="mb-10 px-8 sm:px-12 md:px-14"
+        className="px-8 sm:px-12 md:px-14"
         style={{
           opacity: story1.opacity,
           y: story1.y,
         }}
       >
         <div className="mx-auto md:w-[85%] lg:w-[75%] xl:w-[70%]">
-          <Image
-            className="mx-auto mb-8 w-[65%] md:w-[40%]"
-            src={imgstory1}
-            alt="IMG1"
-            priority
-          />
           <h3 className="mb-[6px] font-freight text-[20px] lg:text-[25px] xl:text-[31px]">
             2019 — Aug
           </h3>
-          <h5 className="font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
+          <h5 className="mb-8 font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
             They first met at a university Christian Fellowship welcome tea.
             Marvel, a fourth-year senior; Chessa, a freshman. The committee (or
             fate?) happened to put them in the same small group. Marvel thought
@@ -118,27 +112,27 @@ export default function LoveStory() {
             wearing a T-shirt with his own name on it. Confidence? Questionable.
             Memorable? Absolutely.
           </h5>
+          <Image
+            className="mx-auto mb-10 w-[65%] md:w-[40%]"
+            src={imgstory1}
+            alt="IMG1"
+            priority
+          />
         </div>
       </motion.div>
       <motion.div
         ref={story2Ref}
-        className="mb-10 flex justify-end px-8 sm:px-12 md:px-14"
+        className="flex justify-end px-8 sm:px-12 md:px-14"
         style={{
           opacity: story2.opacity,
           y: story2.y,
         }}
       >
         <div className="mx-auto md:w-[85%] lg:w-[75%] xl:w-[70%]">
-          <Image
-            className="mx-auto mb-8 w-[65%] md:w-[40%]"
-            src={imgstory2}
-            alt="IMG2"
-            priority
-          />
           <h3 className="mb-[6px] font-freight text-[20px] lg:text-[25px] xl:text-[31px]">
             2020 — Apr
           </h3>
-          <h5 className="font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
+          <h5 className="mb-8 font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
             For months, they barely talked, unless you count math assignments
             and study room bookings. What Chessa didn’t know was that Marvel was
             already quietly drawn to her. So, with some encouragement from
@@ -146,33 +140,39 @@ export default function LoveStory() {
             study spot they frequent right before Singapore’s lockdown. Talk
             about cutting it close.
           </h5>
+          <Image
+            className="mx-auto mb-10 w-[65%] md:w-[40%]"
+            src={imgstory2}
+            alt="IMG2"
+            priority
+          />
         </div>
       </motion.div>
       <motion.div
         ref={story3Ref}
-        className="mb-10 px-8 sm:px-12 md:px-14"
+        className="px-8 sm:px-12 md:px-14"
         style={{
           opacity: story3.opacity,
           y: story3.y,
         }}
       >
         <div className="mx-auto md:w-[85%] lg:w-[75%] xl:w-[70%]">
-          <Image
-            className="mx-auto mb-8 w-[65%] md:w-[40%]"
-            src={imgstory3}
-            alt="IMG3"
-            priority
-          />
           <h3 className="mb-[6px] font-freight text-[20px] lg:text-[25px] xl:text-[31px]">
             2020 — Sep
           </h3>
-          <h5 className="font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
+          <h5 className="mb-6 font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
             Lockdown rules said two metres apart, but hearts had other plans.
             Between late-night calls, “study sessions”, and a few suspicious
             supermarket runs, they grew closer. Five months and four handwritten
             letters later, Marvel made it official — with one more letter, this
             time asking her to be his girlfriend.
           </h5>
+          <Image
+            className="mx-auto mb-10 w-[65%] md:w-[40%]"
+            src={imgstory3}
+            alt="IMG3"
+            priority
+          />
         </div>
       </motion.div>
       <motion.div
@@ -184,40 +184,38 @@ export default function LoveStory() {
         }}
       >
         <div className="mx-auto md:w-[85%] lg:w-[75%] xl:w-[70%]">
+          <h3 className="mb-[6px] font-freight text-[20px] lg:text-[25px] xl:text-[31px]">
+            2025 — May
+          </h3>
+          <h5 className="mb-6 font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
+            What started as an awkward encounter turned into five years of love,
+            growth, and a shared addiction to Netflix and snacks. Though
+            opposites in many ways, they learned to meet in the middle.
+            Somewhere along the way, they realised they didn’t just want to
+            share a Netflix account, but a lifetime.
+          </h5>
+          <h5 className="mb-8 font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
+            With help from a few friends, Marvel planned the proposal (after one
+            reschedule and many decoy errands). On the day itself, Chessa showed
+            up with freshly washed hair and manicured nails, blissfully unaware
+            — though her gut hinted something was up.
+          </h5>
           <Image
             className="mx-auto mb-8 w-[65%] md:w-[40%]"
             src={imgstory4}
             alt="IMG4"
             priority
           />
-          <h3 className="mb-[6px] font-freight text-[20px] lg:text-[25px] xl:text-[31px]">
-            2025 — May
-          </h3>
-          <h5 className="font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
-            What started as an awkward encounter turned into five years of love,
-            growth, and a shared addiction to Netflix and snacks. Though
-            opposites in many ways, they learned to meet in the middle.
-            Somewhere along the way, they realised they didn’t just want to
-            share a Netflix account, but a lifetime.
-            <br />
-            <br />
-            With help from a few friends, Marvel planned the proposal (after one
-            reschedule and many decoy errands). On the day itself, Chessa showed
-            up with freshly washed hair and manicured nails, blissfully unaware
-            — though her gut hinted something was up.
-            <br />
-            <br />
-            <Image
-              className="mx-auto mb-8 w-[65%] md:w-[40%]"
-              src={imgstory5}
-              alt="IMG5"
-              priority
-            />
-            <p className="text-center text-[12px] italic md:text-[14px] lg:text-[16px] xl:text-[18px]">
-              Under the city skyline where it all began, he got down on one
-              knee. The rest, as they say, is beautifully predictable.
-            </p>
-          </h5>
+          <Image
+            className="mx-auto mb-8 w-[65%] md:w-[40%]"
+            src={imgstory5}
+            alt="IMG5"
+            priority
+          />
+          <p className="text-center text-[12px] italic md:text-[14px] lg:text-[16px] xl:text-[18px]">
+            Under the city skyline where it all began, he got down on one knee.
+            The rest, as they say, is beautifully predictable.
+          </p>
         </div>
       </motion.div>
       <motion.div

@@ -27,7 +27,7 @@ export default function Dresscode() {
       offset: ["start end", "end 90%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
     });
 
-    const opacityRaw = useTransform(scrollYProgress, [0, 1], [0, 1]);
+    const opacityRaw = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
     const yRaw = useTransform(scrollYProgress, [0, 1], [yValue, 0]);
 
     return {
@@ -85,13 +85,13 @@ export default function Dresscode() {
           y: title.y,
         }}
       >
-        DRESSCODE
+        DRESS CODE
       </motion.h1>
 
       {/* 6 Small Circles */}
       <div className="flex flex-col items-center md:mb-12 md:flex-row md:justify-center md:gap-3 lg:mb-16">
         <div className="mx-auto mb-2 flex gap-4 md:mx-0 md:mb-0">
-          <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#F2F3EE] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
+          <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#EBEBEB] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
           <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#D6D1C3] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
           <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#C9C4B9] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
           <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#AFA699] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
@@ -132,7 +132,7 @@ export default function Dresscode() {
         }}
       >
         <h3 className="mb-2 text-center font-cormorant text-[18px] drop-shadow-2xl md:text-[20px] lg:text-[25px]">
-          LONG DRESS | BLACK SUIT | (NO BATIK)
+          LONG DRESS | BLACK SUIT | NO BATIK
         </h3>
         <h5 className="mb-[6px] font-freight text-[14px] font-light drop-shadow-2xl md:text-[16px] lg:text-[18px]">
           We recommend bringing a scarf or light wrap, as it may get

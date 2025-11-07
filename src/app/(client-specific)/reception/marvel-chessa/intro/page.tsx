@@ -4,9 +4,11 @@ import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Lenis from "lenis";
-import img1 from "../_images/IMG1h.jpg";
-import img2 from "../_images/IMG2h.jpg";
-import img3 from "../_images/IMG3h.jpg";
+import img1 from "../_images/slides1.jpg";
+import img2 from "../_images/slides2.jpg";
+import img3 from "../_images/slides3.jpg";
+import img4 from "../_images/slides4.jpg";
+import img5 from "../_images/slides5.jpg";
 
 export default function Intro() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -17,7 +19,7 @@ export default function Intro() {
   const secondTextRef = useRef<HTMLDivElement>(null);
 
   // Image slideshow state
-  const images = [img1, img2, img3];
+  const images = [img1, img2, img3, img4, img5];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Initialize Lenis smooth scroll with spring animation
@@ -43,7 +45,7 @@ export default function Intro() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 400); // Change every 400 milliseconds
+    }, 200); // Change every 200 milliseconds
 
     return () => clearInterval(interval);
   }, [images.length]);
@@ -164,6 +166,9 @@ export default function Intro() {
           className="center max-h-screen w-full overflow-hidden"
           style={{ scale: imageScaleSpring }}
         >
+          <motion.h4 className="font-cormorant text-center mb-8 text-[20px] lg:text-[25px]">
+            A JOURNEY IN LOVE
+          </motion.h4>
           <Image
             key={currentImageIndex}
             className="w-screen lg:-translate-y-12 xl:-translate-y-[80px]"

@@ -34,7 +34,7 @@ export default function Travel() {
       offset: ["start end", "end 90%"], // Animation starts when element enters viewport, completes when it's 5% from bottom
     });
 
-    const opacityRaw = useTransform(scrollYProgress, [0, 1], [0, 1]);
+    const opacityRaw = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
     const yRaw = useTransform(scrollYProgress, [0, 1], [yValue, 0]);
 
     return {
@@ -58,7 +58,7 @@ export default function Travel() {
   return (
     <motion.div
       ref={containerRef}
-      className="flex flex-col bg-[#1D1A1B] px-8 py-20 text-[#EEEEEE] xl:px-16"
+      className="flex flex-col bg-[#1D1A1B] px-8 pt-20 pb-16 text-[#EEEEEE] xl:px-16"
     >
       {/* Unified responsive layout */}
       <div className="flex flex-col xl:relative xl:flex-row xl:gap-16">
@@ -97,15 +97,15 @@ export default function Travel() {
                 Fly in to Ngurah Rai International Airport — what to prepare?
               </h3>
               <div className="mx-auto text-center">
-                <li className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px]">
+                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px]">
                   Passport with at least 6 months before expiry date
-                </li>
-                <li className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px]">
+                </p>
+                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px]">
                   Completed eCD form (https://ecd.beacukai.go.id)
-                </li>
-                <li className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px]">
+                </p>
+                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px]">
                   Arrival visa VOA application (if required)
-                </li>
+                </p>
               </div>
             </motion.div>
             <motion.div

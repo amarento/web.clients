@@ -34,7 +34,7 @@ export default function Thewedding() {
       offset: ["start end", "end 90%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
     });
 
-    const opacityRaw = useTransform(scrollYProgress, [0, 1], [0, 1]);
+    const opacityRaw = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
     const yRaw = useTransform(scrollYProgress, [0, 1], [yValue, 0]);
 
     return {
@@ -102,7 +102,7 @@ export default function Thewedding() {
           Warung Laota, Jimbaran
         </h4>
         <h5 className="mb-5 font-freight text-[14px] tracking-wide drop-shadow-2xl lg:text-[16px]">
-          (family only)
+          (Family Only)
         </h5>
         <Button
           className="active:scale-98 group mb-16 rounded-none border-[1px] border-[#555555] bg-[#F6F4F1] px-5 py-2 transition-all duration-200 ease-out hover:bg-[#FFFFFF] active:bg-[#1D1A1B] lg:px-6 lg:py-3"
@@ -154,7 +154,7 @@ export default function Thewedding() {
             Venue TBC
           </h4>
           <h5 className="mb-5 font-freight text-[14px] tracking-wide drop-shadow-2xl lg:text-[16px]">
-            (family only)
+            (Family Only)
           </h5>
           <Button
             className="group rounded-none border-[1px] border-[#555555] bg-[#F6F4F1] px-5 py-2 hover:bg-[#FFFFFF] active:bg-[#1D1A1B] lg:px-6 lg:py-3"
@@ -248,7 +248,7 @@ export default function Thewedding() {
           }}
         >
           <Image
-            className="mx-auto mb-8 w-[50%] sm:w-[40%] md:w-[33%] lg:mt-5 lg:w-[43%]"
+            className="mx-auto mb-8 w-[45%] sm:w-[36%] md:w-[33%] lg:mt-5 lg:w-[43%]"
             src={imgreception}
             alt="Dinner Reception"
             priority

@@ -150,6 +150,13 @@ export default function Homepage() {
       video.muted = true;
       video.playsInline = true;
       video.loop = true;
+      video.preload = "metadata"; // Preload metadata first for faster initial render
+
+      // Set a poster frame or background to prevent gray flash
+      video.style.backgroundColor = "#000000"; // Black background instead of gray
+
+      // Force load the video metadata immediately
+      video.load();
 
       // Multiple attempts to ensure video plays
       const attemptPlay = async () => {
@@ -168,6 +175,20 @@ export default function Homepage() {
                   .then(() => console.log("Video playing after loadedData"))
                   .catch((err) =>
                     console.log("Play failed after loadedData:", err),
+                  );
+              },
+              { once: true },
+            );
+
+            // Also listen for canplay for earlier playback
+            video.addEventListener(
+              "canplay",
+              () => {
+                video
+                  .play()
+                  .then(() => console.log("Video playing after canplay"))
+                  .catch((err) =>
+                    console.log("Play failed after canplay:", err),
                   );
               },
               { once: true },
@@ -404,7 +425,7 @@ export default function Homepage() {
               transition={{ delay: 0.8, duration: 0.8 }}
             >
               <motion.h1
-                className="mb-10 font-cormorant text-[20px] lg:text-[25px] xl:text-[31px] text-white"
+                className="mb-10 font-cormorant text-[20px] text-white lg:text-[25px] xl:text-[31px]"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8, duration: 0.8 }}
@@ -412,7 +433,7 @@ export default function Homepage() {
                 MARVEL & CHESSA
               </motion.h1>
               <motion.p
-                className="mb-2 xl:mb-4 font-freight text-[18px] lg:text-[20px] xl:text-[25px] text-white/80"
+                className="mb-2 font-freight text-[18px] text-white/80 lg:text-[20px] xl:mb-4 xl:text-[25px]"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -435,7 +456,7 @@ export default function Homepage() {
                     value={authCode}
                     onChange={(e) => handleAuthCodeChange(e.target.value)}
                     placeholder="••••"
-                    className="w-24 bg-transparent p-2 text-center font-freight text-[25px] xl:text-[31px] tracking-widest text-white placeholder-white/50 outline-none"
+                    className="w-24 bg-transparent p-2 text-center font-freight text-[25px] tracking-widest text-white placeholder-white/50 outline-none xl:text-[31px]"
                     maxLength={4}
                     autoComplete="off"
                   />
@@ -443,7 +464,7 @@ export default function Homepage() {
 
                 {authError && (
                   <motion.p
-                    className="-mt-3 xl:-mt-1 mb-4 xl:mb-6 font-freight text-[14px] lg:text-[16px] xl:text-[18px] text-red-300"
+                    className="-mt-3 mb-4 font-freight text-[14px] text-red-300 lg:text-[16px] xl:-mt-1 xl:mb-6 xl:text-[18px]"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -456,7 +477,7 @@ export default function Homepage() {
                 <motion.button
                   type="submit"
                   disabled={authCode.length !== 4}
-                  className="border-1 mx-auto block border px-8 py-[6px] font-cormorant text-[14px] lg:text-[16px] xl:text-[18px] text-[#F0F0F0] transition-all duration-200 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                  className="border-1 mx-auto block border px-8 py-[6px] font-cormorant text-[14px] text-[#F0F0F0] transition-all duration-200 hover:text-white disabled:cursor-not-allowed disabled:opacity-50 lg:text-[16px] xl:text-[18px]"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -591,7 +612,7 @@ export default function Homepage() {
                       }}
                     >
                       <motion.button
-                        className="mx-auto block py-2 font-cormorant text-3xl text-[#F0F0F0] hover:text-white lg:text-4xl"
+                        className="mx-auto block py-2 font-cormorant text-[25px] text-[#F0F0F0] hover:text-white lg:text-[31px]"
                         onClick={() => scrollToSection("our-story")}
                         whileHover={{ scale: 1.05, x: 10 }}
                         whileTap={{ scale: 0.95 }}
@@ -601,10 +622,10 @@ export default function Homepage() {
                         }}
                         transition={{ duration: 0.5, ease: "easeOut" }}
                       >
-                        Our Story
+                        OUR STORY
                       </motion.button>
                       <motion.button
-                        className="mx-auto block py-2 font-cormorant text-3xl text-[#F0F0F0] hover:text-white lg:text-4xl"
+                        className="mx-auto block py-2 font-cormorant text-[25px] text-[#F0F0F0] hover:text-white lg:text-[31px]"
                         onClick={() => scrollToSection("the-wedding")}
                         whileHover={{ scale: 1.05, x: 10 }}
                         whileTap={{ scale: 0.95 }}
@@ -614,10 +635,10 @@ export default function Homepage() {
                         }}
                         transition={{ duration: 0.5, ease: "easeOut" }}
                       >
-                        The Wedding
+                        THE WEDDING
                       </motion.button>
                       <motion.button
-                        className="mx-auto block py-2 font-cormorant text-3xl text-[#F0F0F0] hover:text-white lg:text-4xl"
+                        className="mx-auto block py-2 font-cormorant text-[25px] text-[#F0F0F0] hover:text-white lg:text-[31px]"
                         onClick={() => scrollToSection("dresscode")}
                         whileHover={{ scale: 1.05, x: 10 }}
                         whileTap={{ scale: 0.95 }}
@@ -627,10 +648,10 @@ export default function Homepage() {
                         }}
                         transition={{ duration: 0.5, ease: "easeOut" }}
                       >
-                        Dresscode
+                        DRESS CODE
                       </motion.button>
                       <motion.button
-                        className="mx-auto block py-2 font-cormorant text-3xl text-[#F0F0F0] hover:text-white lg:text-4xl"
+                        className="mx-auto block py-2 font-cormorant text-[25px] text-[#F0F0F0] hover:text-white lg:text-[31px]"
                         onClick={() => scrollToSection("bali-guide")}
                         whileHover={{ scale: 1.05, x: 10 }}
                         whileTap={{ scale: 0.95 }}
@@ -640,10 +661,10 @@ export default function Homepage() {
                         }}
                         transition={{ duration: 0.5, ease: "easeOut" }}
                       >
-                        Bali Guide
+                        BALI GUIDE
                       </motion.button>
                       <motion.button
-                        className="mx-auto block py-2 font-cormorant text-3xl text-[#F0F0F0] hover:text-white lg:text-4xl"
+                        className="mx-auto block py-2 font-cormorant text-[25px] text-[#F0F0F0] hover:text-white lg:text-[31px]"
                         onClick={() => scrollToSection("love-letters")}
                         whileHover={{ scale: 1.05, x: 10 }}
                         whileTap={{ scale: 0.95 }}
@@ -653,7 +674,7 @@ export default function Homepage() {
                         }}
                         transition={{ duration: 0.5, ease: "easeOut" }}
                       >
-                        Love Letters
+                        LOVE LETTERS
                       </motion.button>
                     </motion.nav>
                   </div>
@@ -676,13 +697,41 @@ export default function Homepage() {
               loop
               muted
               playsInline
-              preload="auto"
+              preload="metadata"
               controls={false}
               disablePictureInPicture
               webkit-playsinline="true"
               x5-video-player-type="h5"
               x5-video-player-fullscreen="true"
               src={video}
+              style={{
+                backgroundColor: "#000000", // Black background to prevent gray flash
+              }}
+              onLoadStart={() => {
+                // Ensure video container has proper background immediately
+                const videoEl = videoRef.current;
+                if (videoEl) {
+                  videoEl.style.backgroundColor = "#000000";
+                }
+              }}
+              onLoadedMetadata={() => {
+                // Try to play as soon as metadata is loaded
+                const videoEl = videoRef.current;
+                if (videoEl) {
+                  videoEl
+                    .play()
+                    .catch((err) => console.log("Metadata play failed:", err));
+                }
+              }}
+              onCanPlay={() => {
+                // Another opportunity to start playback
+                const videoEl = videoRef.current;
+                if (videoEl?.paused) {
+                  videoEl
+                    .play()
+                    .catch((err) => console.log("CanPlay play failed:", err));
+                }
+              }}
             />
             {/* Dark overlay that increases with scroll */}
             <motion.div

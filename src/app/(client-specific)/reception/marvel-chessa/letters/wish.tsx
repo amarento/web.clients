@@ -32,8 +32,8 @@ interface IWishProps {
 export default function Wish({ guestName, guestId }: IWishProps) {
   const { data: wishes, refetch } = useServerActionQuery(getAllWishes, {
     input: {
-      clientId: 4,
-      eventCategory: "holy_matrimony",
+      clientId: 13,
+      eventCategory: "reception",
     },
     queryKey: ["wishes"],
   });
@@ -89,8 +89,8 @@ export default function Wish({ guestName, guestId }: IWishProps) {
       await sendWish({
         guestId,
         wish: data.wish,
-        clientId: 4,
-        eventCategory: "holy_matrimony",
+        clientId: 13,
+        eventCategory: "reception",
       });
     }
   };
@@ -113,7 +113,7 @@ export default function Wish({ guestName, guestId }: IWishProps) {
       offset: ["start end", "end 90%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
     });
 
-    const opacityRaw = useTransform(scrollYProgress, [0, 1], [0, 1]);
+    const opacityRaw = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
     const yRaw = useTransform(scrollYProgress, [0, 1], [yValue, 0]);
 
     return {
@@ -166,7 +166,7 @@ export default function Wish({ guestName, guestId }: IWishProps) {
                   {wishes && wishes.length > 0
                     ? [...wishes].reverse().map((wish, index) => (
                         <div
-                          className="embla__slide flex h-[210px] w-[85vw] flex-col items-center justify-center rounded-sm border border-solid border-[#555555] bg-[#F6F4F1] p-6 text-center shadow md:h-[300px] lg:h-[350px] md:w-[80vw] lg:w-[65vw] xl:h-[400px] md:p-12 lg:p-14 xl:p-16"
+                          className="embla__slide flex h-[210px] w-[85vw] flex-col items-center justify-center rounded-sm border border-solid border-[#555555] bg-[#F6F4F1] p-6 text-center shadow md:h-[300px] md:w-[80vw] md:p-12 lg:h-[350px] lg:w-[65vw] lg:p-14 xl:h-[400px] xl:p-16"
                           key={index.toString()}
                         >
                           <p className="overflow-wrap-anywhere w-full break-words text-[12px] leading-relaxed text-[#43423D] md:text-[16px] lg:text-[18px] xl:text-[20px]">
@@ -202,8 +202,8 @@ export default function Wish({ guestName, guestId }: IWishProps) {
               y: nameField.y,
             }}
           >
-            <p className="pl-1 text-[16px] text-[#333333] md:text-[16px] lg:text-[18px] xl:text-[20px]">
-              from:
+            <p className="pl-1 font-cormorant text-[11px] text-[#333333] md:text-[16px] lg:text-[18px] xl:text-[20px]">
+              FROM:
             </p>
             <input
               {...register("name")}
@@ -221,8 +221,8 @@ export default function Wish({ guestName, guestId }: IWishProps) {
             }}
           >
             <div className="flex items-center justify-between">
-              <p className="pl-1 text-[16px] text-[#333333] md:text-[16px] lg:text-[18px] xl:text-[20px]">
-                wish:
+              <p className="pl-1 font-cormorant text-[11px] text-[#333333] md:text-[16px] lg:text-[18px] xl:text-[20px]">
+                WISH:
               </p>
               <p
                 className={`text-[12px] md:text-[14px] lg:text-[16px] ${
