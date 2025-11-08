@@ -110,7 +110,7 @@ export default function Wish({ guestName, guestId }: IWishProps) {
   ) => {
     const { scrollYProgress } = useScroll({
       target: ref,
-      offset: ["start end", "end 90%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
+      offset: ["start end", "end end"], // Animation starts when element enters viewport, completes when it's 10% from bottom
     });
 
     const opacityRaw = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
@@ -202,7 +202,7 @@ export default function Wish({ guestName, guestId }: IWishProps) {
               y: nameField.y,
             }}
           >
-            <p className="pl-1 font-cormorant text-[11px] text-[#333333] md:text-[16px] lg:text-[18px] xl:text-[20px]">
+            <p className="pl-1 font-cormorant text-[11px] text-[#333333] md:text-[12px] lg:text-[14px]">
               FROM:
             </p>
             <input
@@ -221,7 +221,7 @@ export default function Wish({ guestName, guestId }: IWishProps) {
             }}
           >
             <div className="flex items-center justify-between">
-              <p className="pl-1 font-cormorant text-[11px] text-[#333333] md:text-[16px] lg:text-[18px] xl:text-[20px]">
+              <p className="pl-1 font-cormorant text-[11px] text-[#333333] md:text-[12px] lg:text-[14px]">
                 WISH:
               </p>
               <p

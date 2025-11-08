@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
-import { useRef, useLayoutEffect, useState } from "react";
+import { useRef, useLayoutEffect, useState, useEffect } from "react";
 import { Button } from "~/components/ui/button";
 
 type TabType =
@@ -14,7 +14,9 @@ type TabType =
 
 export default function Baliguide() {
   const [activeTab, setActiveTab] = useState<TabType>("activities");
-  const [openAccordions, setOpenAccordions] = useState<Set<string>>(new Set());
+  const [openAccordions, setOpenAccordions] = useState<Set<string>>(
+    new Set(["activities-1"]), // First accordion open by default
+  );
   const containerRef = useRef<HTMLDivElement>(null);
 
   const titleRef = useRef<HTMLDivElement>(null);
@@ -39,27 +41,6 @@ export default function Baliguide() {
     };
   };
 
-  const useViewportImageAnimation = (
-    ref: React.RefObject<HTMLDivElement>,
-    startY = 20,
-    parallaxMultiplier = 1,
-  ) => {
-    const { scrollYProgress } = useScroll({
-      target: ref,
-      offset: ["start 120%", "end -20%"],
-    });
-
-    const yRaw = useTransform(
-      scrollYProgress,
-      [0, 1],
-      [startY, -startY * 0.5 * parallaxMultiplier],
-    );
-
-    return {
-      y: useSpring(yRaw, { stiffness: 120, damping: 25, mass: 0.8 }),
-    };
-  };
-
   const fadeIn = {
     hidden: { opacity: 0, x: 0, y: 0 },
     visible: { opacity: 1, x: 0, y: 0 },
@@ -68,15 +49,25 @@ export default function Baliguide() {
   const title = useViewportAnimation(titleRef);
   const tabRow1 = useViewportAnimation(tabRow1Ref);
   const tabRow2 = useViewportAnimation(tabRow2Ref);
+
+  // Open first accordion when tab changes
+  useEffect(() => {
+    const firstAccordionId = `${activeTab}-1`;
+    setOpenAccordions(new Set([firstAccordionId]));
+  }, [activeTab]);
   // const image1 = useViewportImageAnimation(image1Ref, 60, 1.2);
   // const image2 = useViewportImageAnimation(image2Ref, 100, 1.5);
 
   const toggleAccordion = (id: string) => {
     setOpenAccordions((prev) => {
-      const newSet = new Set<string>();
-      if (!prev.has(id)) {
-        newSet.add(id);
+      // If clicking the currently open accordion and it's the only one open, do nothing
+      if (prev.has(id) && prev.size === 1) {
+        return prev;
       }
+
+      // Otherwise, close all and open the clicked one
+      const newSet = new Set<string>();
+      newSet.add(id);
       return newSet;
     });
   };
@@ -94,29 +85,29 @@ export default function Baliguide() {
     const rootRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
     const [measuredHeight, setMeasuredHeight] = useState(0);
+    const [isMeasured, setIsMeasured] = useState(false);
 
-    // Measure content height (dynamic content safe)
+    // Measure content height immediately and whenever it changes
     useLayoutEffect(() => {
       if (contentRef.current) {
         const h = contentRef.current.scrollHeight;
-        if (h !== measuredHeight) setMeasuredHeight(h);
+        setMeasuredHeight(h + 20); // Add 30px buffer to ensure line and spacing are visible
+        setIsMeasured(true);
       }
-    }, [content, measuredHeight]);
+    }, [content, isOpen]);
 
     // Symmetric animation variants
     const containerVariants = {
       open: {
         height: measuredHeight,
         transition: {
-          height: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] },
-          when: "beforeChildren" as const,
+          height: { duration: isMeasured ? 0.5 : 0, ease: "easeOut" },
         },
       },
       closed: {
         height: 0,
         transition: {
-          height: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] },
-          when: "afterChildren" as const,
+          height: { duration: 0.5, ease: "easeIn" },
         },
       },
     } as const;
@@ -124,13 +115,11 @@ export default function Baliguide() {
     const contentVariants = {
       open: {
         opacity: 1,
-        y: 0,
-        transition: { duration: 0.35, ease: "easeOut" },
+        transition: { duration: 0.5, ease: "easeOut", delay: 0.1 },
       },
       closed: {
         opacity: 0,
-        y: -10,
-        transition: { duration: 0.3, ease: "easeIn" },
+        transition: { duration: 1, ease: "easeIn", delay: 0.1 },
       },
     } as const;
 
@@ -167,22 +156,23 @@ export default function Baliguide() {
           className="overflow-hidden"
           role="region"
           id={`panel-${id}`}
-          initial={false}
+          initial={isOpen ? "open" : "closed"}
           animate={isOpen ? "open" : "closed"}
           variants={containerVariants}
           style={{ willChange: "height" }}
         >
           <motion.div
             ref={contentRef}
-            className="pt-4"
+            className="pb-2 pt-4"
+            initial={isOpen ? "open" : "closed"}
             variants={contentVariants}
-            style={{ willChange: "opacity, transform" }}
+            style={{ willChange: "opacity" }}
           >
             <p className="font-hanken text-[12px] font-light leading-relaxed lg:text-[14px] xl:text-[16px]">
               {content}
             </p>
             <div
-              className="mt-4 w-full"
+              className="mt-4 w-full md:mt-5 lg:mt-6"
               style={{
                 height: 1,
                 backgroundColor: "rgba(85,85,85,0.2)",
@@ -197,7 +187,7 @@ export default function Baliguide() {
   return (
     <motion.div
       ref={containerRef}
-      className="flex flex-col bg-[#F6F4F1] pb-20 pt-24 text-[#111111] md:px-12 md:pb-24 lg:pt-32"
+      className="flex flex-col bg-[#F6F4F1] pb-12 pt-24 text-[#111111] md:px-12 lg:pt-32"
     >
       <div className="text-center">
         <motion.h1
@@ -539,42 +529,42 @@ export default function Baliguide() {
               whileInView="visible"
             >
               <AccordionItem
-                id="restaurant-1"
+                id="restaurants-1"
                 title="Home by Chef Wayan (Pererenan)"
                 content="A cozy neighborhood spot where Balinese flavors meet modern twists, perfect for a relaxed dinner."
               />
               <AccordionItem
-                id="restaurant-2"
+                id="restaurants-2"
                 title="Seeds Eatery (Ubud)"
                 content="Wholesome, plant-forward dishes in a peaceful garden setting, great for a mindful lunch."
               />
               <AccordionItem
-                id="restaurant-3"
+                id="restaurants-3"
                 title="M. Mason (Canggu & Uluwatu)"
                 content="Lively Mediterranean restaurant with wood-fired cooking and a fun social atmosphere."
               />
               <AccordionItem
-                id="restaurant-4"
+                id="restaurants-4"
                 title="Bokashi (Pererenan)"
                 content="A Japanese-inspired restaurant and organic grocery, perfect for healthy bites and good coffee."
               />
               <AccordionItem
-                id="restaurant-5"
+                id="restaurants-5"
                 title="Sensorium (Canggu)"
                 content="Creative Asian-fusion brunches in a cool, design-led space — very Instagram-worthy."
               />
               <AccordionItem
-                id="restaurant-6"
+                id="restaurants-6"
                 title="Mamasan (Seminyak)"
                 content="A Bali icon serving bold Southeast Asian flavors in a stylish, colonial-style restaurant."
               />
               <AccordionItem
-                id="restaurant-7"
+                id="restaurants-7"
                 title="Riviera Bistro (Canggu)"
                 content="Breezy Mediterranean dining with a coastal vibe, ideal for a laid-back evening."
               />
               <AccordionItem
-                id="restaurant-8"
+                id="restaurants-8"
                 title="Bartolo (Uluwatu)"
                 content="A chic wine bar and modern European restaurant, perfect for sunset dinners after the beach."
               />
@@ -662,15 +652,14 @@ export default function Baliguide() {
                 title="The Istana (Uluwatu)"
                 content="Sunset sauna, ice bath, and wellness sanctuary overlooking the Indian Ocean."
               />
-              <h4 className="mb-[6px] font-freight text-[20px] lg:text-[25px] xl:text-[31px]">
-                On-call Masseuse (Island-wide)
-              </h4>
-              <p className="mb-8 font-hanken text-[12px] font-light lg:mb-10 lg:text-[14px] xl:mb-12 xl:text-[16px]">
-                Book a masseuse to come directly to your villa for a
+              <AccordionItem
+                id="wellness-7"
+                title="On-call Masseuse (Island-wide)"
+                content="Book a masseuse to come directly to your villa for a
                 professional Balinese massage in the comfort of your own space.
                 Marvel’s favourite activity in Bali (or anywhere else really).
-                And the good thing is, it’s so cheap!
-              </p>
+                And the good thing is, it’s so cheap!"
+              />
             </motion.div>
           )}
         </motion.div>

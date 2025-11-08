@@ -150,12 +150,12 @@ export default function Homepage() {
       video.muted = true;
       video.playsInline = true;
       video.loop = true;
-      video.preload = "metadata"; // Preload metadata first for faster initial render
+      video.preload = "auto"; // Preload entire video for better pre-rendering
 
-      // Set a poster frame or background to prevent gray flash
-      video.style.backgroundColor = "#000000"; // Black background instead of gray
+      // Set a black background to prevent gray flash
+      video.style.backgroundColor = "#000000";
 
-      // Force load the video metadata immediately
+      // Force load the video immediately
       video.load();
 
       // Multiple attempts to ensure video plays
@@ -164,18 +164,12 @@ export default function Homepage() {
           // Wait for video to be ready
           if (video.readyState >= 2) {
             await video.play();
-            console.log("Video autoplay successful");
           } else {
             // Wait for video to load then play
             video.addEventListener(
-              "loadedData",
+              "loadeddata",
               () => {
-                video
-                  .play()
-                  .then(() => console.log("Video playing after loadedData"))
-                  .catch((err) =>
-                    console.log("Play failed after loadedData:", err),
-                  );
+                void video.play();
               },
               { once: true },
             );
@@ -184,12 +178,7 @@ export default function Homepage() {
             video.addEventListener(
               "canplay",
               () => {
-                video
-                  .play()
-                  .then(() => console.log("Video playing after canplay"))
-                  .catch((err) =>
-                    console.log("Play failed after canplay:", err),
-                  );
+                void video.play();
               },
               { once: true },
             );
@@ -199,25 +188,16 @@ export default function Homepage() {
 
           // Fallback: Try playing on next tick
           setTimeout(() => {
-            video
-              .play()
-              .then(() => console.log("Video playing after timeout"))
-              .catch((err) => {
-                console.log("Timeout play failed:", err);
-                setupUserInteractionFallback();
-              });
+            video.play().catch(() => {
+              setupUserInteractionFallback();
+            });
           }, 100);
         }
       };
 
       const setupUserInteractionFallback = () => {
         const playOnInteraction = () => {
-          video
-            .play()
-            .then(() => console.log("Video playing after user interaction"))
-            .catch((err) =>
-              console.error("User interaction play failed:", err),
-            );
+          void video.play();
         };
 
         // Listen for various interaction events
@@ -684,7 +664,7 @@ export default function Homepage() {
           </AnimatePresence>
 
           <motion.div
-            className="fixed inset-0 z-10 flex h-screen w-full flex-col items-center justify-center overflow-hidden text-center text-[#F0F0F0]"
+            className="fixed inset-0 z-10 flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-black text-center text-[#F0F0F0]"
             style={{
               opacity: homepageOpacity,
               pointerEvents: "none",
@@ -693,20 +673,17 @@ export default function Homepage() {
             <video
               ref={videoRef}
               autoPlay
-              className="absolute inset-0 -z-10 h-full w-full object-cover"
+              className="absolute inset-0 -z-10 h-full w-full bg-black object-cover"
               loop
               muted
               playsInline
-              preload="metadata"
+              preload="auto"
               controls={false}
               disablePictureInPicture
               webkit-playsinline="true"
               x5-video-player-type="h5"
               x5-video-player-fullscreen="true"
               src={video}
-              style={{
-                backgroundColor: "#000000", // Black background to prevent gray flash
-              }}
               onLoadStart={() => {
                 // Ensure video container has proper background immediately
                 const videoEl = videoRef.current;

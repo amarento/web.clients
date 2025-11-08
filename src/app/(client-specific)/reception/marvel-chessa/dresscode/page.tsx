@@ -148,7 +148,7 @@ export default function Dresscode() {
         }}
       >
         <Image
-          className="w-[50%] sm:ml-[12%] sm:w-[45%] md:ml-[13%] md:w-[42%] lg:ml-[30%] lg:w-[25%]"
+          className="w-[50%] sm:ml-[12%] sm:w-[45%] md:ml-[13%] md:w-[42%] lg:ml-[25%] lg:w-[28%]"
           src={img3}
           alt="IMG3"
           priority
@@ -163,7 +163,7 @@ export default function Dresscode() {
         }}
       >
         <Image
-          className="-mt-48 ml-auto w-[55%] sm:-mt-20 sm:mr-[12%] sm:w-[50%] md:-mt-24 md:mr-[13%] md:w-[45%] lg:mr-[30%] lg:w-[26%]"
+          className="-mt-48 ml-auto w-[55%] sm:-mt-20 sm:mr-[12%] sm:w-[50%] md:-mt-24 md:mr-[13%] md:w-[45%] lg:mr-[25%] lg:w-[30%]"
           src={img4}
           alt="IMG4"
           priority

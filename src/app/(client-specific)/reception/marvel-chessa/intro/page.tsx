@@ -1,6 +1,12 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring } from "motion/react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  AnimatePresence,
+} from "motion/react";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Lenis from "lenis";
@@ -45,7 +51,7 @@ export default function Intro() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 200); // Change every 200 milliseconds
+    }, 250); // Change every 250 milliseconds
 
     return () => clearInterval(interval);
   }, [images.length]);
@@ -143,7 +149,7 @@ export default function Intro() {
             y: secondText.y,
           }}
         >
-          <h5 className="font-freight -ml-[2px] lg:ml-0 text-[16px] italic drop-shadow-2xl md:text-[18px] lg:text-center lg:font-cormorant lg:text-[18px] lg:uppercase lg:not-italic lg:tracking-[-0.015em]">
+          <h5 className="-ml-[2px] font-freight text-[16px] italic drop-shadow-2xl md:text-[18px] lg:ml-0 lg:text-center lg:font-cormorant lg:text-[18px] lg:uppercase lg:not-italic lg:tracking-[-0.015em]">
             We’d love for you to come and share in the joy of our wedding
             celebration.
           </h5>
@@ -151,8 +157,8 @@ export default function Intro() {
       </motion.div>
       <motion.div
         className="mt-[25vh] flex justify-center"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{
           duration: 1.2,
           ease: "easeOut",
@@ -166,20 +172,36 @@ export default function Intro() {
           className="center max-h-screen w-full overflow-hidden"
           style={{ scale: imageScaleSpring }}
         >
-          <motion.h4 className="font-cormorant text-center mb-8 text-[20px] lg:text-[25px]">
+          <motion.h4 className="mb-8 text-center font-cormorant text-[20px] lg:mb-20 lg:text-[25px] xl:mb-32 xl:text-[31px]">
             A JOURNEY IN LOVE
           </motion.h4>
-          <Image
-            key={currentImageIndex}
-            className="w-screen lg:-translate-y-12 xl:-translate-y-[80px]"
-            alt={`Photo slide ${currentImageIndex + 1}`}
-            priority
-            src={images[currentImageIndex] ?? img1}
-            style={{
-              objectFit: "cover",
-              objectPosition: "center 5%",
-            }}
-          />
+          <div className="relative">
+            {images.map((img, index) => (
+              <motion.div
+                key={index}
+                className="w-screen"
+                initial={{ opacity: index === 0 ? 1 : 0 }}
+                animate={{ opacity: index === currentImageIndex ? 1 : 0 }}
+                transition={{ duration: 0.15, ease: "easeInOut" }}
+                style={{
+                  position: index === 0 ? "relative" : "absolute",
+                  top: index === 0 ? 0 : 0,
+                  left: 0,
+                }}
+              >
+                <Image
+                  className="w-screen lg:-translate-y-12 xl:-translate-y-[80px]"
+                  alt={`Photo slide ${index + 1}`}
+                  priority
+                  src={img}
+                  style={{
+                    objectFit: "cover",
+                    objectPosition: "center 5%",
+                  }}
+                />
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </motion.div>
     </motion.div>

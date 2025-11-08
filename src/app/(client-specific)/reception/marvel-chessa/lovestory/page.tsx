@@ -226,7 +226,7 @@ export default function LoveStory() {
         }}
       >
         <Image
-          className="ml-8 w-[60%] sm:ml-[12%] sm:w-[49%] md:ml-[13%] md:w-[43%] lg:ml-[30%] lg:w-[24%]"
+          className="ml-8 w-[60%] sm:ml-[12%] sm:w-[49%] md:ml-[13%] md:w-[43%] lg:ml-[25%] lg:w-[28%]"
           src={img1}
           alt="IMG1"
           priority
@@ -240,7 +240,7 @@ export default function LoveStory() {
         }}
       >
         <Image
-          className="-mt-20 ml-auto mr-8 w-[65%] sm:-mt-24 sm:mr-[12%] sm:w-[47%] md:-mt-28 md:mr-[13%] md:w-[45%] lg:-mt-32 lg:mr-[30%] lg:w-[25%]"
+          className="-mt-20 ml-auto mr-8 w-[65%] sm:-mt-24 sm:mr-[12%] sm:w-[47%] md:-mt-28 md:mr-[13%] md:w-[45%] lg:-mt-32 lg:mr-[25%] lg:w-[30%]"
           src={img2}
           alt="IMG2"
           priority

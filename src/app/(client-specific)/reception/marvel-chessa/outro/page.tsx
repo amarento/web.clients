@@ -53,7 +53,7 @@ export default function Outro() {
       <div className="-z-5 absolute inset-0 bg-black/20" />
       <motion.h5
         ref={titleRef}
-        className="relative -mt-2 z-10 text-center font-cormorant text-[12px] text-[#FFFFFF] md:text-[14px] lg:text-[16px]"
+        className="relative -mt-2 lg:mt-0 z-10 text-center font-cormorant text-[12px] text-[#FFFFFF] md:text-[14px] lg:text-[16px]"
         style={{
           opacity: title.opacity,
           y: title.y,
