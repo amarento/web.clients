@@ -712,7 +712,8 @@ export default function Homepage() {
             />
             {/* Dark overlay that increases with scroll */}
             <motion.div
-              className="-z-5 absolute inset-0 h-screen w-screen bg-black"
+              className="absolute inset-0 h-screen w-screen bg-black"
+              initial={{ opacity: 0 }}
               style={{ opacity: overlayOpacity }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
             />
