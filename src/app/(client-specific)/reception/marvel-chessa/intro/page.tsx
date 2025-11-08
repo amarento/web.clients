@@ -156,7 +156,7 @@ export default function Intro() {
         </motion.div>
       </motion.div>
       <motion.div
-        className="mt-[25vh] flex justify-center"
+        className="mt-[25vh] flex justify-center pb-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{
@@ -185,7 +185,7 @@ export default function Intro() {
                 transition={{ duration: 0.15, ease: "easeInOut" }}
                 style={{
                   position: index === 0 ? "relative" : "absolute",
-                  top: index === 0 ? 0 : 0,
+                  top: 0,
                   left: 0,
                 }}
               >

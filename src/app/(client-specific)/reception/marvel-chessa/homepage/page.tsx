@@ -226,11 +226,11 @@ export default function Homepage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authCode, setAuthCode] = useState("");
   const [authError, setAuthError] = useState("");
-  const correctCode = "2026"; // Change this to your desired 4-digit code
+  const correctCode = "MCUnited"; // Password is case insensitive
 
   const handleAuthSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (authCode === correctCode) {
+    if (authCode.toLowerCase() === correctCode.toLowerCase()) {
       // Add a small delay for smooth exit animation
       setTimeout(() => {
         setIsAuthenticated(true);
@@ -243,9 +243,8 @@ export default function Homepage() {
   };
 
   const handleAuthCodeChange = (value: string) => {
-    // Only allow numbers and limit to 4 digits
-    const numericValue = value.replace(/\D/g, "").slice(0, 4);
-    setAuthCode(numericValue);
+    // Allow letters and numbers, no length limit for text password
+    setAuthCode(value);
     setAuthError("");
   };
 
@@ -419,7 +418,7 @@ export default function Homepage() {
                 exit={{ opacity: 0 }}
                 transition={{ delay: 0.8, duration: 0.8 }}
               >
-                Please enter the 4-digit access code
+                Please enter the access code
               </motion.p>
 
               <motion.form
@@ -435,9 +434,8 @@ export default function Homepage() {
                     type="text"
                     value={authCode}
                     onChange={(e) => handleAuthCodeChange(e.target.value)}
-                    placeholder="••••"
-                    className="w-24 bg-transparent p-2 text-center font-freight text-[25px] tracking-widest text-white placeholder-white/50 outline-none xl:text-[31px]"
-                    maxLength={4}
+                    placeholder="Enter code"
+                    className="w-48 bg-transparent p-2 text-center font-freight text-[20px] tracking-wide text-white placeholder-white/50 outline-none xl:text-[25px]"
                     autoComplete="off"
                   />
                 </div>
@@ -456,7 +454,7 @@ export default function Homepage() {
 
                 <motion.button
                   type="submit"
-                  disabled={authCode.length !== 4}
+                  disabled={authCode.length === 0}
                   className="border-1 mx-auto block border px-8 py-[6px] font-cormorant text-[14px] text-[#F0F0F0] transition-all duration-200 hover:text-white disabled:cursor-not-allowed disabled:opacity-50 lg:text-[16px] xl:text-[18px]"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
