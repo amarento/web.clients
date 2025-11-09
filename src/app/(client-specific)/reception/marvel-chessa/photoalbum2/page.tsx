@@ -40,7 +40,7 @@ export default function PhotoAlbum2() {
     const yRaw = useTransform(
       scrollYProgress,
       [0, 1],
-      [startY, -startY * 0.5 * parallaxMultiplier],
+      [0, -startY * 0.5 * parallaxMultiplier],
     );
 
     return {
@@ -49,14 +49,14 @@ export default function PhotoAlbum2() {
   };
 
   // All animations with viewport-based parallax triggers
-  const image1 = useViewportImageAnimation(image1Ref, 120, 1.2); // Standard parallax layer
-  const image2 = useViewportImageAnimation(image2Ref, 150, 2); // Faster parallax layer
-  const image3 = useViewportImageAnimation(image3Ref, 120, 1.2); // Standard parallax layer
-  const image4 = useViewportImageAnimation(image4Ref, 150, 2); // Faster parallax layer
-  const image5 = useViewportImageAnimation(image5Ref, 60, 1); // Slowest parallax layer
-  const image6 = useViewportImageAnimation(image6Ref, 120, 1.2); // Standard parallax layer
-  const image7 = useViewportImageAnimation(image7Ref, 150, 1.2); // Slowest parallax layer
-  const image8 = useViewportImageAnimation(image8Ref, 80, 2); // Faster parallax layer
+  const image1 = useViewportImageAnimation(image1Ref, 120, 1.2);
+  const image2 = useViewportImageAnimation(image2Ref, 150, 2);
+  const image3 = useViewportImageAnimation(image3Ref, 120, 1.2);
+  const image4 = useViewportImageAnimation(image4Ref, 150, 2);
+  const image5 = useViewportImageAnimation(image5Ref, 60, 1);
+  const image6 = useViewportImageAnimation(image6Ref, 120, 1.2);
+  const image7 = useViewportImageAnimation(image7Ref, 150, 1.2);
+  const image8 = useViewportImageAnimation(image8Ref, 80, 2); 
 
   return (
     <motion.div

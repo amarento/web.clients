@@ -58,7 +58,7 @@ export default function LoveStory() {
     const yRaw = useTransform(
       scrollYProgress,
       [0, 1],
-      [startY, -startY * 0.5 * parallaxMultiplier],
+      [0, -startY * 0.5 * parallaxMultiplier],
     );
 
     return {

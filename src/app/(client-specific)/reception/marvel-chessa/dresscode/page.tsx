@@ -40,28 +40,21 @@ export default function Dresscode() {
   const useViewportImageAnimation = (
     ref: React.RefObject<HTMLDivElement>,
     startY = 20,
-    // startScale = 0.8,
     parallaxMultiplier = 1,
   ) => {
     const { scrollYProgress } = useScroll({
       target: ref,
-      offset: ["start 120%", "end -20%"], // Extended range for better parallax effect
+      offset: ["start 120%", "end -20%"],
     });
 
     const yRaw = useTransform(
       scrollYProgress,
       [0, 1],
-      [startY, -startY * 0.5 * parallaxMultiplier],
+      [0, -startY * 0.5 * parallaxMultiplier],
     );
-    // const scaleRaw = useTransform(
-    //   scrollYProgress,
-    //   [0, 0.5, 1],
-    //   [startScale, 1, 1 + (parallaxMultiplier - 1) * 0.1],
-    // );
 
     return {
       y: useSpring(yRaw, { stiffness: 120, damping: 25, mass: 0.8 }),
-      // scale: useSpring(scaleRaw, { stiffness: 120, damping: 25, mass: 0.8 }),
     };
   };
 
@@ -144,7 +137,6 @@ export default function Dresscode() {
         ref={image1Ref}
         style={{
           y: image1.y,
-          // scale: image1.scale,
         }}
       >
         <Image
@@ -159,7 +151,6 @@ export default function Dresscode() {
         ref={image2Ref}
         style={{
           y: image2.y,
-          // scale: image2.scale,
         }}
       >
         <Image

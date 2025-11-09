@@ -37,11 +37,11 @@ export default function Outro() {
   return (
     <motion.div
       ref={containerRef}
-      className="relative flex h-[70vh] w-full flex-col pt-[304px] text-[#111111] sm:pt-[360px] md:h-[80vh]"
+      className="relative flex h-[70vh] w-full flex-col items-center justify-center text-[#111111] md:h-[80vh] lg:h-[100vh]"
     >
       <Image
         alt="Outro background"
-        className="absolute inset-0 -z-10"
+        className="-z-5 absolute inset-0"
         fill
         priority
         src={img4}
@@ -50,10 +50,10 @@ export default function Outro() {
           objectPosition: "center 25%",
         }}
       />
-      <div className="-z-5 absolute inset-0 bg-black/20" />
+      <div className="absolute inset-0 z-5 bg-black/20" />
       <motion.h5
         ref={titleRef}
-        className="relative -mt-2 lg:mt-0 z-10 text-center font-cormorant text-[12px] text-[#FFFFFF] md:text-[14px] lg:text-[16px]"
+        className="relative z-10 text-center font-cormorant text-[12px] text-[#FFFFFF] md:text-[14px] lg:text-[16px]"
         style={{
           opacity: title.opacity,
           y: title.y,

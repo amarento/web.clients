@@ -24,13 +24,13 @@ export default function PhotoAlbum() {
   ) => {
     const { scrollYProgress } = useScroll({
       target: ref,
-      offset: ["start 120%", "end -20%"], // Extended range outside viewport for enhanced parallax effect
+      offset: ["start 120%", "end -20%"],
     });
 
     const yRaw = useTransform(
       scrollYProgress,
       [0, 1],
-      [startY, -startY * 0.5 * parallaxMultiplier],
+      [0, -startY * 0.5 * parallaxMultiplier],
     );
 
     return {
