@@ -91,15 +91,15 @@ export default function Homepage() {
   const { scrollY } = useScroll();
 
   // Three-stage scroll animation with spring physics
-  // const overlayOpacityRaw = useTransform(scrollY, [0, 100, 200], [0, 0, 1]);
+  const overlayOpacityRaw = useTransform(scrollY, [0, 100, 200], [0, 0, 1]);
   const homepageOpacityRaw = useTransform(scrollY, [0, 100, 200], [1, 1, 0]);
 
   // Apply spring animation to the transforms for smooth, natural motion
-  // const overlayOpacity = useSpring(overlayOpacityRaw, {
-  //   stiffness: 300,
-  //   damping: 30,
-  //   mass: 0.8,
-  // });
+  const overlayOpacity = useSpring(overlayOpacityRaw, {
+    stiffness: 300,
+    damping: 30,
+    mass: 0.8,
+  });
   const homepageOpacity = useSpring(homepageOpacityRaw, {
     stiffness: 300,
     damping: 30,
@@ -390,7 +390,7 @@ export default function Homepage() {
       <AnimatePresence>
         {!isAuthenticated && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md"
+            className="fixed inset-0 z-10 flex items-center justify-center bg-black/90 backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -472,7 +472,7 @@ export default function Homepage() {
         <>
           {/* Header Navigation Links - Large screens only */}
           <nav
-            className={`fixed inset-x-0 top-6 z-50 mt-3 hidden duration-300 lg:block ${
+            className={`fixed inset-x-0 top-6 z-20 mt-3 hidden duration-300 lg:block ${
               isHeaderNavVisible ? "opacity-100" : "opacity-0"
             }`}
           >
@@ -529,7 +529,7 @@ export default function Homepage() {
           {!isSidebarOpen && (
             <button
               aria-label="Open menu"
-              className={`fixed right-4 top-6 z-50 flex h-12 w-12 items-center justify-center duration-300 lg:hidden ${
+              className={`fixed right-4 top-6 z-20 flex h-12 w-12 items-center justify-center duration-300 lg:hidden ${
                 isHamburgerVisible ? "opacity-100" : "opacity-0"
               }`}
               onClick={() => setIsSidebarOpen(true)}
@@ -546,7 +546,7 @@ export default function Homepage() {
           <AnimatePresence>
             {isSidebarOpen && (
               <motion.div
-                className="fixed inset-0 z-40 lg:hidden"
+                className="fixed inset-0 z-20 lg:hidden"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -671,7 +671,7 @@ export default function Homepage() {
             <video
               ref={videoRef}
               autoPlay
-              className="absolute inset-0 -z-10 h-full w-full bg-black object-cover"
+              className="absolute inset-0 h-full w-full bg-black object-cover"
               loop
               muted
               playsInline
@@ -710,11 +710,11 @@ export default function Homepage() {
             />
             {/* Dark overlay that increases with scroll - hidden until scroll reaches 150px */}
             <motion.div
-              // className="absolute inset-0 h-screen w-screen bg-black"
-              // initial={{ opacity: 0 }}
-              // animate={{ opacity: 0 }}
-              // style={{ opacity: overlayOpacity }}
-              // transition={{ duration: 0 }}
+              className="absolute inset-0 h-screen w-screen bg-black"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0 }}
+              style={{ opacity: overlayOpacity }}
+              transition={{ duration: 0 }}
             />
             <motion.div ref={containerRef}>
               <motion.h1
@@ -769,7 +769,7 @@ export default function Homepage() {
             <audio loop preload="auto" ref={audioRef} src={music} />
             <button
               aria-label={isPlaying ? "Mute music" : "Play music"}
-              className="fixed bottom-6 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-[#222222]/50 shadow-lg transition hover:bg-[#222222] focus:outline-none"
+              className="fixed bottom-6 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-[#222222]/50 shadow-lg transition hover:bg-[#222222] focus:outline-none"
               style={{ pointerEvents: "auto" }}
               onClick={toggleMusic}
               type="button"
