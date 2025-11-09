@@ -710,11 +710,11 @@ export default function Homepage() {
             />
             {/* Dark overlay that increases with scroll - hidden until scroll reaches 150px */}
             <motion.div
-              className="absolute inset-0 h-screen w-screen bg-black"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0 }}
+              // className="absolute inset-0 h-screen w-screen bg-black"
+              // initial={{ opacity: 0 }}
+              // animate={{ opacity: 0 }}
               // style={{ opacity: overlayOpacity }}
-              transition={{ duration: 0 }}
+              // transition={{ duration: 0 }}
             />
             <motion.div ref={containerRef}>
               <motion.h1
