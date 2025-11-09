@@ -62,7 +62,7 @@ function PageContent() {
       <PhotoAlbum2 />
       <Gifts />
       <section id="love-letters">
-        <Wish guestId={guestId} guestName={guestName} />
+        <Wish guestName={guestName} />
       </section>
       <Contact />
       <Outro />

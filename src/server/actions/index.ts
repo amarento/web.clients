@@ -4,7 +4,7 @@ import { and, eq } from 'drizzle-orm';
 import { z } from 'zod';
 import { createServerAction } from 'zsa';
 import { db } from '~/server/db';
-import { clients, events, eventsToGuests } from '~/server/db/schema';
+import { clients, events, eventsToGuests, anonymousWishes } from '~/server/db/schema';
 
 export const addWishAction = createServerAction()
   .input(
@@ -132,4 +132,53 @@ export const getAllWishes = createServerAction()
       ...new Map(allWishes.map((item) => [item.guestId, item])).values(),
     ];
     return uniqueWishes.map(({ wish, name }) => ({ wish, name }));
+  });
+
+// Anonymous Wishes Actions
+export const addAnonymousWishAction = createServerAction()
+  .input(
+    z.object({
+      clientId: z.number(),
+      eventCategory: z.enum([
+        "holy_matrimony",
+        "reception",
+        "engagement",
+        "ceremony",
+        "party",
+        "meeting",
+        "conference",
+        "other",
+      ]),
+      name: z.string().min(1, "Name is required"),
+      wish: z.string().min(1, "Wish is required"),
+    })
+  )
+  .handler(async ({ input }) => {
+    await db.insert(anonymousWishes).values({
+      clientId: input.clientId,
+      eventCategory: input.eventCategory,
+      name: input.name,
+      wish: input.wish,
+    });
+  });
+
+export const getAllAnonymousWishes = createServerAction()
+  .input(
+    z.object({
+      clientId: z.number(),
+      eventCategory: z.enum([
+        "reception",
+        "holy_matrimony",
+      ]),
+    })
+  )
+  .handler(async ({ input }) => {
+    const wishes = await db.query.anonymousWishes.findMany({
+      where: and(
+        eq(anonymousWishes.clientId, input.clientId),
+        eq(anonymousWishes.eventCategory, input.eventCategory)
+      ),
+      orderBy: (anonymousWishes, { desc }) => [desc(anonymousWishes.createdAt)],
+    });
+    return wishes.map(({ wish, name }) => ({ wish, name }));
   });

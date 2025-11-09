@@ -4,6 +4,7 @@ import {
   date,
   index,
   integer,
+  json,
   pgEnum,
   pgTableCreator,
   primaryKey,
@@ -11,6 +12,7 @@ import {
   text,
   time,
   timestamp,
+  unique,
   varchar,
 } from 'drizzle-orm/pg-core';
 import type { AdapterAccount } from 'next-auth/adapters';
@@ -26,14 +28,10 @@ export const createTable = pgTableCreator((name) => `${name}`);
 // ENUMS
 export const rsvpStatus = pgEnum('rsvp_status', [
   'DRAFT',
-  'SENT',
-  'DELIVERED',
-  'READ',
-  'FAILED',
+  'PENDING',
   'ATTENDING',
   'DECLINED',
   'CHECKED_IN',
-  'ANSWERING',
 ]);
 
 export const eventType = pgEnum('event_type', ['personal', 'organization']);
@@ -71,6 +69,15 @@ export const angpaoRecipient = pgEnum('angpao_recipient', [
 
 export const angpaoType = pgEnum('angpao_type', ['digital', 'physical']);
 
+export const guestType = pgEnum('guest_type', ['FRIEND', 'FAMILY']);
+
+export const accommodationStatus = pgEnum('accommodation_status', [
+  'PENDING',
+  'ACCEPTED',
+  'DECLINED',
+  'REFUND_REQUESTED',
+]);
+
 // TABLES
 export const clients = createTable('clients', {
   id: serial('id').primaryKey(),
@@ -87,6 +94,9 @@ export const clients = createTable('clients', {
 
 export const clientRelations = relations(clients, ({ many }) => ({
   events: many(events),
+  accommodations: many(accommodations),
+  menuItems: many(menuItems),
+  anonymousWishes: many(anonymousWishes),
 }));
 
 export const events = createTable('events', {
@@ -96,6 +106,7 @@ export const events = createTable('events', {
     .notNull(),
   title: varchar('title', { length: 256 }).notNull(),
   location: varchar('location', { length: 256 }).notNull(),
+  googleMapsUrl: varchar('google_maps_url', { length: 512 }),
   date: date('date').notNull(),
   time: time('time').notNull(),
 
@@ -171,6 +182,7 @@ export const guests = createTable('guests', {
   id: serial('id').primaryKey(),
   names: varchar('names', { length: 256 }).notNull(),
   phoneNumber: varchar('phone_number', { length: 256 }).notNull(),
+  bankDetails: text('bank_details'), // Format: "Bank/AccountNumber/AccountName"
   createdAt: timestamp('created_at', { withTimezone: true })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
@@ -195,6 +207,7 @@ export const eventsToGuests = createTable('events_to_guests', {
     .notNull(),
   status: rsvpStatus('status').default('DRAFT'),
   side: varchar('side', { length: 256 }), // Groom or Bride
+  guestType: guestType('guest_type'), // Contextual to event relationship
   nRsvp: integer('n_rsvp').notNull(),
   nRsvpWa: integer('n_rsvp_wa'),
   nameList: text('name_list'), // List of names for the guest
@@ -203,6 +216,13 @@ export const eventsToGuests = createTable('events_to_guests', {
   nAttendees: integer('n_attendees'),
   tableName: varchar('table_name', { length: 256 }),
   souvenir: boolean('souvenir').default(false),
+
+  /** accommodation field. */
+  providedAccommodationId: integer('provided_accommodation_id').references(
+    () => accommodations.id,
+    { onDelete: 'set null' }
+  ),
+
   createdAt: timestamp('created_at', { withTimezone: true })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
@@ -223,9 +243,16 @@ export const eventsToGuestsRelations = relations(
       references: [guests.id],
     }),
     rsvpMessages: many(rsvpMessages),
+    providedAccommodation: one(accommodations, {
+      fields: [eventsToGuests.providedAccommodationId],
+      references: [accommodations.id],
+    }),
+    accommodationBookings: one(accommodationBookings),
+    menuSelections: many(menuSelections),
   })
 );
 
+/** rsvp messages */
 export const rsvpMessages = createTable('rsvp_messages', {
   id: serial('id').primaryKey(),
   eventToGuestId: integer('event_to_guest_id')
@@ -253,6 +280,7 @@ export const rsvpMessagesRelations = relations(rsvpMessages, ({ one }) => ({
   }),
 }));
 
+/** angpaos */
 export const angpaos = createTable('angpaos', {
   id: serial('id').primaryKey(),
   bringerGuestId: integer('bringer_guest_id')
@@ -294,7 +322,196 @@ export const angpaosRelations = relations(angpaos, ({ one }) => ({
   }),
 }));
 
-// user and authentication tables
+/** accommodations */
+export const accommodations = createTable('accommodations', {
+  id: serial('id').primaryKey(),
+  clientId: integer('client_id')
+    .references(() => clients.id, { onDelete: 'cascade' })
+    .notNull(),
+  name: varchar('name', { length: 256 }).notNull(), // "PARAGON Hotel", "AYANA Resort"
+  provider: varchar('provider', { length: 256 }).notNull(), // "PARAGON", "AYANA", "Marriott" (free text)
+  supportsRefund: boolean('supports_refund').default(false).notNull(), // Business logic flag
+  address: text('address'),
+  googleMapsUrl: varchar('google_maps_url', { length: 512 }).notNull(),
+  checkInTime: time('check_in_time').default('14:00:00').notNull(), // e.g., 15:00
+  checkOutTime: time('check_out_time').default('12:00:00').notNull(), // e.g., 12:00
+  description: text('description'),
+  isActive: boolean('is_active').default(true).notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).$onUpdate(
+    () => new Date()
+  ),
+});
+
+export const accommodationRelations = relations(
+  accommodations,
+  ({ one, many }) => ({
+    client: one(clients, {
+      fields: [accommodations.clientId],
+      references: [clients.id],
+    }),
+    bookings: many(accommodationBookings),
+  })
+);
+
+export const accommodationBookings = createTable('accommodation_bookings', {
+  id: serial('id').primaryKey(),
+  eventToGuestId: integer('event_to_guest_id')
+    .references(() => eventsToGuests.id, { onDelete: 'cascade' })
+    .notNull(),
+  accommodationId: integer('accommodation_id')
+    .references(() => accommodations.id, { onDelete: 'cascade' })
+    .notNull(),
+  status: accommodationStatus('status').default('PENDING').notNull(),
+  nights: integer('nights'),
+  checkInDate: date('check_in_date'),
+  checkOutDate: date('check_out_date'),
+  specialRequests: text('special_requests'),
+  createdAt: timestamp('created_at', { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).$onUpdate(
+    () => new Date()
+  ),
+});
+
+export const accommodationBookingRelations = relations(
+  accommodationBookings,
+  ({ one }) => ({
+    eventToGuest: one(eventsToGuests, {
+      fields: [accommodationBookings.eventToGuestId],
+      references: [eventsToGuests.id],
+    }),
+    accommodation: one(accommodations, {
+      fields: [accommodationBookings.accommodationId],
+      references: [accommodations.id],
+    }),
+  })
+);
+
+/** menu items table. */
+export const menuItems = createTable('menu_items', {
+  id: serial('id').primaryKey(),
+  clientId: integer('client_id')
+    .references(() => clients.id, { onDelete: 'cascade' })
+    .notNull(),
+  key: varchar('key', { length: 50 }).notNull(), // e.g., 'beef', 'salmon', 'vegan_kids'
+  title: varchar('title', { length: 100 }).notNull(), // e.g., 'BEEF', 'SALMON', 'VEGAN/KIDS'
+  description: text('description').notNull(), // e.g., 'Pan Seared Beef Tenderloin'
+  isActive: boolean('is_active').default(true).notNull(),
+  displayOrder: integer('display_order').default(0).notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).$onUpdate(
+    () => new Date()
+  ),
+});
+
+export const menuItemsRelations = relations(menuItems, ({ one, many }) => ({
+  client: one(clients, {
+    fields: [menuItems.clientId],
+    references: [clients.id],
+  }),
+  menuSelections: many(menuSelections),
+}));
+
+/** menu selection table. */
+export const menuSelections = createTable(
+  'menu_selections',
+  {
+    id: serial('id').primaryKey(),
+    eventToGuestId: integer('event_to_guest_id')
+      .references(() => eventsToGuests.id, { onDelete: 'cascade' })
+      .notNull(),
+    menuItemId: integer('menu_item_id')
+      .references(() => menuItems.id, { onDelete: 'cascade' })
+      .notNull(),
+    guestName: varchar('guest_name', { length: 256 }).notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).$onUpdate(
+      () => new Date()
+    ),
+  },
+  (table) => ({
+    // Unique constraint on eventToGuestId + guestName (one selection per guest per event)
+    uniqueGuestSelection: unique('menu_selections_event_guest_name_unique').on(
+      table.eventToGuestId,
+      table.guestName
+    ),
+  })
+);
+
+export const menuSelectionsRelations = relations(menuSelections, ({ one }) => ({
+  eventToGuest: one(eventsToGuests, {
+    fields: [menuSelections.eventToGuestId],
+    references: [eventsToGuests.id],
+  }),
+  menuItem: one(menuItems, {
+    fields: [menuSelections.menuItemId],
+    references: [menuItems.id],
+  }),
+}));
+
+/** flows */
+export const flows = createTable('flows', {
+  id: serial('id').primaryKey(),
+  name: varchar('name', { length: 256 }).notNull(),
+  definition: json('definition').notNull(),
+  clientId: integer('client_id')
+    .references(() => clients.id, { onDelete: 'cascade' })
+    .notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).$onUpdate(
+    () => new Date()
+  ),
+});
+
+export const flowsRelations = relations(flows, ({ one, many }) => ({
+  client: one(clients, { fields: [flows.clientId], references: [clients.id] }),
+  guestFlowStates: many(guestFlowStates),
+}));
+
+export const guestFlowStates = createTable('guest_flow_states', {
+  id: serial('id').primaryKey(),
+  guestId: integer('guest_id')
+    .references(() => guests.id, { onDelete: 'cascade' })
+    .notNull(),
+  flowId: integer('flow_id')
+    .references(() => flows.id, { onDelete: 'cascade' })
+    .notNull(),
+  currentNodeId: varchar('current_node_id', { length: 256 }).notNull(),
+  data: json('data').default({}),
+  isActive: boolean('is_active').default(true).notNull(),
+  startedAt: timestamp('started_at', { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).$onUpdate(
+    () => new Date()
+  ),
+});
+
+export const guestFlowStatesRelations = relations(
+  guestFlowStates,
+  ({ one }) => ({
+    guest: one(guests, {
+      fields: [guestFlowStates.guestId],
+      references: [guests.id],
+    }),
+    flow: one(flows, {
+      fields: [guestFlowStates.flowId],
+      references: [flows.id],
+    }),
+  })
+);
+
+/** user and authentication. */
 export const users = createTable('user', {
   id: varchar('id', { length: 255 })
     .notNull()
@@ -407,3 +624,27 @@ export const verificationTokens = createTable(
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
   })
 );
+
+// Anonymous Wishes Table - for wishes without guest authentication
+export const anonymousWishes = createTable('anonymous_wishes', {
+  id: serial('id').primaryKey(),
+  clientId: integer('client_id')
+    .references(() => clients.id, { onDelete: 'cascade' })
+    .notNull(),
+  eventCategory: eventCategory('event_category').notNull(),
+  name: varchar('name', { length: 256 }).notNull(),
+  wish: text('wish').notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).$onUpdate(
+    () => new Date()
+  ),
+});
+
+export const anonymousWishesRelations = relations(anonymousWishes, ({ one }) => ({
+  client: one(clients, {
+    fields: [anonymousWishes.clientId],
+    references: [clients.id],
+  }),
+}));

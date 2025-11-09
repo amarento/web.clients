@@ -14,10 +14,13 @@ import {
   useServerActionMutation,
   useServerActionQuery,
 } from "~/lib/hooks/server-action-hooks";
-import { addWishAction, getAllWishes } from "~/server/actions";
+import {
+  addAnonymousWishAction,
+  getAllAnonymousWishes,
+} from "~/server/actions";
 
 const wishSchema = z.object({
-  name: z.string(),
+  name: z.string().min(1, { message: "Name is required." }),
   wish: z
     .string()
     .min(1, { message: "Wish cannot be empty." })
@@ -25,24 +28,29 @@ const wishSchema = z.object({
 });
 
 interface IWishProps {
-  readonly guestName: string | undefined;
-  readonly guestId: number | undefined;
+  readonly guestName?: string;
 }
 
-export default function Wish({ guestName, guestId }: IWishProps) {
-  const { data: wishes, refetch } = useServerActionQuery(getAllWishes, {
-    input: {
-      clientId: 13,
-      eventCategory: "reception",
+export default function Wish({ guestName }: IWishProps) {
+  const { data: wishes, refetch } = useServerActionQuery(
+    getAllAnonymousWishes,
+    {
+      input: {
+        clientId: 13,
+        eventCategory: "reception",
+      },
+      queryKey: ["anonymous-wishes"],
     },
-    queryKey: ["wishes"],
-  });
+  );
 
-  const { mutateAsync: sendWish } = useServerActionMutation(addWishAction, {
-    onSuccess: () => {
-      void refetch();
+  const { mutateAsync: sendWish } = useServerActionMutation(
+    addAnonymousWishAction,
+    {
+      onSuccess: () => {
+        void refetch();
+      },
     },
-  });
+  );
 
   // Embla Carousel setup with autoplay and auto height
   const autoplayPlugin = Autoplay({ delay: 10_000, stopOnInteraction: false });
@@ -76,22 +84,29 @@ export default function Wish({ guestName, guestId }: IWishProps) {
 
   React.useEffect(() => {
     reset({
-      name: guestName,
+      name: guestName ?? "",
+      wish: "",
     });
   }, [guestName, reset]);
 
   const onSubmit = async (data: z.infer<typeof wishSchema>) => {
-    if (!guestId) {
-      toast.error("An error occured while adding wish. Guest not found.");
-    }
-
-    if (guestId) {
+    try {
       await sendWish({
-        guestId,
+        name: data.name,
         wish: data.wish,
         clientId: 13,
         eventCategory: "reception",
       });
+
+      // Clear the wish field after successful submission
+      reset({
+        name: data.name,
+        wish: "",
+      });
+
+      toast.success("Wish sent successfully!");
+    } catch (error) {
+      toast.error("Failed to send wish. Please try again.");
     }
   };
 
@@ -208,6 +223,7 @@ export default function Wish({ guestName, guestId }: IWishProps) {
             <input
               {...register("name")}
               className="mb-4 block w-full rounded-sm border bg-[#FCFCFC] p-2 text-[14px] text-muted-foreground md:mb-6 md:text-[16px] lg:text-[18px]"
+              placeholder="Your name"
               disabled={!!guestName}
             />
           </motion.div>
