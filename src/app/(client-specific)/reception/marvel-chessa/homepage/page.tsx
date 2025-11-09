@@ -691,13 +691,13 @@ export default function Homepage() {
               className="absolute inset-0 h-full w-full bg-black object-cover"
               loop
               muted
-              // playsInline
+              playsInline
               preload="auto"
               controls={false}
               disablePictureInPicture
-              // webkit-playsinline="true"
-              // x5-video-player-type="h5"
-              // x5-video-player-fullscreen="true"
+              webkit-playsinline="true"
+              x5-video-player-type="h5"
+              x5-video-player-fullscreen="true"
               src={video}
               onLoadStart={() => {
                 // Ensure video container has proper background immediately
