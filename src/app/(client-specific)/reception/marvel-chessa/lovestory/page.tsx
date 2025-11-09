@@ -117,6 +117,7 @@ export default function LoveStory() {
             src={imgstory1}
             alt="IMG1"
             priority
+            loading="eager"
           />
         </div>
       </motion.div>
@@ -145,6 +146,7 @@ export default function LoveStory() {
             src={imgstory2}
             alt="IMG2"
             priority
+            loading="eager"
           />
         </div>
       </motion.div>
@@ -172,6 +174,7 @@ export default function LoveStory() {
             src={imgstory3}
             alt="IMG3"
             priority
+            loading="eager"
           />
         </div>
       </motion.div>
@@ -205,12 +208,14 @@ export default function LoveStory() {
             src={imgstory4}
             alt="IMG4"
             priority
+            loading="eager"
           />
           <Image
             className="mx-auto mb-8 w-[65%] md:w-[40%]"
             src={imgstory5}
             alt="IMG5"
             priority
+            loading="eager"
           />
           <p className="text-center text-[12px] italic md:text-[14px] lg:text-[16px] xl:text-[18px]">
             Under the city skyline where it all began, he got down on one knee.
@@ -230,6 +235,7 @@ export default function LoveStory() {
           src={img1}
           alt="IMG1"
           priority
+          loading="eager"
         />
       </motion.div>
       <motion.div
@@ -244,6 +250,7 @@ export default function LoveStory() {
           src={img2}
           alt="IMG2"
           priority
+          loading="eager"
         />
       </motion.div>
     </motion.div>

@@ -75,6 +75,7 @@ export default function PhotoAlbum2() {
           src={img8}
           alt="IMG8"
           priority
+          loading="eager"
         />
       </motion.div>
       <motion.div
@@ -89,6 +90,7 @@ export default function PhotoAlbum2() {
           src={img9}
           alt="IMG9"
           priority
+          loading="eager"
         />
       </motion.div>
       <div className="mb-8">
@@ -104,6 +106,7 @@ export default function PhotoAlbum2() {
             src={img10}
             alt="IMG10"
             priority
+            loading="eager"
           />
         </motion.div>
         <motion.div
@@ -118,6 +121,7 @@ export default function PhotoAlbum2() {
             src={img11}
             alt="IMG11"
             priority
+            loading="eager"
           />
         </motion.div>
         <motion.div
@@ -132,6 +136,7 @@ export default function PhotoAlbum2() {
             src={img12}
             alt="IMG12"
             priority
+            loading="eager"
           />
         </motion.div>
       </div>
@@ -143,10 +148,11 @@ export default function PhotoAlbum2() {
         }}
       >
         <Image
-          className="mb-20 lg:mb-24 ml-auto mt-10 h-auto w-[75%] object-cover sm:mb-20 sm:mt-24 sm:w-[65%] md:mr-[5%] md:w-[60%] lg:mr-[10%] lg:w-[50%]"
+          className="mb-20 ml-auto mt-10 h-auto w-[75%] object-cover sm:mb-20 sm:mt-24 sm:w-[65%] md:mr-[5%] md:w-[60%] lg:mb-24 lg:mr-[10%] lg:w-[50%]"
           src={img13}
           alt="IMG13"
           priority
+          loading="eager"
         />
       </motion.div>
       <motion.div
@@ -161,6 +167,7 @@ export default function PhotoAlbum2() {
           src={img14}
           alt="IMG14"
           priority
+          loading="eager"
         />
       </motion.div>
       <motion.div
@@ -175,6 +182,7 @@ export default function PhotoAlbum2() {
           src={img15}
           alt="IMG15"
           priority
+          loading="eager"
         />
       </motion.div>
     </motion.div>

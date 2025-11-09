@@ -144,6 +144,7 @@ export default function Dresscode() {
           src={img3}
           alt="IMG3"
           priority
+          loading="eager"
         />
       </motion.div>
       <motion.div
@@ -158,6 +159,7 @@ export default function Dresscode() {
           src={img4}
           alt="IMG4"
           priority
+          loading="eager"
         />
       </motion.div>
     </motion.div>

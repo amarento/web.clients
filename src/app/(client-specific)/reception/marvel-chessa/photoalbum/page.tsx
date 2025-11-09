@@ -60,6 +60,7 @@ export default function PhotoAlbum() {
           src={img5}
           alt="IMG5"
           priority
+          loading="eager"
         />
       </motion.div>
       <motion.div
@@ -74,6 +75,7 @@ export default function PhotoAlbum() {
           src={img6}
           alt="IMG6"
           priority
+          loading="eager"
         />
       </motion.div>
       <motion.div
@@ -88,6 +90,7 @@ export default function PhotoAlbum() {
           src={img7}
           alt="IMG7"
           priority
+          loading="eager"
         />
       </motion.div>
     </motion.div>
