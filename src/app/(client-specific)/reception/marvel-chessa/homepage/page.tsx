@@ -91,7 +91,7 @@ export default function Homepage() {
   const { scrollY } = useScroll();
 
   // Three-stage scroll animation with spring physics
-  const overlayOpacityRaw = useTransform(scrollY, [0, 100, 200], [0, 0.3, 1]);
+  const overlayOpacityRaw = useTransform(scrollY, [0, 100, 200], [0, 0, 1]);
   const homepageOpacityRaw = useTransform(scrollY, [0, 100, 200], [1, 1, 0]);
 
   // Apply spring animation to the transforms for smooth, natural motion
@@ -708,12 +708,13 @@ export default function Homepage() {
                 }
               }}
             />
-            {/* Dark overlay that increases with scroll */}
+            {/* Dark overlay that increases with scroll - hidden until scroll reaches 150px */}
             <motion.div
               className="absolute inset-0 h-screen w-screen bg-black"
               initial={{ opacity: 0 }}
+              animate={{ opacity: 0 }}
               style={{ opacity: overlayOpacity }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
+              transition={{ duration: 0 }}
             />
             <motion.div ref={containerRef}>
               <motion.h1
