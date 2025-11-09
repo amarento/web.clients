@@ -239,6 +239,7 @@ export default function Homepage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authCode, setAuthCode] = useState("");
   const [authError, setAuthError] = useState("");
+  const [videoLoaded, setVideoLoaded] = useState(false);
   const correctCode = "MCUnited"; // Password is case insensitive
 
   const handleAuthSubmit = (e: React.FormEvent) => {
@@ -681,19 +682,22 @@ export default function Homepage() {
               pointerEvents: "none",
             }}
           >
+            {/* Black background div that's always present behind video */}
+            <div className="absolute inset-0 h-full w-full bg-black" />
+
             <video
               ref={videoRef}
               autoPlay
               className="absolute inset-0 h-full w-full bg-black object-cover"
               loop
               muted
-              playsInline
+              // playsInline
               preload="auto"
               controls={false}
               disablePictureInPicture
-              webkit-playsinline="true"
-              x5-video-player-type="h5"
-              x5-video-player-fullscreen="true"
+              // webkit-playsinline="true"
+              // x5-video-player-type="h5"
+              // x5-video-player-fullscreen="true"
               src={video}
               onLoadStart={() => {
                 // Ensure video container has proper background immediately
@@ -701,6 +705,10 @@ export default function Homepage() {
                 if (videoEl) {
                   videoEl.style.backgroundColor = "#000000";
                 }
+              }}
+              onLoadedData={() => {
+                // Mark video as loaded when first frame is available
+                setVideoLoaded(true);
               }}
               onLoadedMetadata={() => {
                 // Try to play as soon as metadata is loaded
