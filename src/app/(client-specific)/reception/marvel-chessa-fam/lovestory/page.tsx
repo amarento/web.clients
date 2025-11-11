@@ -116,8 +116,8 @@ export default function LoveStory() {
             className="mx-auto mb-10 w-[65%] md:w-[40%]"
             src={imgstory1}
             alt="IMG1"
-            priority
-            loading="eager"
+            width={800}
+            height={800}
           />
         </div>
       </motion.div>
@@ -145,8 +145,8 @@ export default function LoveStory() {
             className="mx-auto mb-10 w-[65%] md:w-[40%]"
             src={imgstory2}
             alt="IMG2"
-            priority
-            loading="eager"
+            width={800}
+            height={800}
           />
         </div>
       </motion.div>
@@ -173,8 +173,8 @@ export default function LoveStory() {
             className="mx-auto mb-10 w-[65%] md:w-[40%]"
             src={imgstory3}
             alt="IMG3"
-            priority
-            loading="eager"
+            width={800}
+            height={800}
           />
         </div>
       </motion.div>
@@ -201,8 +201,8 @@ export default function LoveStory() {
             className="mx-auto mb-8 w-[65%] md:w-[40%]"
             src={imgstory4}
             alt="IMG4"
-            priority
-            loading="eager"
+            width={800}
+            height={800}
           />
           <h5 className="mb-4 font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
             With help from a few friends, Marvel planned the proposal (after one
@@ -214,8 +214,8 @@ export default function LoveStory() {
             className="mx-auto mb-8 w-[65%] md:w-[40%]"
             src={imgstory5}
             alt="IMG5"
-            priority
-            loading="eager"
+            width={800}
+            height={800}
           />
           <p className="text-center text-[12px] italic md:text-[14px] lg:text-[16px] xl:text-[18px]">
             Under the city skyline where it all began, he got down on one knee.
@@ -234,8 +234,8 @@ export default function LoveStory() {
           className="ml-8 w-[60%] sm:ml-[12%] sm:w-[49%] md:ml-[13%] md:w-[43%] lg:ml-[25%] lg:w-[28%]"
           src={img1}
           alt="IMG1"
-          priority
-          loading="eager"
+          width={800}
+          height={800}
         />
       </motion.div>
       <motion.div
@@ -249,8 +249,8 @@ export default function LoveStory() {
           className="-mt-20 ml-auto mr-8 w-[65%] sm:-mt-24 sm:mr-[12%] sm:w-[47%] md:-mt-28 md:mr-[13%] md:w-[45%] lg:-mt-32 lg:mr-[25%] lg:w-[30%]"
           src={img2}
           alt="IMG2"
-          priority
-          loading="eager"
+          width={800}
+          height={800}
         />
       </motion.div>
     </motion.div>

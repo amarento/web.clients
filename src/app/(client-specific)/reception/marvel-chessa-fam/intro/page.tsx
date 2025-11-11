@@ -156,7 +156,7 @@ export default function Intro() {
         </motion.div>
       </motion.div>
       <motion.div
-        className="mt-[25vh] flex justify-center pb-6"
+        className="mt-[25vh] flex justify-center pb-6 lg:pb-8 xl:pb-10"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{
@@ -201,7 +201,7 @@ export default function Intro() {
             {/* Dark overlay on photos */}
             <div className="absolute inset-0 w-screen bg-black/10" />
             {/* Text overlay centered on photos */}
-            <motion.h4 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center font-cormorant text-[14px] text-white lg:text-[16px] xl:text-[20px]">
+            <motion.h4 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center font-cormorant text-[14px] text-white md:text-[18px] lg:text-[20px] xl:text-[25px] 2xl:text-[39px]">
               A JOURNEY IN LOVE
             </motion.h4>
           </div>

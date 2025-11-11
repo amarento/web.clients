@@ -788,22 +788,23 @@ export default function Homepage() {
 
             {/* Music player button */}
             <audio loop preload="auto" ref={audioRef} src={music} />
-            <button
-              aria-label={isPlaying ? "Mute music" : "Play music"}
-              className="fixed bottom-6 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-[#222222]/50 shadow-lg transition hover:bg-[#222222] focus:outline-none"
-              style={{ pointerEvents: "auto" }}
-              onClick={toggleMusic}
-              type="button"
-            >
-              {isPlaying ? (
-                // Mute icon (simple SVG)
-                <MdOutlineMusicNote className="h-5 w-5" />
-              ) : (
-                // Play icon (simple SVG)
-                <MdOutlineMusicOff className="h-5 w-5" />
-              )}
-            </button>
           </motion.div>
+
+          {/* Music player button - outside homepage motion.div to stay sticky on viewport */}
+          <button
+            aria-label={isPlaying ? "Mute music" : "Play music"}
+            className="fixed bottom-6 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-[#222222]/50 text-white shadow-lg transition hover:bg-[#222222] focus:outline-none xl:right-6 xl:h-12 xl:w-12"
+            onClick={toggleMusic}
+            type="button"
+          >
+            {isPlaying ? (
+              // Mute icon (simple SVG)
+              <MdOutlineMusicNote className="h-5 w-5" />
+            ) : (
+              // Play icon (simple SVG)
+              <MdOutlineMusicOff className="h-5 w-5" />
+            )}
+          </button>
         </>
       )}
     </>

@@ -59,8 +59,8 @@ export default function PhotoAlbum() {
           className="lg:mt-18 h-auto w-[46%] object-cover sm:mt-20 sm:w-[45%] md:mt-12 md:w-[42%] lg:ml-16 lg:w-[32%]"
           src={img5}
           alt="IMG5"
-          priority
-          loading="eager"
+          width={800}
+          height={800}
         />
       </motion.div>
       <motion.div
@@ -74,8 +74,8 @@ export default function PhotoAlbum() {
           className="relative -mt-60 ml-auto h-auto w-[47%] object-cover sm:-mt-[360px] sm:w-[45%] md:-mt-[410px] md:w-[42%] lg:-mt-[580px] lg:mr-16 lg:w-[34%]"
           src={img6}
           alt="IMG6"
-          priority
-          loading="eager"
+          width={800}
+          height={800}
         />
       </motion.div>
       <motion.div
@@ -89,8 +89,8 @@ export default function PhotoAlbum() {
           className="-mt-32 ml-[15%] h-auto w-[45%] object-cover sm:-mt-40 sm:ml-[25%] sm:w-[42%] md:w-[40%] lg:ml-[35%] lg:w-[33%]"
           src={img7}
           alt="IMG7"
-          priority
-          loading="eager"
+          width={800}
+          height={800}
         />
       </motion.div>
     </motion.div>

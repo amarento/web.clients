@@ -83,7 +83,8 @@ export default function Thewedding() {
           className="mx-auto mb-8 w-[50%] sm:w-[40%] md:w-[33%] lg:mt-2 lg:w-[25%]"
           src={imgholmat}
           alt="Holy Matrimony"
-          priority
+          width={800}
+          height={800}
         />
         <h2 className="mb-[6px] font-cormorant text-[20px] tracking-tight drop-shadow-2xl xl:text-[25px]">
           HOLY MATRIMONY
@@ -95,7 +96,7 @@ export default function Thewedding() {
           SKY Ampitheatre, AYANA Resort Bali
         </h4>
         <Button
-          className="active:scale-98 group rounded-none border-[1px] border-[#555555] bg-[#F6F4F1] px-5 py-2 transition-all duration-200 ease-out hover:bg-[#FFFFFF] active:bg-[#1D1A1B] lg:px-6 lg:py-3"
+          className="active:scale-98 group mb-16 rounded-none border-[1px] border-[#555555] bg-[#F6F4F1] px-5 py-2 transition-all duration-200 ease-out hover:bg-[#FFFFFF] active:bg-[#1D1A1B] lg:px-6 lg:py-3"
           onClick={() =>
             window.open("https://maps.app.goo.gl/w6ayGkvMBsUkzvGL6")
           }
@@ -118,7 +119,8 @@ export default function Thewedding() {
           className="mx-auto mb-8 w-[50%] sm:w-[45%] md:w-[40%] lg:mb-12 lg:w-[29%]"
           src={imgcocktails}
           alt="Cocktail & Canapes"
-          priority
+          width={800}
+          height={800}
         />
         <h2 className="mb-[6px] font-cormorant text-[20px] tracking-tight drop-shadow-2xl xl:text-[25px]">
           COCKTAIL & CANAPES
@@ -130,7 +132,7 @@ export default function Thewedding() {
           SKY Lower to Middle Lawn, AYANA Resort Bali
         </h4>
         <Button
-          className="active:scale-98 group rounded-none border-[1px] border-[#555555] bg-[#F6F4F1] px-5 py-2 transition-all duration-200 ease-out hover:bg-[#FFFFFF] active:bg-[#1D1A1B] lg:px-6 lg:py-3"
+          className="active:scale-98 group mb-16 rounded-none border-[1px] border-[#555555] bg-[#F6F4F1] px-5 py-2 transition-all duration-200 ease-out hover:bg-[#FFFFFF] active:bg-[#1D1A1B] lg:px-6 lg:py-3"
           onClick={() =>
             window.open("https://maps.app.goo.gl/w6ayGkvMBsUkzvGL6")
           }
@@ -153,7 +155,8 @@ export default function Thewedding() {
           className="mx-auto mb-8 w-[45%] sm:w-[36%] md:w-[33%] lg:mt-5 lg:w-[25%]"
           src={imgreception}
           alt="Dinner Reception"
-          priority
+          width={800}
+          height={800}
         />
         <h2 className="mb-[6px] font-cormorant text-[20px] tracking-tight drop-shadow-2xl xl:text-[25px]">
           DINNER RECEPTION

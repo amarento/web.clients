@@ -58,7 +58,7 @@ export default function Travel() {
   return (
     <motion.div
       ref={containerRef}
-      className="flex flex-col bg-[#1D1A1B] px-8 pt-20 pb-16 text-[#EEEEEE] xl:px-16"
+      className="flex flex-col bg-[#1D1A1B] px-8 pb-16 pt-20 text-[#EEEEEE] xl:px-16"
     >
       {/* Unified responsive layout */}
       <div className="flex flex-col xl:relative xl:flex-row xl:gap-16">
@@ -91,7 +91,8 @@ export default function Travel() {
                 className="mx-auto mb-10 w-[50%] sm:w-[48%] md:w-[42%] xl:mb-12 xl:w-[48%]"
                 src={imgplane}
                 alt="Airplane"
-                priority
+                width={800}
+                height={800}
               />
               <h3 className="mb-2 font-freight text-[16px] tracking-wide drop-shadow-2xl md:text-[18px] xl:mb-4 xl:text-[20px]">
                 Fly in to Ngurah Rai International Airport — what to prepare?
@@ -192,7 +193,8 @@ export default function Travel() {
                   className="mx-auto mb-10 w-[50%] md:w-[42%] lg:w-[35%] xl:w-[42%]"
                   src={imgaccommodation}
                   alt="Accommodation"
-                  priority
+                  width={800}
+                  height={800}
                 />
                 <h3 className="mb-10 text-center font-freight text-[14px] tracking-wide drop-shadow-2xl sm:mx-4 md:text-[16px] xl:mb-8 xl:text-[18px]">
                   As a token of appreciation, we are offering you 2 nights of
@@ -206,7 +208,7 @@ export default function Travel() {
                   Regency, Bali 80364, Indonesia
                 </h4>
                 <Button
-                  className="mb-10 rounded-none border-[1px] border-[#EEEEEE] bg-[#1D1A1B] px-5 py-2 lg:text-[13px] lg:px-7 lg:py-3 font-cormorant text-[12px] text-[#EEEEEE] transition-all duration-200 ease-out active:bg-[#F6F4F1] active:text-[#1D1A1B] xl:mb-8"
+                  className="mb-10 rounded-none border-[1px] border-[#EEEEEE] bg-[#1D1A1B] px-5 py-2 font-cormorant text-[12px] text-[#EEEEEE] transition-all duration-200 ease-out active:bg-[#F6F4F1] active:text-[#1D1A1B] lg:px-7 lg:py-3 lg:text-[13px] xl:mb-8"
                   type="submit"
                   onClick={() =>
                     window.open("https://maps.app.goo.gl/Mha9Hfw28bBjTuhx8")
@@ -244,7 +246,8 @@ export default function Travel() {
                   className="mx-auto mb-8 w-[50%] md:w-[39%] lg:w-[35%] xl:w-[42%]"
                   src={imgbus}
                   alt="Shuttle Car"
-                  priority
+                  width={800}
+                  height={800}
                 />
                 <motion.h3
                   ref={shuttleContentRef}
