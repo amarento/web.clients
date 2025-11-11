@@ -732,7 +732,7 @@ export default function Homepage() {
             {/* Dark overlay that increases with scroll - only render after scrolling starts */}
             {hasScrolledStart && (
               <motion.div
-                className="absolute inset-0 h-screen w-screen bg-black"
+                className="absolute inset-0 h-full w-full bg-black"
                 initial={{ opacity: 0 }}
                 style={{ opacity: overlayOpacity }}
               />

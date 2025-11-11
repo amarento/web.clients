@@ -732,7 +732,7 @@ export default function Homepage() {
             {/* Dark overlay that increases with scroll - only render after scrolling starts */}
             {hasScrolledStart && (
               <motion.div
-                className="absolute inset-0 h-screen w-screen bg-black"
+                className="absolute inset-0 h-full w-full bg-black"
                 initial={{ opacity: 0 }}
                 style={{ opacity: overlayOpacity }}
               />
@@ -789,11 +789,11 @@ export default function Homepage() {
             {/* Music player button */}
             <audio loop preload="auto" ref={audioRef} src={music} />
           </motion.div>
-          
+
           {/* Music player button - outside homepage motion.div to stay sticky on viewport */}
           <button
             aria-label={isPlaying ? "Mute music" : "Play music"}
-            className="fixed text-white bottom-6 right-4 z-50 flex h-10 w-10 xl:h-12 xl:w-12 xl:right-6 items-center justify-center rounded-full bg-[#222222]/50 shadow-lg transition hover:bg-[#222222] focus:outline-none"
+            className="fixed bottom-6 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-[#222222]/50 text-white shadow-lg transition hover:bg-[#222222] focus:outline-none xl:right-6 xl:h-12 xl:w-12"
             onClick={toggleMusic}
             type="button"
           >
