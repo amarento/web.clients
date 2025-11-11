@@ -78,7 +78,7 @@ export default function LoveStory() {
   return (
     <motion.div
       ref={containerRef}
-      className="flex flex-col bg-[#F6F4F1] pb-10 pt-4 text-[#111111] md:pb-12"
+      className="flex flex-col bg-[#F6F4F1] pb-10 text-[#111111] md:pb-12"
     >
       <motion.div
         ref={headerRef}
@@ -197,12 +197,6 @@ export default function LoveStory() {
             Somewhere along the way, they realised they didn’t just want to
             share a Netflix account, but a lifetime.
           </h5>
-          <h5 className="mb-8 font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
-            With help from a few friends, Marvel planned the proposal (after one
-            reschedule and many decoy errands). On the day itself, Chessa showed
-            up with freshly washed hair and manicured nails, blissfully unaware
-            — though her gut hinted something was up.
-          </h5>
           <Image
             className="mx-auto mb-8 w-[65%] md:w-[40%]"
             src={imgstory4}
@@ -210,6 +204,12 @@ export default function LoveStory() {
             priority
             loading="eager"
           />
+          <h5 className="mb-4 font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
+            With help from a few friends, Marvel planned the proposal (after one
+            reschedule and many decoy errands). On the day itself, Chessa showed
+            up with freshly washed hair and manicured nails, blissfully unaware
+            — though her gut hinted something was up.
+          </h5>
           <Image
             className="mx-auto mb-8 w-[65%] md:w-[40%]"
             src={imgstory5}

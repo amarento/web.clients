@@ -432,7 +432,7 @@ export default function Homepage() {
                 exit={{ opacity: 0 }}
                 transition={{ delay: 0.8, duration: 0.8 }}
               >
-                Please enter the code
+                Please enter the passcode
               </motion.p>
 
               <motion.form
@@ -448,7 +448,7 @@ export default function Homepage() {
                     type="text"
                     value={authCode}
                     onChange={(e) => handleAuthCodeChange(e.target.value)}
-                    placeholder="Enter code"
+                    placeholder="Enter passcode"
                     className="w-48 bg-transparent p-2 text-center font-freight text-[20px] tracking-wide text-white placeholder-white/50 outline-none xl:text-[25px]"
                     autoComplete="off"
                   />

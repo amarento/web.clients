@@ -169,12 +169,9 @@ export default function Intro() {
         }}
       >
         <motion.div
-          className="center max-h-screen w-full overflow-hidden"
+          className="center relative max-h-screen w-full overflow-hidden"
           style={{ scale: imageScaleSpring }}
         >
-          <motion.h4 className="mb-8 text-center font-cormorant text-[20px] lg:mb-20 lg:text-[25px] xl:mb-32 xl:text-[31px]">
-            A JOURNEY IN LOVE
-          </motion.h4>
           <div className="relative">
             {images.map((img, index) => (
               <motion.div
@@ -201,6 +198,12 @@ export default function Intro() {
                 />
               </motion.div>
             ))}
+            {/* Dark overlay on photos */}
+            <div className="absolute inset-0 bg-black/10" />
+            {/* Text overlay centered on photos */}
+            <motion.h4 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center font-cormorant text-[14px] text-white drop-shadow-2xl lg:text-[16px] xl:text-[20px]">
+              A JOURNEY IN LOVE
+            </motion.h4>
           </div>
         </motion.div>
       </motion.div>

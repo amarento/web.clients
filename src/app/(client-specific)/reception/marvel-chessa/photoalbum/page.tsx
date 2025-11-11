@@ -65,7 +65,7 @@ export default function PhotoAlbum() {
       </motion.div>
       <motion.div
         ref={image2Ref}
-        className="relative z-20"
+        className="relative z-30"
         style={{
           y: image2.y,
         }}
@@ -80,7 +80,7 @@ export default function PhotoAlbum() {
       </motion.div>
       <motion.div
         ref={image3Ref}
-        className="relative z-10"
+        className="relative z-20"
         style={{
           y: image3.y,
         }}

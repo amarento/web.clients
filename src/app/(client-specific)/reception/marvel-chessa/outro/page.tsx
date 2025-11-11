@@ -37,7 +37,7 @@ export default function Outro() {
   return (
     <motion.div
       ref={containerRef}
-      className="relative flex h-[70vh] w-full flex-col items-center justify-center text-[#111111] md:h-[80vh] lg:h-[100vh]"
+      className="relative flex h-[100vh] w-full flex-col items-center justify-center text-[#111111]"
     >
       <Image
         alt="Outro background"
@@ -50,16 +50,23 @@ export default function Outro() {
           objectPosition: "center 25%",
         }}
       />
-      <div className="absolute inset-0 z-5 bg-black/20" />
+      <div className="z-5 absolute inset-0 bg-black/30" />
       <motion.h5
         ref={titleRef}
-        className="relative z-10 text-center font-cormorant text-[12px] text-[#FFFFFF] md:text-[14px] lg:text-[16px]"
+        className="relative z-10 text-center font-cormorant text-[12px] leading-relaxed text-[#FFFFFF] md:text-[14px] lg:text-[16px] xl:text-[18px]"
         style={{
           opacity: title.opacity,
           y: title.y,
         }}
       >
-        WE CAN&apos;T WAIT TO SEE YOU THERE!
+        THANK YOU <br />{" "}
+        <span className="font-freight text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">
+          FOR ALL YOUR PRAYERS AND WELL WISHES!
+        </span>{" "}
+        <br />{" "}
+        <span className="font-freight text-[10px] md:text-[12px] lg:text-[14px] xl:text-[16px]">
+          WE CAN&apos;T WAIT TO CELEBRATE THIS SPECIAL DAY WITH YOU!
+        </span>
       </motion.h5>
     </motion.div>
   );
