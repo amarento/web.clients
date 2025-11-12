@@ -230,7 +230,7 @@ export default function Homepage() {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [isHamburgerVisible, setIsHamburgerVisible] = useState(true);
+  const [isElementVisible, setisElementVisible] = useState(true);
   const [isHeaderNavVisible, setIsHeaderNavVisible] = useState(true);
   const [scrollingTimeout, setScrollingTimeout] =
     useState<NodeJS.Timeout | null>(null);
@@ -348,6 +348,9 @@ export default function Homepage() {
       // Remove event listeners
       document.removeEventListener("wheel", preventScroll);
       document.removeEventListener("touchmove", preventScroll);
+
+      // Ensure page is at the top after login
+      window.scrollTo(0, 0);
     }
 
     // Cleanup on unmount
@@ -367,7 +370,7 @@ export default function Homepage() {
 
       // Hide hamburger immediately when scrolling down past 50px
       if (currentScrollY > lastScrollY && currentScrollY > 50) {
-        setIsHamburgerVisible(false);
+        setisElementVisible(false);
         if (scrollingTimeout) {
           clearTimeout(scrollingTimeout);
           setScrollingTimeout(null);
@@ -375,7 +378,7 @@ export default function Homepage() {
       }
       // Show hamburger immediately when scrolling up
       else if (currentScrollY < lastScrollY) {
-        setIsHamburgerVisible(true);
+        setisElementVisible(true);
         if (scrollingTimeout) {
           clearTimeout(scrollingTimeout);
           setScrollingTimeout(null);
@@ -544,7 +547,7 @@ export default function Homepage() {
             <button
               aria-label="Open menu"
               className={`fixed right-4 top-6 z-50 flex h-12 w-12 items-center justify-center duration-300 lg:hidden ${
-                isHamburgerVisible ? "opacity-100" : "opacity-0"
+                isElementVisible ? "opacity-100" : "opacity-0"
               }`}
               onClick={() => setIsSidebarOpen(true)}
               type="button"
@@ -793,7 +796,9 @@ export default function Homepage() {
           {/* Music player button - outside homepage motion.div to stay sticky on viewport */}
           <button
             aria-label={isPlaying ? "Mute music" : "Play music"}
-            className="fixed bottom-6 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-[#222222]/50 text-white shadow-lg transition hover:bg-[#222222] focus:outline-none xl:right-6 xl:h-12 xl:w-12"
+            className={`fixed bottom-6 right-4 z-50 flex h-[44px] w-[44px] items-center justify-center rounded-full bg-[#222222]/50 text-white shadow-lg transition duration-300 hover:bg-[#222222] focus:outline-none xl:right-6 xl:h-12 xl:w-12 ${
+              isElementVisible ? "opacity-100" : "opacity-0"
+            }`}
             onClick={toggleMusic}
             type="button"
           >
