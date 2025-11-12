@@ -15,7 +15,7 @@ type TabType =
 export default function Baliguide() {
   const [activeTab, setActiveTab] = useState<TabType>("activities");
   const [openAccordions, setOpenAccordions] = useState<Set<string>>(
-    new Set(["activities-1"]), // First accordion open by default
+    new Set(["activities-1"]),
   );
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -55,8 +55,6 @@ export default function Baliguide() {
     const firstAccordionId = `${activeTab}-1`;
     setOpenAccordions(new Set([firstAccordionId]));
   }, [activeTab]);
-  // const image1 = useViewportImageAnimation(image1Ref, 60, 1.2);
-  // const image2 = useViewportImageAnimation(image2Ref, 100, 1.5);
 
   const toggleAccordion = (id: string) => {
     setOpenAccordions((prev) => {
@@ -91,7 +89,7 @@ export default function Baliguide() {
     useLayoutEffect(() => {
       if (contentRef.current) {
         const h = contentRef.current.scrollHeight;
-        setMeasuredHeight(h + 20); // Add 30px buffer to ensure line and spacing are visible
+        setMeasuredHeight(h + 20);
         setIsMeasured(true);
       }
     }, [content, isOpen]);
@@ -124,7 +122,6 @@ export default function Baliguide() {
     } as const;
 
     const handleClick = () => {
-      // Ensure measurement before animating open
       if (!isOpen && contentRef.current) {
         setMeasuredHeight(contentRef.current.scrollHeight);
       }
@@ -132,7 +129,7 @@ export default function Baliguide() {
     };
 
     return (
-      <motion.div ref={rootRef} className="mb-4 pb-4" initial={false}>
+      <motion.div ref={rootRef} className="mb-4 pb-4 2xl:pb-6" initial={false}>
         <motion.button
           className="group w-full text-center"
           onClick={handleClick}
@@ -151,6 +148,7 @@ export default function Baliguide() {
             {title}
           </motion.h4>
         </motion.button>
+
         {/* Persistent container for symmetric open/close */}
         <motion.div
           className="overflow-hidden"
@@ -168,7 +166,7 @@ export default function Baliguide() {
             variants={contentVariants}
             style={{ willChange: "opacity" }}
           >
-            <p className="font-hanken text-[12px] font-light leading-relaxed lg:text-[14px] xl:text-[16px]">
+            <p className="mx-auto font-hanken text-[12px] font-light leading-relaxed lg:text-[14px] xl:text-[16px] 2xl:w-[80%]">
               {content}
             </p>
             <div
@@ -192,7 +190,7 @@ export default function Baliguide() {
       <div className="text-center">
         <motion.h1
           ref={titleRef}
-          className="mx-auto mb-8 font-cormorant text-[31px] tracking-tight drop-shadow-2xl lg:mb-10 lg:text-[39px] xl:mb-12"
+          className="mx-auto mb-8 font-cormorant text-[31px] tracking-tight drop-shadow-2xl lg:mb-10 lg:text-[39px] xl:mb-12 2xl:text-[49px]"
           style={{
             opacity: title.opacity,
             y: title.y,
@@ -220,7 +218,7 @@ export default function Baliguide() {
               onClick={() => setActiveTab("activities")}
             >
               <p
-                className={`font-cormorant text-[10px] group-active:text-[#FFFFFF] lg:text-[12px] xl:text-[14px] ${
+                className={`font-cormorant text-[10px] group-active:text-[#FFFFFF] lg:text-[12px] xl:text-[14px] 2xl:text-[16px] ${
                   activeTab === "activities"
                     ? "text-[#FFFFFF]"
                     : "text-[#111111]"
@@ -239,7 +237,7 @@ export default function Baliguide() {
               onClick={() => setActiveTab("cafes")}
             >
               <p
-                className={`font-cormorant text-[10px] group-active:text-[#FFFFFF] lg:text-[12px] xl:text-[14px] ${
+                className={`font-cormorant text-[10px] group-active:text-[#FFFFFF] lg:text-[12px] xl:text-[14px] 2xl:text-[16px] ${
                   activeTab === "cafes" ? "text-[#FFFFFF]" : "text-[#111111]"
                 }`}
               >
@@ -256,7 +254,7 @@ export default function Baliguide() {
               onClick={() => setActiveTab("local")}
             >
               <p
-                className={`font-cormorant text-[10px] group-active:text-[#FFFFFF] lg:text-[12px] xl:text-[14px] ${
+                className={`font-cormorant text-[10px] group-active:text-[#FFFFFF] lg:text-[12px] xl:text-[14px] 2xl:text-[16px] ${
                   activeTab === "local" ? "text-[#FFFFFF]" : "text-[#111111]"
                 }`}
               >
@@ -282,7 +280,7 @@ export default function Baliguide() {
               onClick={() => setActiveTab("restaurants")}
             >
               <p
-                className={`font-cormorant text-[10px] group-active:text-[#FFFFFF] lg:text-[12px] xl:text-[14px] ${
+                className={`font-cormorant text-[10px] group-active:text-[#FFFFFF] lg:text-[12px] xl:text-[14px] 2xl:text-[16px] ${
                   activeTab === "restaurants"
                     ? "text-[#FFFFFF]"
                     : "text-[#111111]"
@@ -301,7 +299,7 @@ export default function Baliguide() {
               onClick={() => setActiveTab("clubs")}
             >
               <p
-                className={`font-cormorant text-[10px] group-active:text-[#FFFFFF] lg:text-[12px] xl:text-[14px] ${
+                className={`font-cormorant text-[10px] group-active:text-[#FFFFFF] lg:text-[12px] xl:text-[14px] 2xl:text-[16px] ${
                   activeTab === "clubs" ? "text-[#FFFFFF]" : "text-[#111111]"
                 }`}
               >
@@ -318,7 +316,7 @@ export default function Baliguide() {
               onClick={() => setActiveTab("wellness")}
             >
               <p
-                className={`font-cormorant text-[10px] group-active:text-[#FFFFFF] lg:text-[12px] xl:text-[14px] ${
+                className={`font-cormorant text-[10px] group-active:text-[#FFFFFF] lg:text-[12px] xl:text-[14px] 2xl:text-[16px] ${
                   activeTab === "wellness" ? "text-[#FFFFFF]" : "text-[#111111]"
                 }`}
               >
@@ -337,7 +335,7 @@ export default function Baliguide() {
         >
           {activeTab === "activities" && (
             <motion.div
-              className="text-center lg:mx-auto lg:w-[80%] xl:w-[70%]"
+              className="text-center lg:mx-auto lg:w-[80%] xl:w-[70%] 2xl:w-[50%]"
               initial="hidden"
               transition={{ duration: 0.8, ease: "easeOut" }}
               variants={fadeIn}
@@ -397,7 +395,7 @@ export default function Baliguide() {
 
           {activeTab === "cafes" && (
             <motion.div
-              className="text-center lg:mx-auto lg:w-[80%] xl:w-[70%]"
+              className="text-center lg:mx-auto lg:w-[80%] xl:w-[70%] 2xl:w-[50%]"
               initial="hidden"
               transition={{ duration: 0.8, ease: "easeOut" }}
               variants={fadeIn}
@@ -469,7 +467,7 @@ export default function Baliguide() {
 
           {activeTab === "local" && (
             <motion.div
-              className="text-center lg:mx-auto lg:w-[80%] xl:w-[70%]"
+              className="text-center lg:mx-auto lg:w-[80%] xl:w-[70%] 2xl:w-[50%]"
               initial="hidden"
               transition={{ duration: 0.8, ease: "easeOut" }}
               variants={fadeIn}
@@ -521,7 +519,7 @@ export default function Baliguide() {
 
           {activeTab === "restaurants" && (
             <motion.div
-              className="text-center lg:mx-auto lg:w-[80%] xl:w-[70%]"
+              className="text-center lg:mx-auto lg:w-[80%] xl:w-[70%] 2xl:w-[50%]"
               initial="hidden"
               transition={{ duration: 0.8, ease: "easeOut" }}
               variants={fadeIn}
@@ -573,7 +571,7 @@ export default function Baliguide() {
 
           {activeTab === "clubs" && (
             <motion.div
-              className="text-center lg:mx-auto lg:w-[80%] xl:w-[70%]"
+              className="text-center lg:mx-auto lg:w-[80%] xl:w-[70%] 2xl:w-[50%]"
               initial="hidden"
               transition={{ duration: 0.8, ease: "easeOut" }}
               variants={fadeIn}
@@ -615,7 +613,7 @@ export default function Baliguide() {
 
           {activeTab === "wellness" && (
             <motion.div
-              className="text-center lg:mx-auto lg:w-[80%] xl:w-[70%]"
+              className="text-center lg:mx-auto lg:w-[80%] xl:w-[70%] 2xl:w-[50%]"
               initial="hidden"
               transition={{ duration: 0.8, ease: "easeOut" }}
               variants={fadeIn}

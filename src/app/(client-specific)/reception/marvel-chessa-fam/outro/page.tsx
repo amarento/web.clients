@@ -12,14 +12,14 @@ export default function Outro() {
   // Element refs for viewport-based triggers
   const titleRef = useRef<HTMLDivElement>(null);
 
-  // Viewport-based animation hook - triggers when element is 5% from bottom
+  // Viewport-based animation hook
   const useViewportAnimation = (
     ref: React.RefObject<HTMLElement>,
     yValue = 10,
   ) => {
     const { scrollYProgress } = useScroll({
       target: ref,
-      offset: ["start end", "end 90%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
+      offset: ["start end", "end 90%"],
     });
 
     const opacityRaw = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
@@ -53,18 +53,18 @@ export default function Outro() {
       <div className="z-5 absolute inset-0 bg-black/30" />
       <motion.h5
         ref={titleRef}
-        className="relative z-10 text-center font-cormorant text-[16px] leading-relaxed text-[#FFFFFF] md:text-[18px] lg:text-[20px] xl:text-[25px]"
+        className="relative z-10 text-center font-cormorant text-[16px] leading-relaxed text-[#FFFFFF] md:text-[18px] lg:text-[20px] xl:text-[25px] 2xl:text-[31px]"
         style={{
           opacity: title.opacity,
           y: title.y,
         }}
       >
         THANK YOU <br />{" "}
-        <span className="font-freight text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px]">
+        <span className="font-freight text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[25px]">
           Thank you for all your prayers and well wishes.
         </span>{" "}
         <br />{" "}
-        <span className="font-freight text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px]">
+        <span className="font-freight text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[25px]">
           We can&apos;t wait to celebrate this special day with you.
         </span>
       </motion.h5>

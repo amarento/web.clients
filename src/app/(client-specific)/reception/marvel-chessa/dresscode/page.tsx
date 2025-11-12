@@ -17,14 +17,14 @@ export default function Dresscode() {
   const image1Ref = useRef<HTMLDivElement>(null);
   const image2Ref = useRef<HTMLDivElement>(null);
 
-  // Viewport-based animation hook - triggers when element is 5% from bottom
+  // Viewport-based animation hook
   const useViewportAnimation = (
     ref: React.RefObject<HTMLDivElement>,
     yValue = 10,
   ) => {
     const { scrollYProgress } = useScroll({
       target: ref,
-      offset: ["start end", "end 90%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
+      offset: ["start end", "end 90%"],
     });
 
     const opacityRaw = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
@@ -62,8 +62,8 @@ export default function Dresscode() {
   const title = useViewportAnimation(titleRef);
   const welcome = useViewportAnimation(welcomeRef);
   const ceremony = useViewportAnimation(ceremonyRef);
-  const image1 = useViewportImageAnimation(image1Ref, 200, 1); // Slower parallax layer (200px travel, 80% scale, 2x speed)
-  const image2 = useViewportImageAnimation(image2Ref, 100, 2); // Faster parallax layer (100px travel, 80% scale, 2.5x speed)
+  const image1 = useViewportImageAnimation(image1Ref, 200, 1);
+  const image2 = useViewportImageAnimation(image2Ref, 100, 2);
 
   return (
     <motion.div
@@ -140,7 +140,7 @@ export default function Dresscode() {
         }}
       >
         <Image
-          className="w-[50%] sm:ml-[12%] sm:w-[45%] md:ml-[13%] md:w-[42%] lg:ml-[25%] lg:w-[28%]"
+          className="w-[50%] sm:ml-[12%] sm:w-[45%] md:ml-[13%] md:w-[42%] lg:ml-[25%] lg:w-[28%] xl:ml-[32%] xl:w-[23%] 2xl:w-[20%]"
           src={img3}
           alt="IMG3"
           width={800}
@@ -155,7 +155,7 @@ export default function Dresscode() {
         }}
       >
         <Image
-          className="-mt-48 ml-auto w-[55%] sm:-mt-20 sm:mr-[12%] sm:w-[50%] md:-mt-24 md:mr-[13%] md:w-[45%] lg:mr-[25%] lg:w-[30%]"
+          className="-mt-48 ml-auto w-[55%] sm:-mt-20 sm:mr-[12%] sm:w-[50%] md:-mt-24 md:mr-[13%] md:w-[45%] lg:mr-[25%] lg:w-[30%] xl:mr-[32%] xl:w-[25%] 2xl:w-[22%]"
           src={img4}
           alt="IMG4"
           width={800}

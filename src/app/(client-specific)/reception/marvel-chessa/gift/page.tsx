@@ -16,14 +16,14 @@ export default function LoveStory() {
   const paymentOption1Ref = useRef<HTMLDivElement>(null);
   const paymentOption2Ref = useRef<HTMLDivElement>(null);
 
-  // Viewport-based animation hook - triggers when element is 5% from bottom
+  // Viewport-based animation hook
   const useViewportAnimation = (
     ref: React.RefObject<HTMLElement>,
     yValue = 10,
   ) => {
     const { scrollYProgress } = useScroll({
       target: ref,
-      offset: ["start 120%", "end -20%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
+      offset: ["start 120%", "end -20%"],
     });
 
     const opacityRaw = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
@@ -56,18 +56,18 @@ export default function LoveStory() {
   }
 
   function handleCopyBankTransfer(
-      _event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    ): void {
-      void navigator.clipboard
-        .writeText("90200022976")
-        .then(() => {
-          setCopiedBankTransfer(true);
-          setTimeout(() => setCopiedBankTransfer(false), 1500);
-        })
-        .catch((err) => {
-          console.error("Failed to copy text: ", err);
-        });
-    }
+    _event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ): void {
+    void navigator.clipboard
+      .writeText("90200022976")
+      .then(() => {
+        setCopiedBankTransfer(true);
+        setTimeout(() => setCopiedBankTransfer(false), 1500);
+      })
+      .catch((err) => {
+        console.error("Failed to copy text: ", err);
+      });
+  }
 
   return (
     <motion.div
@@ -77,7 +77,7 @@ export default function LoveStory() {
       <div className="mx-auto px-8 sm:px-12 md:px-14">
         <motion.h1
           ref={titleRef}
-          className="mb-8 text-center font-cormorant text-[31px] drop-shadow-2xl lg:text-[39px]"
+          className="mb-8 text-center font-cormorant text-[31px] drop-shadow-2xl lg:text-[39px] 2xl:text-[49px]"
           style={{
             opacity: title.opacity,
             y: title.y,
@@ -87,7 +87,7 @@ export default function LoveStory() {
         </motion.h1>
         <motion.h5
           ref={descriptionRef}
-          className="mx-auto mb-10 text-center font-freight text-[14px] tracking-wide drop-shadow-2xl lg:w-[80%] lg:text-[16px]"
+          className="mx-auto mb-10 text-center font-freight text-[14px] tracking-wide drop-shadow-2xl lg:w-[80%] lg:text-[16px] 2xl:mb-12 2xl:w-[65%] 2xl:text-[20px]"
           style={{
             opacity: description.opacity,
             y: description.y,
@@ -107,10 +107,10 @@ export default function LoveStory() {
               y: paymentOption1.y,
             }}
           >
-            <h2 className="mb-[6px] font-freight text-[25px] drop-shadow-2xl lg:text-[31px]">
+            <h2 className="mb-[6px] font-freight text-[25px] drop-shadow-2xl lg:text-[31px] 2xl:text-[39px]">
               PayNow / PayLah
             </h2>
-            <h4 className="mb-5 font-hanken text-[12px] font-light drop-shadow-2xl lg:text-[14px]">
+            <h4 className="mb-5 font-hanken text-[12px] font-light drop-shadow-2xl lg:text-[14px] 2xl:text-[16px]">
               Phone Number: +65 98660013
             </h4>
             <Button
@@ -139,16 +139,16 @@ export default function LoveStory() {
               y: paymentOption2.y,
             }}
           >
-            <h2 className="mb-[6px] font-freight text-[25px] drop-shadow-2xl lg:text-[31px]">
+            <h2 className="mb-[6px] font-freight text-[25px] drop-shadow-2xl lg:text-[31px] 2xl:text-[39px]">
               Bank Transfer
             </h2>
-            <h4 className="mb-1 font-hanken text-[12px] font-light drop-shadow-2xl lg:text-[14px]">
+            <h4 className="mb-1 font-hanken text-[12px] font-light drop-shadow-2xl lg:text-[14px] 2xl:text-[16px]">
               Name: Marvel Wijaya
             </h4>
-            <h4 className="mb-1 font-hanken text-[12px] font-light drop-shadow-2xl lg:text-[14px]">
+            <h4 className="mb-1 font-hanken text-[12px] font-light drop-shadow-2xl lg:text-[14px] 2xl:text-[16px]">
               Bank: SMBC Indonesia (BTPN / Jenius)
             </h4>
-            <h4 className="mb-5 font-hanken text-[12px] font-light drop-shadow-2xl lg:text-[14px]">
+            <h4 className="mb-5 font-hanken text-[12px] font-light drop-shadow-2xl lg:text-[14px] 2xl:text-[16px]">
               Account Number: 90200022976
             </h4>
             <Button

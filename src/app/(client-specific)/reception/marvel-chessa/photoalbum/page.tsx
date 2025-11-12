@@ -39,9 +39,9 @@ export default function PhotoAlbum() {
   };
 
   // All animations with viewport-based parallax triggers
-  const image1 = useViewportImageAnimation(image1Ref, 120, 1.2); // Standard parallax layer
-  const image2 = useViewportImageAnimation(image2Ref, 150, 2); // Faster parallax layer
-  const image3 = useViewportImageAnimation(image3Ref, 60, 1); // Slowest parallax layer
+  const image1 = useViewportImageAnimation(image1Ref, 120, 1.2);
+  const image2 = useViewportImageAnimation(image2Ref, 150, 2);
+  const image3 = useViewportImageAnimation(image3Ref, 60, 1);
 
   return (
     <motion.div
@@ -56,7 +56,7 @@ export default function PhotoAlbum() {
         }}
       >
         <Image
-          className="lg:mt-18 h-auto w-[46%] object-cover sm:mt-20 sm:w-[45%] md:mt-12 md:w-[42%] lg:ml-16 lg:w-[32%]"
+          className="lg:mt-18 h-auto w-[46%] object-cover sm:mt-20 sm:w-[45%] md:mt-12 md:w-[42%] lg:ml-16 lg:w-[32%] xl:ml-40 xl:w-[30%] 2xl:ml-60 2xl:w-[26%]"
           src={img5}
           alt="IMG5"
           width={800}
@@ -71,7 +71,7 @@ export default function PhotoAlbum() {
         }}
       >
         <Image
-          className="relative -mt-60 ml-auto h-auto w-[47%] object-cover sm:-mt-[360px] sm:w-[45%] md:-mt-[410px] md:w-[42%] lg:-mt-[580px] lg:mr-16 lg:w-[34%]"
+          className="relative -mt-60 ml-auto h-auto w-[47%] object-cover sm:-mt-[360px] sm:w-[45%] md:-mt-[410px] md:w-[42%] lg:-mt-[580px] lg:mr-16 lg:w-[34%] xl:mr-40 xl:w-[28%] 2xl:mr-60 2xl:w-[27%]"
           src={img6}
           alt="IMG6"
           width={800}
@@ -86,7 +86,7 @@ export default function PhotoAlbum() {
         }}
       >
         <Image
-          className="-mt-32 ml-[15%] h-auto w-[45%] object-cover sm:-mt-40 sm:ml-[25%] sm:w-[42%] md:w-[40%] lg:ml-[35%] lg:w-[33%]"
+          className="-mt-32 ml-[15%] h-auto w-[45%] object-cover sm:-mt-40 sm:ml-[25%] sm:w-[42%] md:w-[40%] lg:ml-[35%] lg:w-[34%] xl:ml-[37%] xl:w-[27%] 2xl:ml-[30%] 2xl:w-[25%]"
           src={img7}
           alt="IMG7"
           width={800}

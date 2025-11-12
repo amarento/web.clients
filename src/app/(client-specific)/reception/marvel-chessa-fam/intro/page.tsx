@@ -5,7 +5,6 @@ import {
   useScroll,
   useTransform,
   useSpring,
-  AnimatePresence,
 } from "motion/react";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
@@ -57,25 +56,23 @@ export default function Intro() {
   }, [images.length]);
 
   // Start showing intro section earlier with scroll-up animation
-  // Phase 1: Intro starts appearing from bottom (one scroll before fully visible)
-  // Phase 2: Intro fully visible and settled
   const introOpacityRaw = useTransform(
     scrollY,
-    [200, 300], // Start appearing earlier at 300px instead of suddenly
+    [200, 300],
     [0, 1],
   );
 
   const introYRaw = useTransform(
     scrollY,
-    [300, 400, 500, 600, 700, 800], // Scroll up animation range
-    [150, 120, 90, 60, 30, 0], // Move from 150px below to final position
+    [300, 400, 500, 600, 700, 800],
+    [150, 120, 90, 60, 30, 0],
   );
 
   // Image scale animation - starts at 50%, grows to 100% on scroll
   const imageScale = useTransform(
     scrollY,
-    [500, 600, 700, 800], // Animation range
-    [0.7, 0.8, 0.9, 1], // From 50% scale to 100% scale
+    [500, 600, 700, 800],
+    [0.7, 0.8, 0.9, 1], 
   );
 
   // Apply spring physics for smooth motion
@@ -104,7 +101,7 @@ export default function Intro() {
   ) => {
     const { scrollYProgress } = useScroll({
       target: ref,
-      offset: ["start end", "end 95%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
+      offset: ["start end", "end 95%"],
     });
 
     const opacityRaw = useTransform(scrollYProgress, [0, 1], [0, 1]);
@@ -138,7 +135,7 @@ export default function Intro() {
             y: firstText.y,
           }}
         >
-          <h5 className="font-freight text-[16px] drop-shadow-2xl md:text-[18px] lg:text-center lg:font-cormorant lg:text-[18px] lg:uppercase lg:tracking-[-0.015em]">
+          <h5 className="font-freight text-[16px] drop-shadow-2xl md:text-[18px] lg:text-center lg:font-cormorant lg:text-[18px] lg:uppercase lg:tracking-[-0.015em] 2xl:text-[20px]">
             By the grace of God, we’re getting married!
           </h5>
         </motion.div>
@@ -149,7 +146,7 @@ export default function Intro() {
             y: secondText.y,
           }}
         >
-          <h5 className="-ml-[2px] font-freight text-[16px] drop-shadow-2xl md:text-[18px] lg:ml-0 lg:text-center lg:font-cormorant lg:text-[18px] lg:uppercase lg:tracking-[-0.015em]">
+          <h5 className="-ml-[2px] font-freight text-[16px] drop-shadow-2xl md:text-[18px] lg:ml-0 lg:text-center lg:font-cormorant lg:text-[18px] lg:uppercase lg:tracking-[-0.015em] 2xl:text-[20px]">
             We’d love for you to come and share in the joy of our wedding
             celebration.
           </h5>
@@ -200,11 +197,11 @@ export default function Intro() {
             ))}
             {/* Dark overlay on photos */}
             <div className="absolute inset-0 w-screen bg-black/10" />
-            {/* Text overlay centered on photos */}
-            <motion.h4 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center font-cormorant text-[14px] text-white md:text-[18px] lg:text-[20px] xl:text-[25px] 2xl:text-[39px]">
-              A JOURNEY IN LOVE
-            </motion.h4>
           </div>
+          {/* Text overlay centered on photos */}
+          <motion.h4 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center font-cormorant text-[14px] text-white md:text-[18px] lg:text-[20px] xl:text-[25px] 2xl:text-[39px]">
+            A JOURNEY IN LOVE
+          </motion.h4>
         </motion.div>
       </motion.div>
     </motion.div>

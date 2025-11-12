@@ -23,7 +23,7 @@ export default function Homepage() {
       opacity: 1,
       transition: {
         staggerChildren: 0.2,
-        delayChildren: 0.7, // 0.5s delay + 0.2s original delay
+        delayChildren: 0.7,
       },
     },
   };
@@ -42,7 +42,7 @@ export default function Homepage() {
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom spring-like easing
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
 
     function raf(time: number) {
@@ -57,7 +57,6 @@ export default function Homepage() {
     };
   }, []);
 
-  // Simple animation values without scroll targeting to avoid hydration issues
   const titleOpacity = useSpring(0, { stiffness: 120, damping: 25, mass: 1 });
   const titleY = useSpring(60, { stiffness: 100, damping: 20, mass: 1 });
 
@@ -66,7 +65,6 @@ export default function Homepage() {
 
   // Set initial values and animate on mount
   useEffect(() => {
-    // Animate in with staggered delays
     const titleTimer = setTimeout(() => {
       titleOpacity.set(1);
       titleY.set(0);
@@ -138,7 +136,6 @@ export default function Homepage() {
 
         setIsPlaying(true);
       } catch (err) {
-        // Optionally, surface a non-blocking UI message here
         setIsPlaying(false);
       }
     }
@@ -163,10 +160,7 @@ export default function Homepage() {
       video.muted = true;
       video.playsInline = true;
       video.loop = true;
-      video.preload = "auto"; // Preload entire video for better pre-rendering
-
-      // Set a black background to prevent gray flash
-      video.style.backgroundColor = "#000000";
+      video.preload = "auto";
 
       // Force load the video immediately
       video.load();
@@ -175,7 +169,7 @@ export default function Homepage() {
       const attemptPlay = async () => {
         try {
           // Wait for video to be ready
-          if (video.readyState >= 2) {
+          if (video.readyState >= 1) {
             await video.play();
           } else {
             // Wait for video to load then play
@@ -232,14 +226,11 @@ export default function Homepage() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isElementVisible, setisElementVisible] = useState(true);
   const [isHeaderNavVisible, setIsHeaderNavVisible] = useState(true);
-  const [scrollingTimeout, setScrollingTimeout] =
-    useState<NodeJS.Timeout | null>(null);
 
   // Authentication state
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authCode, setAuthCode] = useState("");
   const [authError, setAuthError] = useState("");
-  const [videoLoaded, setVideoLoaded] = useState(false);
   const correctCode = "MCUnited"; // Password is case insensitive
 
   const handleAuthSubmit = (e: React.FormEvent) => {
@@ -271,16 +262,12 @@ export default function Homepage() {
         let elementPosition;
 
         if (sectionId === "the-wedding") {
-          // For the-wedding, scroll to 20px above the section
           elementPosition = element.offsetTop - 20;
         } else if (sectionId === "bali-guide") {
-          // For bali-guide, scroll to 24px below the section
           elementPosition = element.offsetTop + 24;
         } else if (sectionId === "dresscode") {
-          // For dresscode, scroll to 60px above the section
           elementPosition = element.offsetTop - 60;
         } else {
-          // For other sections, use default scroll behavior
           element.scrollIntoView({ behavior: "smooth" });
           return;
         }
@@ -371,18 +358,10 @@ export default function Homepage() {
       // Hide hamburger immediately when scrolling down past 50px
       if (currentScrollY > lastScrollY && currentScrollY > 50) {
         setisElementVisible(false);
-        if (scrollingTimeout) {
-          clearTimeout(scrollingTimeout);
-          setScrollingTimeout(null);
-        }
       }
       // Show hamburger immediately when scrolling up
       else if (currentScrollY < lastScrollY) {
         setisElementVisible(true);
-        if (scrollingTimeout) {
-          clearTimeout(scrollingTimeout);
-          setScrollingTimeout(null);
-        }
       }
 
       // Header navigation visibility
@@ -399,7 +378,7 @@ export default function Homepage() {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [hasScrolled, lastScrollY, scrollingTimeout]);
+  }, [hasScrolled, lastScrollY]);
 
   return (
     <>
@@ -421,7 +400,7 @@ export default function Homepage() {
               transition={{ delay: 0.8, duration: 0.8 }}
             >
               <motion.h1
-                className="mb-10 font-cormorant text-[20px] text-white lg:text-[25px] xl:text-[31px]"
+                className="mb-10 font-cormorant text-[20px] text-white lg:text-[25px] xl:text-[31px] 2xl:text-[39px]"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8, duration: 0.8 }}
@@ -429,7 +408,7 @@ export default function Homepage() {
                 MARVEL & CHESSA
               </motion.h1>
               <motion.p
-                className="mb-4 font-freight text-[18px] text-white/80 lg:text-[20px] xl:mb-5 xl:text-[25px]"
+                className="mb-4 font-freight text-[18px] text-white/80 lg:text-[20px] xl:mb-5 xl:text-[25px] 2xl:text-[31px]"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -452,7 +431,7 @@ export default function Homepage() {
                     value={authCode}
                     onChange={(e) => handleAuthCodeChange(e.target.value)}
                     placeholder="Enter passcode"
-                    className="w-48 bg-transparent p-2 text-center font-freight text-[20px] tracking-wide text-white placeholder-white/50 outline-none xl:text-[25px]"
+                    className="my-2 w-48 bg-transparent text-center font-freight text-[20px] tracking-wide text-white placeholder-white/50 outline-none xl:text-[25px] 2xl:my-4 2xl:text-[31px]"
                     autoComplete="off"
                   />
                 </div>
@@ -472,7 +451,7 @@ export default function Homepage() {
                 <motion.button
                   type="submit"
                   disabled={authCode.length === 0}
-                  className="border-1 mx-auto block border px-8 py-[6px] font-cormorant text-[14px] text-[#F0F0F0] transition-all duration-200 hover:text-white disabled:cursor-not-allowed disabled:opacity-50 lg:text-[16px] xl:text-[18px]"
+                  className="border-1 mx-auto block border px-8 py-[6px] font-cormorant text-[14px] text-[#F0F0F0] transition-all duration-200 hover:text-white disabled:cursor-not-allowed disabled:opacity-50 lg:text-[16px] xl:text-[18px] 2xl:text-[20px]"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -493,10 +472,10 @@ export default function Homepage() {
               isHeaderNavVisible ? "opacity-100" : "opacity-0"
             }`}
           >
-            <div className="flex items-center justify-center space-x-8">
+            <div className="flex items-center justify-center space-x-8 2xl:mt-2">
               <button
                 onClick={() => scrollToSection("our-story")}
-                className="px-3 py-2 font-cormorant text-[14px] text-[#F0F0F0] transition-colors duration-200 hover:text-white xl:text-[16px]"
+                className="px-3 py-2 font-cormorant text-[14px] text-[#F0F0F0] transition-colors duration-200 hover:text-white xl:text-[16px] 2xl:text-[20px]"
                 style={{
                   color: `rgb(${246 - Math.min(229, Math.max(0, ((lastScrollY - 100) / 100) * 229))}, ${244 - Math.min(227, Math.max(0, ((lastScrollY - 100) / 100) * 227))}, ${241 - Math.min(224, Math.max(0, ((lastScrollY - 100) / 100) * 224))})`,
                 }}
@@ -505,7 +484,7 @@ export default function Homepage() {
               </button>
               <button
                 onClick={() => scrollToSection("the-wedding")}
-                className="px-3 py-2 font-cormorant text-[14px] text-[#F0F0F0] transition-colors duration-200 hover:text-white xl:text-[16px]"
+                className="px-3 py-2 font-cormorant text-[14px] text-[#F0F0F0] transition-colors duration-200 hover:text-white xl:text-[16px] 2xl:text-[20px]"
                 style={{
                   color: `rgb(${246 - Math.min(229, Math.max(0, ((lastScrollY - 100) / 100) * 229))}, ${244 - Math.min(227, Math.max(0, ((lastScrollY - 100) / 100) * 227))}, ${241 - Math.min(224, Math.max(0, ((lastScrollY - 100) / 100) * 224))})`,
                 }}
@@ -514,7 +493,7 @@ export default function Homepage() {
               </button>
               <button
                 onClick={() => scrollToSection("dresscode")}
-                className="px-3 py-2 font-cormorant text-[14px] text-[#F0F0F0] transition-colors duration-200 hover:text-white xl:text-[16px]"
+                className="px-3 py-2 font-cormorant text-[14px] text-[#F0F0F0] transition-colors duration-200 hover:text-white xl:text-[16px] 2xl:text-[20px]"
                 style={{
                   color: `rgb(${246 - Math.min(229, Math.max(0, ((lastScrollY - 100) / 100) * 229))}, ${244 - Math.min(227, Math.max(0, ((lastScrollY - 100) / 100) * 227))}, ${241 - Math.min(224, Math.max(0, ((lastScrollY - 100) / 100) * 224))})`,
                 }}
@@ -523,7 +502,7 @@ export default function Homepage() {
               </button>
               <button
                 onClick={() => scrollToSection("bali-guide")}
-                className="px-3 py-2 font-cormorant text-[14px] text-[#F0F0F0] transition-colors duration-200 hover:text-white xl:text-[16px]"
+                className="px-3 py-2 font-cormorant text-[14px] text-[#F0F0F0] transition-colors duration-200 hover:text-white xl:text-[16px] 2xl:text-[20px]"
                 style={{
                   color: `rgb(${246 - Math.min(229, Math.max(0, ((lastScrollY - 100) / 100) * 229))}, ${244 - Math.min(227, Math.max(0, ((lastScrollY - 100) / 100) * 227))}, ${241 - Math.min(224, Math.max(0, ((lastScrollY - 100) / 100) * 224))})`,
                 }}
@@ -532,7 +511,7 @@ export default function Homepage() {
               </button>
               <button
                 onClick={() => scrollToSection("love-letters")}
-                className="px-3 py-2 font-cormorant text-[14px] text-[#F0F0F0] transition-colors duration-200 hover:text-white xl:text-[16px]"
+                className="px-3 py-2 font-cormorant text-[14px] text-[#F0F0F0] transition-colors duration-200 hover:text-white xl:text-[16px] 2xl:text-[20px]"
                 style={{
                   color: `rgb(${246 - Math.min(229, Math.max(0, ((lastScrollY - 100) / 100) * 229))}, ${244 - Math.min(227, Math.max(0, ((lastScrollY - 100) / 100) * 227))}, ${241 - Math.min(224, Math.max(0, ((lastScrollY - 100) / 100) * 224))})`,
                 }}
@@ -709,10 +688,6 @@ export default function Homepage() {
                   videoEl.style.backgroundColor = "#000000";
                 }
               }}
-              onLoadedData={() => {
-                // Mark video as loaded when first frame is available
-                setVideoLoaded(true);
-              }}
               onLoadedMetadata={() => {
                 // Try to play as soon as metadata is loaded
                 const videoEl = videoRef.current;
@@ -743,19 +718,22 @@ export default function Homepage() {
             <motion.div ref={containerRef}>
               <motion.h1
                 ref={titleRef}
-                className="font-cormorant text-[20px] drop-shadow-2xl lg:text-[25px]"
+                className="font-cormorant text-[20px] drop-shadow-2xl lg:text-[25px] 2xl:text-[31px]"
                 style={{
                   opacity: title.opacity,
                   y: title.y,
                 }}
               >
                 MARVEL{" "}
-                <span className="text-[16px] italic lg:text-[20px]"> & </span>{" "}
+                <span className="text-[16px] italic lg:text-[20px] 2xl:text-[20px]">
+                  {" "}
+                  &{" "}
+                </span>{" "}
                 CHESSA
               </motion.h1>
               <motion.h5
                 ref={dateRef}
-                className="font-cormorant text-[16px] italic drop-shadow-2xl lg:text-[18px]"
+                className="font-cormorant text-[16px] italic drop-shadow-2xl lg:text-[18px] 2xl:text-[20px]"
                 style={{
                   opacity: date.opacity,
                   y: date.y,

@@ -137,7 +137,7 @@ export default function Intro() {
             y: firstText.y,
           }}
         >
-          <h5 className="font-freight text-[16px] drop-shadow-2xl md:text-[18px] lg:text-center lg:font-cormorant lg:text-[18px] lg:uppercase lg:tracking-[-0.015em]">
+          <h5 className="font-freight text-[16px] drop-shadow-2xl md:text-[18px] lg:text-center lg:font-cormorant lg:text-[18px] lg:uppercase lg:tracking-[-0.015em] 2xl:text-[20px]">
             By the grace of God, we’re getting married!
           </h5>
         </motion.div>
@@ -148,7 +148,7 @@ export default function Intro() {
             y: secondText.y,
           }}
         >
-          <h5 className="-ml-[2px] font-freight text-[16px] drop-shadow-2xl md:text-[18px] lg:ml-0 lg:text-center lg:font-cormorant lg:text-[18px] lg:uppercase lg:tracking-[-0.015em]">
+          <h5 className="-ml-[2px] font-freight text-[16px] drop-shadow-2xl md:text-[18px] lg:ml-0 lg:text-center lg:font-cormorant lg:text-[18px] lg:uppercase lg:tracking-[-0.015em] 2xl:text-[20px]">
             We’d love for you to come and share in the joy of our wedding
             celebration.
           </h5>

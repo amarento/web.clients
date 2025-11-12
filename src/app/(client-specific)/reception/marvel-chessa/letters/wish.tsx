@@ -118,14 +118,14 @@ export default function Wish({ guestName }: IWishProps) {
   const wishFieldRef = useRef<HTMLDivElement>(null);
   const submitButtonRef = useRef<HTMLDivElement>(null);
 
-  // Viewport-based animation hook - triggers when element is 5% from bottom
+  // Viewport-based animation hook
   const useViewportAnimation = (
     ref: React.RefObject<HTMLElement>,
     yValue = 10,
   ) => {
     const { scrollYProgress } = useScroll({
       target: ref,
-      offset: ["start end", "end end"], // Animation starts when element enters viewport, completes when it's 10% from bottom
+      offset: ["start end", "end end"],
     });
 
     const opacityRaw = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
@@ -151,7 +151,7 @@ export default function Wish({ guestName }: IWishProps) {
         <motion.div>
           <motion.h1
             ref={titleRef}
-            className="pb-8 font-cormorant text-[31px] text-[#333333] md:pb-12 md:text-[39px] lg:pb-16"
+            className="pb-8 font-cormorant text-[31px] text-[#333333] md:pb-12 md:text-[39px] lg:pb-16 2xl:text-[49px]"
             style={{
               opacity: title.opacity,
               y: title.y,
@@ -184,10 +184,10 @@ export default function Wish({ guestName }: IWishProps) {
                           className="embla__slide flex h-[210px] w-[85vw] flex-col items-center justify-center rounded-sm border border-solid border-[#555555] bg-[#F6F4F1] p-6 text-center shadow md:h-[300px] md:w-[80vw] md:p-12 lg:h-[350px] lg:w-[65vw] lg:p-14 xl:h-[400px] xl:p-16"
                           key={index.toString()}
                         >
-                          <p className="overflow-wrap-anywhere w-full break-words text-[12px] leading-relaxed text-[#43423D] md:text-[16px] lg:text-[18px] xl:text-[20px]">
+                          <p className="overflow-wrap-anywhere w-full break-words text-[12px] leading-relaxed text-[#43423D] md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[25px]">
                             {wish.wish}
                           </p>
-                          <p className="mt-2 text-[12px] italic text-[#43423D] md:text-[14px] lg:text-[16px] xl:text-[18px]">
+                          <p className="mt-2 text-[12px] italic text-[#43423D] md:text-[14px] lg:text-[16px] xl:text-[18px] 2xl:text-[20px]">
                             – {wish.name}
                           </p>
                         </div>
@@ -202,7 +202,7 @@ export default function Wish({ guestName }: IWishProps) {
       <motion.div className="relative">
         <motion.form
           ref={formRef}
-          className="mx-auto w-[75%] lg:w-[60%] xl:w-[45%]"
+          className="mx-auto w-[75%] lg:w-[60%] xl:w-[45%] 2xl:w-[35%]"
           onSubmit={handleSubmit(onSubmit)}
           style={{
             opacity: form.opacity,
@@ -217,12 +217,12 @@ export default function Wish({ guestName }: IWishProps) {
               y: nameField.y,
             }}
           >
-            <p className="pl-1 font-cormorant text-[11px] text-[#333333] md:text-[12px] lg:text-[14px]">
+            <p className="pl-1 font-cormorant text-[11px] text-[#333333] md:text-[12px] lg:text-[14px] 2xl:text-[16px]">
               FROM:
             </p>
             <input
               {...register("name")}
-              className="mb-4 block w-full rounded-sm border bg-[#FCFCFC] p-2 text-[14px] text-muted-foreground md:mb-6 md:text-[16px] lg:text-[18px]"
+              className="mb-4 block w-full rounded-sm border bg-[#FCFCFC] p-2 text-[14px] text-muted-foreground md:mb-6 md:text-[16px] lg:text-[18px] 2xl:text-[20px]"
               placeholder="Your name"
               disabled={!!guestName}
             />
@@ -237,7 +237,7 @@ export default function Wish({ guestName }: IWishProps) {
             }}
           >
             <div className="flex items-center justify-between">
-              <p className="pl-1 font-cormorant text-[11px] text-[#333333] md:text-[12px] lg:text-[14px]">
+              <p className="pl-1 font-cormorant text-[11px] text-[#333333] md:text-[12px] lg:text-[14px] 2xl:text-[16px]">
                 WISH:
               </p>
               <p

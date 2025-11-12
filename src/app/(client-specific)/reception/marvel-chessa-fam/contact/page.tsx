@@ -11,14 +11,14 @@ export default function Contact() {
   const titleRef = useRef<HTMLDivElement>(null);
   const descriptionRef = useRef<HTMLDivElement>(null);
 
-  // Viewport-based animation hook - triggers when element is 5% from bottom
+  // Viewport-based animation hook
   const useViewportAnimation = (
     ref: React.RefObject<HTMLElement>,
     yValue = 10,
   ) => {
     const { scrollYProgress } = useScroll({
       target: ref,
-      offset: ["start end", "end 90%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
+      offset: ["start end", "end 90%"],
     });
 
     const opacityRaw = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
@@ -40,7 +40,7 @@ export default function Contact() {
       <motion.div ref={containerRef} className="px-8 text-center sm:px-12">
         <motion.hr
           ref={dividerRef}
-          className="mx-auto mb-8 w-72 lg:w-[40%] border-t border-[#111111]"
+          className="mx-auto mb-8 w-72 border-t border-[#111111] lg:w-[40%]"
           style={{
             opacity: divider.opacity,
             y: divider.y,
@@ -48,7 +48,7 @@ export default function Contact() {
         />
         <motion.h1
           ref={titleRef}
-          className="mx-auto mb-8 font-cormorant text-[31px] tracking-tight drop-shadow-2xl"
+          className="mx-auto mb-8 font-cormorant text-[31px] tracking-tight drop-shadow-2xl 2xl:text-[39px]"
           style={{
             opacity: title.opacity,
             y: title.y,
@@ -56,9 +56,9 @@ export default function Contact() {
         >
           CONTACT US
         </motion.h1>
-        <motion.h3
+        <motion.p
           ref={descriptionRef}
-          className="mb-24 text-center font-freight text-[14px] lg:text-[16px] md:w-[70%] lg:w-[55%] xl:w-[45%] mx-auto tracking-wide drop-shadow-2xl"
+          className="mx-auto mb-24 text-center font-freight text-[14px] tracking-wide drop-shadow-2xl md:w-[70%] lg:w-[55%] lg:text-[16px] xl:w-[45%] xl:text-[18px] 2xl:text-[20px]"
           style={{
             opacity: description.opacity,
             y: description.y,
@@ -66,7 +66,7 @@ export default function Contact() {
         >
           For any questions related to schedule, accommodation and shuttle,
           please contact Twogather Wedding Planner (+62 817-9079-090)
-        </motion.h3>
+        </motion.p>
       </motion.div>
     </div>
   );

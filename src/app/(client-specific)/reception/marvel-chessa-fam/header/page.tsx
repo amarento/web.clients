@@ -26,7 +26,7 @@ export default function Header() {
     if (typeof window !== "undefined") {
       const currentScrollY = window.scrollY;
 
-      // Hide header immediately when scrolling down past 100px
+      // Hide header immediately when scrolling down past 200px
       if (currentScrollY > lastScrollY && currentScrollY > 200) {
         setIsHeaderVisible(false);
         if (scrollingTimeout) {
@@ -77,11 +77,11 @@ export default function Header() {
         isHeaderVisible && !isSidebarOpen ? "opacity-100" : "opacity-0"
       }`}
     >
-      <div className="mx-[4%] mt-4">
+      <div className="mx-[4%] mt-4 xl:-mt-1 2xl:-mt-2">
         <div className="mt-xs mb-xs z-50 flex items-end justify-start">
           <Image
             alt="Logo"
-            className="-ml-3 h-16 w-16 transition duration-300"
+            className="-ml-3 h-16 w-16 xl:h-20 xl:w-20 2xl:-ml-10 2xl:w-28 2xl:h-28 xl:-ml-5 transition duration-300"
             onClick={handleLogoClick}
             src={lastScrollY > 100 ? logoBlack : logo}
           />

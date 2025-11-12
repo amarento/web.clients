@@ -24,14 +24,14 @@ export default function Travel() {
   const shuttleTitleRef = useRef<HTMLDivElement>(null);
   const shuttleContentRef = useRef<HTMLDivElement>(null);
 
-  // Viewport-based animation hook - triggers when element is 5% from bottom
+  // Viewport-based animation hook
   const useViewportAnimation = (
     ref: React.RefObject<HTMLElement>,
     yValue = 10,
   ) => {
     const { scrollYProgress } = useScroll({
       target: ref,
-      offset: ["start end", "end 90%"], // Animation starts when element enters viewport, completes when it's 5% from bottom
+      offset: ["start end", "end 90%"],
     });
 
     const opacityRaw = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
@@ -64,11 +64,11 @@ export default function Travel() {
       <div className="flex flex-col xl:relative xl:flex-row xl:gap-16">
         {/* Travel Section */}
         <div className="flex-1">
-          <div className="flex flex-col px-5 sm:px-24 xl:lg:w-[90%] xl:mx-auto xl:px-0 xl:text-center">
-            <div className="mx-auto mb-8 xl:mb-12">
+          <div className="flex flex-col px-5 sm:px-24 lg:w-[90%] xl:mx-auto xl:px-0 xl:text-center">
+            <div className="mx-auto mb-8 xl:mb-12 2xl:mb-20">
               <motion.h1
                 ref={titleRef}
-                className="font-cormorant text-[31px] drop-shadow-2xl lg:mb-5 lg:text-[39px]"
+                className="font-cormorant text-[31px] drop-shadow-2xl lg:mb-5 lg:text-[49px]"
                 initial={{ opacity: 0, y: 10 }}
                 style={{
                   opacity: title.opacity,
@@ -88,23 +88,23 @@ export default function Travel() {
               }}
             >
               <Image
-                className="mx-auto mb-10 w-[50%] sm:w-[48%] md:w-[42%] xl:mb-12 xl:w-[48%]"
+                className="mx-auto mb-10 w-[50%] sm:w-[48%] md:w-[42%] xl:mb-12 xl:w-[48%] 2xl:w-[52%]"
                 src={imgplane}
                 alt="Airplane"
                 width={800}
                 height={800}
               />
-              <h3 className="mb-2 font-freight text-[16px] tracking-wide drop-shadow-2xl md:text-[18px] xl:mb-4 xl:text-[20px]">
+              <h3 className="mb-2 font-freight text-[16px] tracking-wide drop-shadow-2xl md:text-[18px] xl:mb-4 xl:text-[20px] 2xl:text-[25px]">
                 Fly in to Ngurah Rai International Airport — what to prepare?
               </h3>
               <div className="mx-auto text-center">
-                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px]">
+                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
                   Passport with at least 6 months before expiry date
                 </p>
-                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px]">
+                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
                   Completed eCD form (https://ecd.beacukai.go.id)
                 </p>
-                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px]">
+                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
                   Arrival visa VOA application (if required)
                 </p>
               </div>
@@ -118,17 +118,17 @@ export default function Travel() {
                 y: rimba.y,
               }}
             >
-              <h3 className="mb-2 font-freight text-[16px] tracking-wide drop-shadow-2xl md:text-[18px] xl:mb-4 xl:text-[20px]">
+              <h3 className="mb-2 font-freight text-[16px] tracking-wide drop-shadow-2xl md:text-[18px] xl:mb-4 xl:text-[20px] 2xl:text-[25px]">
                 Getting to RIMBA
               </h3>
               <div className="text-center">
-                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px]">
+                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
                   Approx. 30 minutes from Ngurah Rai Airport by car.
                 </p>
-                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px]">
+                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
                   Cabs / Ride Hailing services available at the airport.
                 </p>
-                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px]">
+                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
                   Check-in time: 3 PM WITA
                 </p>
               </div>
@@ -142,10 +142,10 @@ export default function Travel() {
                 y: city.y,
               }}
             >
-              <h3 className="mb-2 font-freight text-[16px] tracking-wide drop-shadow-2xl md:text-[18px] xl:mb-4 xl:text-[20px]">
+              <h3 className="mb-2 font-freight text-[16px] tracking-wide drop-shadow-2xl md:text-[18px] xl:mb-4 xl:text-[20px] 2xl:text-[25px]">
                 Getting around the City
               </h3>
-              <p className="mx-auto text-center font-hanken text-[12px] font-light md:px-8 md:text-[14px] lg:w-[80%] xl:text-[16px]">
+              <p className="mx-auto text-center font-hanken text-[12px] font-light md:px-8 md:text-[14px] lg:w-[80%] xl:text-[16px] 2xl:text-[20px]">
                 Ride Hailing (Grab / Gojek) / Private Car Hire for extra comfort
                 / Motorbikes (local rental / ride hailed) to beat Bali traffic.
               </p>
@@ -158,7 +158,7 @@ export default function Travel() {
 
         {/* Accommodation & Shuttle Section */}
         <div className="flex-1">
-          <div className="xl:lg:w-[90%] xl:mx-auto xl:text-center">
+          <div className="lg:w-[90%] xl:mx-auto xl:text-center">
             <motion.hr
               ref={divider1Ref}
               className="mx-auto mb-8 w-72 border-t border-[#FFFFFF] lg:mb-10 xl:hidden"
@@ -171,7 +171,7 @@ export default function Travel() {
             <div className="px-4 text-center sm:px-20 xl:px-0">
               <motion.h1
                 ref={accommodationTitleRef}
-                className="mx-auto mb-8 font-cormorant text-[31px] tracking-tight drop-shadow-2xl lg:text-[39px] xl:mb-12"
+                className="mx-auto mb-8 font-cormorant text-[31px] tracking-tight drop-shadow-2xl lg:text-[49px] xl:mb-10 2xl:mb-16"
                 initial={{ opacity: 0, y: 10 }}
                 style={{
                   opacity: accommodationTitle.opacity,
@@ -190,20 +190,20 @@ export default function Travel() {
                 }}
               >
                 <Image
-                  className="mx-auto mb-10 w-[50%] md:w-[42%] lg:w-[35%] xl:w-[42%]"
+                  className="mx-auto mb-10 w-[50%] md:w-[42%] lg:w-[35%] xl:w-[52%] 2xl:w-[35%]"
                   src={imgaccommodation}
                   alt="Accommodation"
                   width={800}
                   height={800}
                 />
-                <h3 className="mb-10 text-center font-freight text-[14px] tracking-wide drop-shadow-2xl sm:mx-4 md:text-[16px] xl:mb-8 xl:text-[18px]">
+                <h3 className="mb-10 text-center font-freight text-[14px] tracking-wide drop-shadow-2xl sm:mx-4 md:text-[16px] xl:mb-8 xl:text-[18px] 2xl:text-[25px]">
                   As a token of appreciation, we are offering you 2 nights of
                   accommodation from 19-21 June 2026 at:
                 </h3>
-                <h2 className="mx-auto mb-[6px] font-cormorant text-[25px] tracking-tight drop-shadow-2xl xl:mb-4 xl:text-[31px]">
+                <h2 className="mx-auto mb-[6px] font-cormorant text-[25px] tracking-tight drop-shadow-2xl xl:mb-4 xl:text-[31px] 2xl:text-[39px]">
                   RIMBA by AYANA Bali
                 </h2>
-                <h4 className="mb-5 text-center font-hanken text-[12px] font-light drop-shadow-2xl sm:mx-4 md:mb-6 md:text-[14px] xl:mb-6 xl:text-[16px]">
+                <h4 className="mb-5 text-center font-hanken text-[12px] font-light drop-shadow-2xl sm:mx-4 md:mb-6 md:text-[14px] xl:mb-6 xl:text-[16px] 2xl:text-[20px]">
                   Sejahtera, Jl. Karang Mas, Jimbaran, South Kuta, Badung
                   Regency, Bali 80364, Indonesia
                 </h4>
@@ -216,7 +216,7 @@ export default function Travel() {
                 >
                   OPEN MAPS
                 </Button>
-                <h3 className="text-center font-freight text-[14px] tracking-wide drop-shadow-2xl md:text-[16px] xl:text-[18px]">
+                <h3 className="text-center font-freight text-[14px] tracking-wide drop-shadow-2xl md:text-[16px] xl:text-[18px] 2xl:text-[25px]">
                   Please let us know in advance if you prefer to arrange your
                   own accommodation.
                 </h3>
@@ -233,7 +233,7 @@ export default function Travel() {
                 />
                 <motion.h1
                   ref={shuttleTitleRef}
-                  className="mx-auto mb-10 font-cormorant text-[31px] tracking-tight drop-shadow-2xl lg:text-[39px]"
+                  className="mx-auto mb-10 font-cormorant text-[31px] tracking-tight drop-shadow-2xl lg:text-[39px] 2xl:text-[49px]"
                   initial={{ opacity: 0, y: 10 }}
                   style={{
                     opacity: shuttleTitle.opacity,
@@ -243,7 +243,7 @@ export default function Travel() {
                   SHUTTLE CAR
                 </motion.h1>
                 <Image
-                  className="mx-auto mb-8 w-[50%] md:w-[39%] lg:w-[35%] xl:w-[42%]"
+                  className="mx-auto mb-8 w-[50%] md:w-[39%] lg:w-[35%] xl:w-[48%] 2xl:w-[32%]"
                   src={imgbus}
                   alt="Shuttle Car"
                   width={800}
@@ -251,7 +251,7 @@ export default function Travel() {
                 />
                 <motion.h3
                   ref={shuttleContentRef}
-                  className="mx-auto px-4 text-center font-freight text-[14px] tracking-wide drop-shadow-2xl md:text-[16px] lg:w-[80%] xl:px-0 xl:text-[18px]"
+                  className="mx-auto px-4 text-center font-freight text-[14px] tracking-wide drop-shadow-2xl md:text-[16px] lg:w-[80%] xl:px-0 xl:text-[18px] 2xl:text-[25px]"
                   initial={{ opacity: 0, y: 10 }}
                   style={{
                     opacity: shuttleContent.opacity,

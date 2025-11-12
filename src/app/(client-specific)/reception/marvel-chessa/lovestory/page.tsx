@@ -25,14 +25,14 @@ export default function LoveStory() {
   const image1Ref = useRef<HTMLDivElement>(null);
   const image2Ref = useRef<HTMLDivElement>(null);
 
-  // Viewport-based animation hook - triggers when element is 5% from bottom
+  // Viewport-based animation hook
   const useViewportAnimation = (
     ref: React.RefObject<HTMLDivElement>,
     yValue = 10,
   ) => {
     const { scrollYProgress } = useScroll({
       target: ref,
-      offset: ["start end", "end end"], // Animation starts when element enters viewport, completes when it's 10% from bottom
+      offset: ["start end", "end end"],
     });
 
     const opacityRaw = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
@@ -52,7 +52,7 @@ export default function LoveStory() {
   ) => {
     const { scrollYProgress } = useScroll({
       target: ref,
-      offset: ["start 120%", "end -20%"], // Extended range for better parallax effect
+      offset: ["start 120%", "end -20%"],
     });
 
     const yRaw = useTransform(
@@ -72,8 +72,8 @@ export default function LoveStory() {
   const story2 = useViewportAnimation(story2Ref);
   const story3 = useViewportAnimation(story3Ref);
   const story4 = useViewportAnimation(story4Ref);
-  const image1 = useViewportImageAnimation(image1Ref, 80, 1.5); // Parallax layer (80px travel, 1.5x speed)
-  const image2 = useViewportImageAnimation(image2Ref, 80, 2); // Parallax layer (80px travel, 2x speed)
+  const image1 = useViewportImageAnimation(image1Ref, 80, 1.5);
+  const image2 = useViewportImageAnimation(image2Ref, 80, 2);
 
   return (
     <motion.div
@@ -87,11 +87,7 @@ export default function LoveStory() {
           opacity: header.opacity,
           y: header.y,
         }}
-      >
-        {/* <h1 className="text-center font-cormorant text-[31px] drop-shadow-2xl lg:text-[39px] xl:text-[49px]">
-          HOW IT ALL BEGAN
-        </h1> */}
-      </motion.div>
+      ></motion.div>
       <motion.div
         ref={story1Ref}
         className="px-8 sm:px-12 md:px-14"
@@ -100,11 +96,11 @@ export default function LoveStory() {
           y: story1.y,
         }}
       >
-        <div className="mx-auto md:w-[85%] lg:w-[75%] xl:w-[70%]">
+        <div className="mx-auto md:w-[85%] lg:w-[75%] xl:w-[70%] 2xl:w-[50%]">
           <h3 className="mb-[6px] font-freight text-[20px] lg:text-[25px] xl:text-[31px]">
             2019 — Aug
           </h3>
-          <h5 className="mb-8 font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
+          <h5 className="mb-8 font-hanken text-[11px] leading-relaxed md:text-[12px] lg:mb-10 lg:text-[14px] xl:text-[16px]">
             They first met at a university Christian Fellowship welcome tea.
             Marvel, a fourth-year senior; Chessa, a freshman. The committee (or
             fate?) happened to put them in the same small group. Marvel thought
@@ -113,7 +109,7 @@ export default function LoveStory() {
             Memorable? Absolutely.
           </h5>
           <Image
-            className="mx-auto mb-10 w-[65%] md:w-[40%]"
+            className="mx-auto mb-10 w-[65%] md:w-[40%] lg:mb-12 lg:w-[35%]"
             src={imgstory1}
             alt="IMG1"
             width={800}
@@ -129,11 +125,11 @@ export default function LoveStory() {
           y: story2.y,
         }}
       >
-        <div className="mx-auto md:w-[85%] lg:w-[75%] xl:w-[70%]">
+        <div className="mx-auto md:w-[85%] lg:w-[75%] xl:w-[70%] 2xl:w-[50%]">
           <h3 className="mb-[6px] font-freight text-[20px] lg:text-[25px] xl:text-[31px]">
             2020 — Apr
           </h3>
-          <h5 className="mb-8 font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
+          <h5 className="mb-10 font-hanken text-[11px] leading-relaxed md:text-[12px] lg:mb-12 lg:text-[14px] xl:text-[16px]">
             For months, they barely talked, unless you count math assignments
             and study room bookings. What Chessa didn’t know was that Marvel was
             already quietly drawn to her. So, with some encouragement from
@@ -142,7 +138,7 @@ export default function LoveStory() {
             about cutting it close.
           </h5>
           <Image
-            className="mx-auto mb-10 w-[65%] md:w-[40%]"
+            className="mx-auto mb-10 w-[65%] md:w-[40%] lg:mb-12 lg:w-[35%]"
             src={imgstory2}
             alt="IMG2"
             width={800}
@@ -158,11 +154,11 @@ export default function LoveStory() {
           y: story3.y,
         }}
       >
-        <div className="mx-auto md:w-[85%] lg:w-[75%] xl:w-[70%]">
+        <div className="mx-auto md:w-[85%] lg:w-[75%] xl:w-[70%] 2xl:w-[50%]">
           <h3 className="mb-[6px] font-freight text-[20px] lg:text-[25px] xl:text-[31px]">
             2020 — Sep
           </h3>
-          <h5 className="mb-6 font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
+          <h5 className="mb-6 font-hanken text-[11px] leading-relaxed md:text-[12px] lg:mb-8 lg:text-[14px] xl:text-[16px]">
             Lockdown rules said two metres apart, but hearts had other plans.
             Between late-night calls, “study sessions”, and a few suspicious
             supermarket runs, they grew closer. Five months and four handwritten
@@ -170,7 +166,7 @@ export default function LoveStory() {
             time asking her to be his girlfriend.
           </h5>
           <Image
-            className="mx-auto mb-10 w-[65%] md:w-[40%]"
+            className="mx-auto mb-10 w-[65%] md:w-[40%] lg:mb-12 lg:w-[33%]"
             src={imgstory3}
             alt="IMG3"
             width={800}
@@ -186,11 +182,11 @@ export default function LoveStory() {
           y: story4.y,
         }}
       >
-        <div className="mx-auto md:w-[85%] lg:w-[75%] xl:w-[70%]">
+        <div className="mx-auto md:w-[85%] lg:w-[75%] xl:w-[70%] 2xl:w-[50%]">
           <h3 className="mb-[6px] font-freight text-[20px] lg:text-[25px] xl:text-[31px]">
             2025 — May
           </h3>
-          <h5 className="mb-6 font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
+          <h5 className="mb-6 font-hanken text-[11px] leading-relaxed md:text-[12px] lg:mb-10 lg:text-[14px] xl:text-[16px]">
             What started as an awkward encounter turned into five years of love,
             growth, and a shared addiction to Netflix and snacks. Though
             opposites in many ways, they learned to meet in the middle.
@@ -198,26 +194,26 @@ export default function LoveStory() {
             share a Netflix account, but a lifetime.
           </h5>
           <Image
-            className="mx-auto mb-8 w-[65%] md:w-[40%]"
+            className="mx-auto mb-8 w-[65%] md:w-[40%] lg:mb-12 lg:w-[33%]"
             src={imgstory4}
             alt="IMG4"
             width={800}
             height={800}
           />
-          <h5 className="mb-4 font-hanken text-[11px] leading-relaxed md:text-[12px] lg:text-[14px] xl:text-[16px]">
+          <h5 className="mb-4 font-hanken text-[11px] leading-relaxed md:text-[12px] lg:mb-10 lg:text-[14px] xl:text-[16px]">
             With help from a few friends, Marvel planned the proposal (after one
             reschedule and many decoy errands). On the day itself, Chessa showed
             up with freshly washed hair and manicured nails, blissfully unaware
             — though her gut hinted something was up.
           </h5>
           <Image
-            className="mx-auto mb-8 w-[65%] md:w-[40%]"
+            className="mx-auto mb-8 w-[65%] md:w-[40%] lg:w-[33%]"
             src={imgstory5}
             alt="IMG5"
             width={800}
             height={800}
           />
-          <p className="text-center text-[12px] italic md:text-[14px] lg:text-[16px] xl:text-[18px]">
+          <p className="text-center text-[12px] italic md:text-[14px] lg:mb-10 lg:text-[16px] xl:text-[18px]">
             Under the city skyline where it all began, he got down on one knee.
             The rest, as they say, is beautifully predictable.
           </p>
@@ -231,7 +227,7 @@ export default function LoveStory() {
         }}
       >
         <Image
-          className="ml-8 w-[60%] sm:ml-[12%] sm:w-[49%] md:ml-[13%] md:w-[43%] lg:ml-[25%] lg:w-[28%]"
+          className="ml-8 w-[60%] sm:ml-[12%] sm:w-[49%] md:ml-[13%] md:w-[43%] lg:ml-[25%] lg:w-[28%] xl:ml-[32%] xl:w-[25%] 2xl:w-[21%]"
           src={img1}
           alt="IMG1"
           width={800}
@@ -246,7 +242,7 @@ export default function LoveStory() {
         }}
       >
         <Image
-          className="-mt-20 ml-auto mr-8 w-[65%] sm:-mt-24 sm:mr-[12%] sm:w-[47%] md:-mt-28 md:mr-[13%] md:w-[45%] lg:-mt-32 lg:mr-[25%] lg:w-[30%]"
+          className="-mt-20 ml-auto mr-8 w-[65%] sm:-mt-24 sm:mr-[12%] sm:w-[47%] md:-mt-28 md:mr-[13%] md:w-[45%] lg:-mt-32 lg:mr-[25%] lg:w-[30%] xl:mr-[32%] xl:w-[27%] 2xl:w-[23%]"
           src={img2}
           alt="IMG2"
           width={800}

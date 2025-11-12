@@ -19,14 +19,14 @@ export default function Thewedding() {
   const cocktailRef = useRef<HTMLDivElement>(null);
   const dinnerRef = useRef<HTMLDivElement>(null);
 
-  // Viewport-based animation hook - triggers when element is 5% from bottom
+  // Viewport-based animation hook
   const useViewportAnimation = (
     ref: React.RefObject<HTMLDivElement>,
     yValue = 10,
   ) => {
     const { scrollYProgress } = useScroll({
       target: ref,
-      offset: ["start end", "end 90%"], // Animation starts when element enters viewport, completes when it's 10% from bottom
+      offset: ["start end", "end 90%"],
     });
 
     const opacityRaw = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
@@ -52,7 +52,7 @@ export default function Thewedding() {
     >
       <motion.h1
         ref={titleRef}
-        className="mx-auto mb-8 font-cormorant text-[31px] tracking-tight drop-shadow-2xl lg:mb-12 lg:text-[39px]"
+        className="mx-auto mb-8 font-cormorant text-[31px] tracking-tight drop-shadow-2xl lg:mb-12 lg:text-[39px] 2xl:text-[49px]"
         style={{
           opacity: title.opacity,
           y: title.y,
@@ -62,7 +62,7 @@ export default function Thewedding() {
       </motion.h1>
       <motion.h3
         ref={date2Ref}
-        className="mx-auto mb-10 font-freight text-[16px] tracking-wide drop-shadow-2xl lg:text-[20px]"
+        className="mx-auto mb-10 font-freight text-[16px] tracking-wide drop-shadow-2xl lg:text-[20px] 2xl:text-[25px]"
         style={{
           opacity: date2.opacity,
           y: date2.y,
@@ -80,19 +80,19 @@ export default function Thewedding() {
         }}
       >
         <Image
-          className="mx-auto mb-8 w-[50%] sm:w-[40%] md:w-[33%] lg:mt-2 lg:w-[25%]"
+          className="mx-auto mb-8 w-[50%] sm:w-[40%] md:w-[33%] lg:mt-2 lg:w-[25%] xl:w-[20%] 2xl:w-[18%]"
           src={imgholmat}
           alt="Holy Matrimony"
           width={800}
           height={800}
         />
-        <h2 className="mb-[6px] font-cormorant text-[20px] tracking-tight drop-shadow-2xl xl:text-[25px]">
+        <h2 className="mb-[6px] font-cormorant text-[20px] tracking-tight drop-shadow-2xl xl:text-[25px] 2xl:text-[31px]">
           HOLY MATRIMONY
         </h2>
-        <h3 className="mb-[6px] font-freight text-[16px] tracking-wide drop-shadow-2xl lg:text-[18px]">
+        <h3 className="mb-[6px] font-freight text-[16px] tracking-wide drop-shadow-2xl lg:text-[18px] 2xl:text-[20px]">
           4 pm — WITA
         </h3>
-        <h4 className="mb-5 font-hanken text-[12px] font-light drop-shadow-2xl lg:mb-[50px] lg:text-[14px]">
+        <h4 className="mb-5 font-hanken text-[12px] font-light drop-shadow-2xl lg:mb-[50px] lg:text-[14px] 2xl:text-[16px]">
           SKY Ampitheatre, AYANA Resort Bali
         </h4>
         <Button
@@ -116,20 +116,20 @@ export default function Thewedding() {
         }}
       >
         <Image
-          className="mx-auto mb-8 w-[50%] sm:w-[45%] md:w-[40%] lg:mb-12 lg:w-[29%]"
+          className="mx-auto mb-8 w-[50%] sm:w-[45%] md:w-[40%] lg:mb-12 lg:w-[29%] xl:w-[25%] 2xl:w-[22%]"
           src={imgcocktails}
           alt="Cocktail & Canapes"
           width={800}
           height={800}
         />
-        <h2 className="mb-[6px] font-cormorant text-[20px] tracking-tight drop-shadow-2xl xl:text-[25px]">
+        <h2 className="mb-[6px] font-cormorant text-[20px] tracking-tight drop-shadow-2xl xl:text-[25px] 2xl:text-[31px]">
           COCKTAIL & CANAPES
         </h2>
-        <h3 className="mb-[6px] font-freight text-[16px] tracking-wide drop-shadow-2xl lg:text-[18px]">
+        <h3 className="mb-[6px] font-freight text-[16px] tracking-wide drop-shadow-2xl lg:text-[18px] 2xl:text-[20px]">
           5.30 pm — WITA
         </h3>
-        <h4 className="mb-5 font-hanken text-[12px] font-light drop-shadow-2xl lg:mb-[52px] lg:text-[14px]">
-          SKY Lower to Middle Lawn, AYANA Resort Bali
+        <h4 className="mb-5 font-hanken text-[12px] font-light drop-shadow-2xl lg:mb-[52px] lg:text-[14px] 2xl:text-[16px]">
+          SKY Lower Lawn, AYANA Resort Bali
         </h4>
         <Button
           className="active:scale-98 group mb-16 rounded-none border-[1px] border-[#555555] bg-[#F6F4F1] px-5 py-2 transition-all duration-200 ease-out hover:bg-[#FFFFFF] active:bg-[#1D1A1B] lg:px-6 lg:py-3"
@@ -152,22 +152,22 @@ export default function Thewedding() {
         }}
       >
         <Image
-          className="mx-auto mb-8 w-[45%] sm:w-[36%] md:w-[33%] lg:mt-5 lg:w-[25%]"
+          className="mx-auto mb-10 w-[45%] sm:w-[36%] md:mb-10 md:w-[33%] lg:mt-5 lg:w-[25%] xl:w-[20%] 2xl:w-[18%]"
           src={imgreception}
           alt="Dinner Reception"
           width={800}
           height={800}
         />
-        <h2 className="mb-[6px] font-cormorant text-[20px] tracking-tight drop-shadow-2xl xl:text-[25px]">
+        <h2 className="mb-[6px] font-cormorant text-[20px] tracking-tight drop-shadow-2xl xl:text-[25px] 2xl:text-[31px]">
           DINNER RECEPTION
         </h2>
-        <h3 className="mb-[6px] font-freight text-[16px] tracking-wide drop-shadow-2xl lg:text-[18px]">
+        <h3 className="mb-[6px] font-freight text-[16px] tracking-wide drop-shadow-2xl lg:text-[18px] 2xl:text-[20px]">
           7 pm — WITA
         </h3>
-        <h4 className="mb-[6px] font-hanken text-[12px] font-light drop-shadow-2xl lg:text-[14px]">
-          SKY Upper Lawn, AYANA Resort Bali
+        <h4 className="mb-[6px] font-hanken text-[12px] font-light drop-shadow-2xl lg:text-[14px] 2xl:text-[16px]">
+          SKY Middle Lawn, AYANA Resort Bali
         </h4>
-        <h3 className="mb-5 font-freight text-[14px] tracking-wide drop-shadow-2xl lg:mb-[22px] lg:text-[16px]">
+        <h3 className="mb-5 font-freight text-[14px] tracking-wide drop-shadow-2xl lg:mb-[22px] lg:text-[16px] 2xl:text-[18px]">
           (followed by After Party)
         </h3>
         <Button
