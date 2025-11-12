@@ -53,19 +53,19 @@ export default function Outro() {
       <div className="z-5 absolute inset-0 bg-black/30" />
       <motion.h5
         ref={titleRef}
-        className="relative z-10 text-center font-freight text-[14px] leading-relaxed text-[#FFFFFF] md:text-[14px] lg:text-[16px] xl:text-[18px]"
+        className="relative z-10 text-center font-cormorant text-[16px] leading-relaxed text-[#FFFFFF] md:text-[18px] lg:text-[20px] xl:text-[25px]"
         style={{
           opacity: title.opacity,
           y: title.y,
         }}
       >
-        Thank you <br />{" "}
-        <span className="font-freight text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px]">
-          For all your prayers and well wishes!
+        THANK YOU <br />{" "}
+        <span className="font-freight text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px]">
+          Thank you for all your prayers and well wishes.
         </span>{" "}
         <br />{" "}
-        <span className="font-freight text-[12px] md:text-[14px] lg:text-[16px] xl:text-[18px]">
-          We can&apos;t wait to celebrate this special day with you!
+        <span className="font-freight text-[14px] md:text-[16px] lg:text-[18px] xl:text-[20px]">
+          We can&apos;t wait to celebrate this special day with you.
         </span>
       </motion.h5>
     </motion.div>
