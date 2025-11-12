@@ -496,7 +496,7 @@ export default function Homepage() {
             <div className="flex items-center justify-center space-x-8">
               <button
                 onClick={() => scrollToSection("our-story")}
-                className="font-cormorant text-sm text-[#F0F0F0] transition-colors duration-200 hover:text-white"
+                className="px-3 py-2 font-cormorant text-[14px] text-[#F0F0F0] transition-colors duration-200 hover:text-white xl:text-[16px]"
                 style={{
                   color: `rgb(${246 - Math.min(229, Math.max(0, ((lastScrollY - 100) / 100) * 229))}, ${244 - Math.min(227, Math.max(0, ((lastScrollY - 100) / 100) * 227))}, ${241 - Math.min(224, Math.max(0, ((lastScrollY - 100) / 100) * 224))})`,
                 }}
@@ -505,7 +505,7 @@ export default function Homepage() {
               </button>
               <button
                 onClick={() => scrollToSection("the-wedding")}
-                className="font-cormorant text-sm text-[#F0F0F0] transition-colors duration-200 hover:text-white"
+                className="px-3 py-2 font-cormorant text-[14px] text-[#F0F0F0] transition-colors duration-200 hover:text-white xl:text-[16px]"
                 style={{
                   color: `rgb(${246 - Math.min(229, Math.max(0, ((lastScrollY - 100) / 100) * 229))}, ${244 - Math.min(227, Math.max(0, ((lastScrollY - 100) / 100) * 227))}, ${241 - Math.min(224, Math.max(0, ((lastScrollY - 100) / 100) * 224))})`,
                 }}
@@ -514,7 +514,7 @@ export default function Homepage() {
               </button>
               <button
                 onClick={() => scrollToSection("dresscode")}
-                className="font-cormorant text-sm text-[#F0F0F0] transition-colors duration-200 hover:text-white"
+                className="px-3 py-2 font-cormorant text-[14px] text-[#F0F0F0] transition-colors duration-200 hover:text-white xl:text-[16px]"
                 style={{
                   color: `rgb(${246 - Math.min(229, Math.max(0, ((lastScrollY - 100) / 100) * 229))}, ${244 - Math.min(227, Math.max(0, ((lastScrollY - 100) / 100) * 227))}, ${241 - Math.min(224, Math.max(0, ((lastScrollY - 100) / 100) * 224))})`,
                 }}
@@ -523,7 +523,7 @@ export default function Homepage() {
               </button>
               <button
                 onClick={() => scrollToSection("bali-guide")}
-                className="font-cormorant text-sm text-[#F0F0F0] transition-colors duration-200 hover:text-white"
+                className="px-3 py-2 font-cormorant text-[14px] text-[#F0F0F0] transition-colors duration-200 hover:text-white xl:text-[16px]"
                 style={{
                   color: `rgb(${246 - Math.min(229, Math.max(0, ((lastScrollY - 100) / 100) * 229))}, ${244 - Math.min(227, Math.max(0, ((lastScrollY - 100) / 100) * 227))}, ${241 - Math.min(224, Math.max(0, ((lastScrollY - 100) / 100) * 224))})`,
                 }}
@@ -532,7 +532,7 @@ export default function Homepage() {
               </button>
               <button
                 onClick={() => scrollToSection("love-letters")}
-                className="font-cormorant text-sm text-[#F0F0F0] transition-colors duration-200 hover:text-white"
+                className="px-3 py-2 font-cormorant text-[14px] text-[#F0F0F0] transition-colors duration-200 hover:text-white xl:text-[16px]"
                 style={{
                   color: `rgb(${246 - Math.min(229, Math.max(0, ((lastScrollY - 100) / 100) * 229))}, ${244 - Math.min(227, Math.max(0, ((lastScrollY - 100) / 100) * 227))}, ${241 - Math.min(224, Math.max(0, ((lastScrollY - 100) / 100) * 224))})`,
                 }}
