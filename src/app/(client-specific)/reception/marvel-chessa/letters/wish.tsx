@@ -100,11 +100,11 @@ export default function Wish({ guestName }: IWishProps) {
 
       // Clear the wish field after successful submission
       reset({
-        name: data.name,
+        name: "",
         wish: "",
       });
 
-      toast.success("Wish sent successfully!");
+      // toast.success("Wish sent successfully!");
     } catch (error) {
       toast.error("Failed to send wish. Please try again.");
     }
