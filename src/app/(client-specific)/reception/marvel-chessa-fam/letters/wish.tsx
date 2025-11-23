@@ -104,7 +104,7 @@ export default function Wish({ guestName }: IWishProps) {
         wish: "",
       });
 
-      // toast.success("Wish sent successfully!");
+      toast.success("Thank you for your kind wish!");
     } catch (error) {
       toast.error("Failed to send wish. Please try again.");
     }
