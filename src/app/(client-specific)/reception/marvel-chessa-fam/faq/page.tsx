@@ -6,16 +6,18 @@ import { useRef, useState } from "react";
 const FAQItem = ({
   question,
   answer,
+  isOpen,
+  onToggle,
 }: {
   question: string;
   answer: string;
+  isOpen: boolean;
+  onToggle: () => void;
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
     <div className="mb-6 border-b border-[#FFFFFF]/50 pb-6">
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={onToggle}
         className="flex w-full justify-center"
         type="button"
       >
@@ -42,6 +44,7 @@ const FAQItem = ({
 
 export default function FAQ() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   // Element refs for viewport-based triggers
   const titleRef = useRef<HTMLDivElement>(null);
@@ -140,7 +143,13 @@ export default function FAQ() {
           }}
         >
           {faqs.map((faq, index) => (
-            <FAQItem key={index} question={faq.question} answer={faq.answer} />
+            <FAQItem
+              key={index}
+              question={faq.question}
+              answer={faq.answer}
+              isOpen={openIndex === index}
+              onToggle={() => setOpenIndex(openIndex === index ? null : index)}
+            />
           ))}
         </motion.div>
 
