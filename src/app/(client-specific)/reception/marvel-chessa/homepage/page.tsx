@@ -264,12 +264,16 @@ export default function Homepage() {
 
         if (sectionId === "the-wedding") {
           elementPosition = element.offsetTop - 20;
-        } else if (sectionId === "bali-guide") {
-          elementPosition = element.offsetTop + 24;
         } else if (sectionId === "dresscode") {
           elementPosition = element.offsetTop - 60;
+        } else if (sectionId === "bali-guide") {
+          elementPosition = element.offsetTop;
+        } else if (sectionId === "love-gifts") {
+          elementPosition = element.offsetTop;
+        } else if (sectionId === "faq") {
+          elementPosition = element.offsetTop;
         } else {
-          element.scrollIntoView({ behavior: "smooth" });
+          element.scrollIntoView({ behavior: "smooth"});
           return;
         }
 
@@ -519,7 +523,6 @@ export default function Homepage() {
               >
                 LOVE GIFTS
               </button>
-              
             </div>
           </nav>
 
