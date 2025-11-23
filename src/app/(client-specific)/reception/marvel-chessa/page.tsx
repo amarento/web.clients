@@ -30,7 +30,7 @@ export default function Page() {
 
 function PageContent() {
   const searchParams = useSearchParams();
-  const guestId = Number.parseInt(searchParams.get("guestId") as string, 10);
+  const guestId = Number.parseInt(searchParams.get("guestId")!, 10);
 
   const { data: guestName } = useServerActionQuery(getGuestNameByIdAction, {
     input: {
