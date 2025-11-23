@@ -256,37 +256,38 @@ export default function Homepage() {
 
   // Scroll to section function
   const scrollToSection = (sectionId: string) => {
+    // Calculate target position BEFORE closing sidebar
+    const element = document.getElementById(sectionId);
+    if (!element) return;
+
+    // Get the absolute position from the document top
+    let targetOffset = 0;
+    let currentElement = element as HTMLElement | null;
+
+    while (currentElement) {
+      targetOffset += currentElement.offsetTop;
+      currentElement = currentElement.offsetParent as HTMLElement | null;
+    }
+
+    // Apply section-specific offsets
+    if (sectionId === "our-story") {
+      targetOffset -= 20;
+    } else if (sectionId === "the-wedding") {
+      targetOffset -= 20;
+    } else if (sectionId === "dresscode") {
+      targetOffset -= 60;
+    }
+
+    // Close sidebar
     setIsSidebarOpen(false);
+
+    // Wait for sidebar animation, then scroll to the pre-calculated position
     setTimeout(() => {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        const rect = element.getBoundingClientRect();
-        const absoluteTop = rect.top + window.scrollY;
-        let elementPosition;
-
-        if (sectionId === "our-story") {
-          elementPosition = absoluteTop - 20;
-        } else if (sectionId === "the-wedding") {
-          elementPosition = absoluteTop - 20;
-        } else if (sectionId === "dresscode") {
-          elementPosition = absoluteTop - 60;
-        } else if (sectionId === "bali-guide") {
-          elementPosition = absoluteTop;
-        } else if (sectionId === "love-gifts") {
-          elementPosition = absoluteTop;
-        } else if (sectionId === "faq") {
-          elementPosition = absoluteTop;
-        } else {
-          elementPosition = absoluteTop;
-        }
-
-        // Use custom scroll position for sections with specific offsets
-        window.scrollTo({
-          top: elementPosition,
-          behavior: "smooth",
-        });
-      }
-    }, 300); // Wait for sidebar close animation
+      window.scrollTo({
+        top: targetOffset,
+        behavior: "smooth",
+      });
+    }, 300);
   };
 
   // Prevent scrolling when sidebar is open using event listeners
