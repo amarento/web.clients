@@ -72,7 +72,7 @@ export default function LoveStory() {
   return (
     <motion.div
       ref={containerRef}
-      className="flex flex-col bg-[#1D1A1B] py-20 text-[#EEEEEE]"
+      className="flex flex-col bg-[#1D1A1B] pb-20 pt-16 text-[#EEEEEE]"
     >
       <div className="mx-auto px-8 sm:px-12 md:px-14">
         <motion.h1

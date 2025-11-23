@@ -68,7 +68,7 @@ export default function Travel() {
             <div className="mx-auto mb-8 xl:mb-12 2xl:mb-20">
               <motion.h1
                 ref={titleRef}
-                className="font-cormorant text-[31px] drop-shadow-2xl lg:mb-5 lg:text-[49px]"
+                className="font-cormorant text-[31px] drop-shadow-2xl lg:mb-5 lg:text-[39px] 2xl:text-[49px]"
                 initial={{ opacity: 0, y: 10 }}
                 style={{
                   opacity: title.opacity,
@@ -161,7 +161,7 @@ export default function Travel() {
           <div className="lg:w-[90%] xl:mx-auto xl:text-center">
             <motion.hr
               ref={divider1Ref}
-              className="mx-auto mb-8 w-72 border-t border-[#FFFFFF] lg:mb-10 xl:hidden"
+              className="mx-auto mb-8 md:mb-10 w-72 border-t border-[#FFFFFF] lg:mb-10 xl:hidden"
               initial={{ opacity: 0, y: 10 }}
               style={{
                 opacity: divider1.opacity,
@@ -171,7 +171,7 @@ export default function Travel() {
             <div className="px-4 text-center sm:px-20 xl:px-0">
               <motion.h1
                 ref={accommodationTitleRef}
-                className="mx-auto mb-8 font-cormorant text-[31px] tracking-tight drop-shadow-2xl lg:text-[49px] xl:mb-10 2xl:mb-16"
+                className="mx-auto mb-8 font-cormorant text-[31px] tracking-tight drop-shadow-2xl lg:text-[39px] xl:mb-10 2xl:mb-16 2xl:text-[49px]"
                 initial={{ opacity: 0, y: 10 }}
                 style={{
                   opacity: accommodationTitle.opacity,
@@ -224,7 +224,7 @@ export default function Travel() {
               <div className="">
                 <motion.hr
                   ref={divider2Ref}
-                  className="mx-auto mb-8 w-72 border-t border-[#FFFFFF] lg:mb-10 xl:hidden"
+                  className="mx-auto mb-8 md:mb-10 w-72 border-t border-[#FFFFFF] lg:mb-10 xl:hidden"
                   initial={{ opacity: 0, y: 10 }}
                   style={{
                     opacity: divider2.opacity,

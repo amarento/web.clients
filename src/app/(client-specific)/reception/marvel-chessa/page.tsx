@@ -13,7 +13,7 @@ import Baliguide from "./baliguide/page";
 import PhotoAlbum2 from "./photoalbum2/page";
 import Gifts from "./gift/page";
 import Wish from "./letters/wish";
-import Contact from "./contact/page";
+import FAQ from "./faq/page";
 import Outro from "./outro/page";
 import Footer from "./footer/page";
 
@@ -30,7 +30,6 @@ export default function Page() {
 
 function PageContent() {
   const searchParams = useSearchParams();
-  // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
   const guestId = Number.parseInt(searchParams.get("guestId") as string, 10);
 
   const { data: guestName } = useServerActionQuery(getGuestNameByIdAction, {
@@ -60,11 +59,13 @@ function PageContent() {
         <Baliguide />
       </section>
       <PhotoAlbum2 />
-      <Gifts />
-      <section id="love-letters">
-        <Wish guestName={guestName} />
+      <section id="love-gifts">
+        <Gifts />
       </section>
-      <Contact />
+      <Wish guestName={guestName} />
+      <section id="faq">
+        <FAQ />
+      </section>
       <Outro />
       <Footer />
     </div>

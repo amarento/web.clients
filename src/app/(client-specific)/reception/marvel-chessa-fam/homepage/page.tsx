@@ -23,7 +23,7 @@ export default function Homepage() {
       opacity: 1,
       transition: {
         staggerChildren: 0.2,
-        delayChildren: 0.7,
+        delayChildren: 0.7, // 0.5s delay + 0.2s original delay
       },
     },
   };
@@ -136,6 +136,7 @@ export default function Homepage() {
 
         setIsPlaying(true);
       } catch (err) {
+        // Optionally, surface a non-blocking UI message here
         setIsPlaying(false);
       }
     }
@@ -400,7 +401,7 @@ export default function Homepage() {
               transition={{ delay: 0.8, duration: 0.8 }}
             >
               <motion.h1
-                className="mb-10 font-cormorant text-[20px] text-white lg:text-[25px] xl:text-[31px] 2xl:text-[39px]"
+                className="mb-10 font-cormorant text-[20px] text-white lg:text-[25px] xl:text-[31px]"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8, duration: 0.8 }}
@@ -408,7 +409,7 @@ export default function Homepage() {
                 MARVEL & CHESSA
               </motion.h1>
               <motion.p
-                className="mb-4 font-freight text-[18px] text-white/80 lg:text-[20px] xl:mb-5 xl:text-[25px] 2xl:text-[31px]"
+                className="mb-4 font-freight text-[18px] text-white/80 lg:text-[20px] xl:mb-5 xl:text-[25px]"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -468,7 +469,7 @@ export default function Homepage() {
         <>
           {/* Header Navigation Links - Large screens only */}
           <nav
-            className={`fixed inset-x-0 top-6 z-50 mt-3 hidden duration-300 lg:block ${
+            className={`fixed inset-x-0 top-4 z-50 mt-3 hidden duration-300 lg:block ${
               isHeaderNavVisible ? "opacity-100" : "opacity-0"
             }`}
           >
@@ -510,13 +511,13 @@ export default function Homepage() {
                 BALI GUIDE
               </button>
               <button
-                onClick={() => scrollToSection("love-letters")}
+                onClick={() => scrollToSection("love-gifts")}
                 className="px-3 py-2 font-cormorant text-[14px] text-[#F0F0F0] transition-colors duration-200 hover:text-white xl:text-[16px] 2xl:text-[20px]"
                 style={{
                   color: `rgb(${246 - Math.min(229, Math.max(0, ((lastScrollY - 100) / 100) * 229))}, ${244 - Math.min(227, Math.max(0, ((lastScrollY - 100) / 100) * 227))}, ${241 - Math.min(224, Math.max(0, ((lastScrollY - 100) / 100) * 224))})`,
                 }}
               >
-                LOVE LETTERS
+                LOVE GIFTS
               </button>
             </div>
           </nav>
@@ -586,7 +587,7 @@ export default function Homepage() {
                       }}
                     >
                       <motion.button
-                        className="mx-auto block py-2 font-cormorant text-[25px] text-[#F0F0F0] hover:text-white lg:text-[31px]"
+                        className="mx-auto block py-2 font-cormorant text-[20px] text-[#F0F0F0] hover:text-white"
                         onClick={() => scrollToSection("our-story")}
                         whileHover={{ scale: 1.05, x: 10 }}
                         whileTap={{ scale: 0.95 }}
@@ -599,7 +600,7 @@ export default function Homepage() {
                         OUR STORY
                       </motion.button>
                       <motion.button
-                        className="mx-auto block py-2 font-cormorant text-[25px] text-[#F0F0F0] hover:text-white lg:text-[31px]"
+                        className="mx-auto block py-2 font-cormorant text-[20px] text-[#F0F0F0] hover:text-white"
                         onClick={() => scrollToSection("the-wedding")}
                         whileHover={{ scale: 1.05, x: 10 }}
                         whileTap={{ scale: 0.95 }}
@@ -612,7 +613,7 @@ export default function Homepage() {
                         THE WEDDING
                       </motion.button>
                       <motion.button
-                        className="mx-auto block py-2 font-cormorant text-[25px] text-[#F0F0F0] hover:text-white lg:text-[31px]"
+                        className="mx-auto block py-2 font-cormorant text-[20px] text-[#F0F0F0] hover:text-white"
                         onClick={() => scrollToSection("dresscode")}
                         whileHover={{ scale: 1.05, x: 10 }}
                         whileTap={{ scale: 0.95 }}
@@ -625,7 +626,7 @@ export default function Homepage() {
                         DRESS CODE
                       </motion.button>
                       <motion.button
-                        className="mx-auto block py-2 font-cormorant text-[25px] text-[#F0F0F0] hover:text-white lg:text-[31px]"
+                        className="mx-auto block py-2 font-cormorant text-[20px] text-[#F0F0F0] hover:text-white"
                         onClick={() => scrollToSection("bali-guide")}
                         whileHover={{ scale: 1.05, x: 10 }}
                         whileTap={{ scale: 0.95 }}
@@ -638,8 +639,8 @@ export default function Homepage() {
                         BALI GUIDE
                       </motion.button>
                       <motion.button
-                        className="mx-auto block py-2 font-cormorant text-[25px] text-[#F0F0F0] hover:text-white lg:text-[31px]"
-                        onClick={() => scrollToSection("love-letters")}
+                        className="mx-auto block py-2 font-cormorant text-[20px] text-[#F0F0F0] hover:text-white"
+                        onClick={() => scrollToSection("love-gifts")}
                         whileHover={{ scale: 1.05, x: 10 }}
                         whileTap={{ scale: 0.95 }}
                         variants={{
@@ -648,7 +649,20 @@ export default function Homepage() {
                         }}
                         transition={{ duration: 0.5, ease: "easeOut" }}
                       >
-                        LOVE LETTERS
+                        LOVE GIFTS
+                      </motion.button>
+                      <motion.button
+                        className="mx-auto block py-2 font-cormorant text-[20px] text-[#F0F0F0] hover:text-white"
+                        onClick={() => scrollToSection("faq")}
+                        whileHover={{ scale: 1.05, x: 10 }}
+                        whileTap={{ scale: 0.95 }}
+                        variants={{
+                          hidden: { opacity: 0, y: 20 },
+                          visible: { opacity: 1, y: 0 },
+                        }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                      >
+                        FAQ
                       </motion.button>
                     </motion.nav>
                   </div>

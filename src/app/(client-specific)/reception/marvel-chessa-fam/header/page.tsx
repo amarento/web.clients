@@ -78,10 +78,10 @@ export default function Header() {
       }`}
     >
       <div className="mx-[4%] mt-4 xl:-mt-1 2xl:-mt-2">
-        <div className="mt-xs mb-xs z-50 flex items-end justify-start">
+        <div className="z-50 flex items-end justify-start">
           <Image
             alt="Logo"
-            className="-ml-3 h-16 w-16 xl:h-20 xl:w-20 2xl:-ml-10 2xl:w-28 2xl:h-28 xl:-ml-5 transition duration-300"
+            className="-ml-3 h-16 w-16 transition duration-300 xl:-ml-5 xl:h-20 xl:w-20 2xl:-ml-10 2xl:h-28 2xl:w-28"
             onClick={handleLogoClick}
             src={lastScrollY > 100 ? logoBlack : logo}
           />

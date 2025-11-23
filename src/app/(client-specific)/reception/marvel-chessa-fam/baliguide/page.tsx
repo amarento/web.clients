@@ -185,7 +185,7 @@ export default function Baliguide() {
   return (
     <motion.div
       ref={containerRef}
-      className="flex flex-col bg-[#F6F4F1] pb-12 pt-24 text-[#111111] md:px-12 lg:pt-32"
+      className="flex flex-col bg-[#F6F4F1] pb-12 pt-16 text-[#111111] md:px-12 lg:pt-20"
     >
       <div className="text-center">
         <motion.h1
