@@ -260,21 +260,24 @@ export default function Homepage() {
     setTimeout(() => {
       const element = document.getElementById(sectionId);
       if (element) {
+        const rect = element.getBoundingClientRect();
+        const absoluteTop = rect.top + window.scrollY;
         let elementPosition;
 
-        if (sectionId === "the-wedding") {
-          elementPosition = element.offsetTop - 20;
+        if (sectionId === "our-story") {
+          elementPosition = absoluteTop - 20;
+        } else if (sectionId === "the-wedding") {
+          elementPosition = absoluteTop - 20;
         } else if (sectionId === "dresscode") {
-          elementPosition = element.offsetTop - 60;
+          elementPosition = absoluteTop - 60;
         } else if (sectionId === "bali-guide") {
-          elementPosition = element.offsetTop;
+          elementPosition = absoluteTop;
         } else if (sectionId === "love-gifts") {
-          elementPosition = element.offsetTop;
+          elementPosition = absoluteTop;
         } else if (sectionId === "faq") {
-          elementPosition = element.offsetTop;
+          elementPosition = absoluteTop;
         } else {
-          element.scrollIntoView({ behavior: "smooth"});
-          return;
+          elementPosition = absoluteTop;
         }
 
         // Use custom scroll position for sections with specific offsets
