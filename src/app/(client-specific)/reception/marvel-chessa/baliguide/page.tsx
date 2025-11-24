@@ -185,7 +185,7 @@ export default function Baliguide() {
   return (
     <motion.div
       ref={containerRef}
-      className="flex flex-col bg-[#F6F4F1] pb-12 pt-16 text-[#111111] md:px-12 lg:pt-20"
+      className="flex flex-col bg-[#F6F4F1] pt-16 text-[#111111] md:px-12 lg:pt-20"
     >
       <div className="text-center">
         <motion.h1
@@ -410,57 +410,67 @@ export default function Baliguide() {
               <AccordionItem
                 id="cafes-2"
                 title="Revolver Espresso (Seminyak)"
-                content="Iconic café serving strong, top-notch coffee. Best for espresso and flat whites."
+                content="Iconic café serving strong, top-notch coffee. Best for espresso and flat whites. A no-frills haven for serious coffee lovers who appreciate expertly pulled shots."
               />
               <AccordionItem
                 id="cafes-3"
                 title="Seniman Coffee Studio (Ubud)"
-                content="Artisan roastery. Perfect for slow brews, cold drip, and single-origin tastings."
+                content="Artisan roastery. Perfect for slow brews, cold drip, and single-origin tastings. A must-visit for coffee enthusiasts looking to explore Indonesia's finest beans."
               />
               <AccordionItem
                 id="cafes-4"
                 title="Chontea (Ubud & Seminyak)"
-                content="A cozy tea-focused café offering artisan blends alongside light bites. This is where you get your matcha fix."
+                content="A cozy tea-focused café offering artisan blends alongside light bites. This is where you get your matcha fix. The serene ambience makes it perfect for a peaceful afternoon pause."
               />
               <AccordionItem
                 id="cafes-5"
                 title="Cafe Luneir (Canggu)"
-                content="Neighborhood favourite for a good classic casual brunch. Another spot for a good matcha."
+                content="Neighborhood favourite for a good classic casual brunch. Another spot for a good matcha. A welcoming space that feels like your home away from home."
               />
               <AccordionItem
                 id="cafes-6"
                 title="Baked. (Multiple Locations)"
-                content="Famous for its sourdough bread and croissants. Try their scrambled egg dish!"
+                content="Famous for its sourdough bread and croissants. Try their scrambled egg dish! Their perfectly baked goods and comforting breakfast staples never disappoint."
               />
               <AccordionItem
                 id="cafes-7"
                 title="7AM Bakers (Ubud & Canggu)"
-                content="A little spot serving tasty pastries and baked goods."
+                content="A little spot serving tasty pastries and baked goods. Simple, satisfying treats that hit the spot every time."
               />
               <AccordionItem
                 id="cafes-8"
                 title="ACME (Canggu & Pererenan)"
-                content="Trendy brunch café with hearty Australian-style brunches."
+                content="Trendy brunch café with hearty Australian-style brunches. A lively spot where quality ingredients and generous portions create the perfect start to your day."
               />
               <AccordionItem
                 id="cafes-9"
                 title="Woods (Pererenan)"
-                content="Rustic café set among greenery, offering wholesome food."
+                content="Rustic café set among greenery, offering wholesome food. A nature-embraced hideaway where fresh flavors meet tranquil surroundings."
               />
               <AccordionItem
                 id="cafes-10"
                 title="Milk & Madu (Multiple Locations)"
-                content="Rustic café set among greenery, offering wholesome food."
+                content="Rustic café set among greenery, offering wholesome food. A family-friendly favorite where healthy meets delicious in every dish."
               />
               <AccordionItem
                 id="cafes-11"
                 title="Tukies Coconut Shop (Multiple Locations)"
-                content="Coconut lovers’ paradise. Well known for its coconut ice cream."
+                content="Coconut lovers' paradise. Well known for its coconut ice cream. A refreshing tropical treat that's both indulgent and naturally delicious."
               />
               <AccordionItem
                 id="cafes-12"
                 title="Ettore Gelato (Canggu & Pererenan)"
-                content="Authentic Italian gelato shop. Specialty flavours include pistachio and stracciatella."
+                content="Authentic Italian gelato shop. Specialty flavours include pistachio and stracciatella. Creamy, traditional Italian gelato that transports you straight to Rome with every scoop."
+              />
+              <AccordionItem
+                id="cafes-13"
+                title="Gigi Susu (Canggu)"
+                content="Freshly made pastries and beloved local favorites crafted to brighten your mood. A warm, easygoing spot where every bite feels like a little lift in your day."
+              />
+              <AccordionItem
+                id="cafes-14"
+                title="32do Bali (Kerobokan)"
+                content="A modern-Korean gem famed for its finely crafted pastries and matcha so smooth it feels unreal. A must-visit haven for creators, with its iconic side-fountain entrance made for the perfect shot."
               />
             </motion.div>
           )}
@@ -487,17 +497,17 @@ export default function Baliguide() {
               <AccordionItem
                 id="local-3"
                 title="Warung Wardani (Kuta)"
-                content="A beloved spot for 'nasi campur' (mixed rice) with generous portions of authentic Balinese side dishes."
+                content="A beloved spot for 'nasi campur' (mixed rice) with generous portions of authentic Balinese side dishes. A longtime local favorite where every plate feels like a true taste of home."
               />
               <AccordionItem
                 id="local-4"
                 title="Sate Bawah Pohon (Kuta)"
-                content="Legendary street-style satay stall under a tree, known for its smoky chicken skewers."
+                content="Legendary street-style satay stall under a tree, known for its smoky chicken skewers. Delivers bold flavors with every perfectly charred bite."
               />
               <AccordionItem
                 id="local-5"
                 title="Bebek Tepi Sawah (Kuta & Ubud)"
-                content="Famous for its crispy duck served with sambal and rice, often enjoyed with beautiful rice field views."
+                content="Famous for its crispy duck served with sambal and rice, often enjoyed with beautiful rice field views. A serene dining experience where every bite pairs perfectly with the calm of Bali’s lush greenery."
               />
               <AccordionItem
                 id="local-6"
@@ -507,12 +517,12 @@ export default function Baliguide() {
               <AccordionItem
                 id="local-7"
                 title="Naughty Nuri's (Multiple Locations)"
-                content="Iconic for its smoky pork ribs and fun, lively atmosphere."
+                content="Iconic for its smoky pork ribs and fun, lively atmosphere. A must-try classic where big flavors and good vibes always take center stage."
               />
               <AccordionItem
                 id="local-8"
                 title="Nasi Ayam Kedewatan Ibu Mangku (Multiple Locations)"
-                content="A classic spot for Balinese chicken rice with rich flavors and traditional sides."
+                content="A classic spot for Balinese chicken rice with rich flavors and traditional sides. A timeless go-to for savoring Bali’s heritage in its most comforting form."
               />
             </motion.div>
           )}
@@ -529,42 +539,47 @@ export default function Baliguide() {
               <AccordionItem
                 id="restaurants-1"
                 title="Home by Chef Wayan (Pererenan)"
-                content="A cozy neighborhood spot where Balinese flavors meet modern twists, perfect for a relaxed dinner."
+                content="A cozy neighborhood spot where Balinese flavors meet modern twists, perfect for a relaxed dinner. Chef Wayan's creative take on traditional recipes brings warmth and authenticity to every plate."
               />
               <AccordionItem
                 id="restaurants-2"
                 title="Seeds Eatery (Ubud)"
-                content="Wholesome, plant-forward dishes in a peaceful garden setting, great for a mindful lunch."
+                content="Wholesome, plant-forward dishes in a peaceful garden setting, great for a mindful lunch. Fresh ingredients and nourishing bowls make this a go-to for healthy eating with soul."
               />
               <AccordionItem
                 id="restaurants-3"
                 title="M. Mason (Canggu & Uluwatu)"
-                content="Lively Mediterranean restaurant with wood-fired cooking and a fun social atmosphere."
+                content="Lively Mediterranean restaurant with wood-fired cooking and a fun social atmosphere. Expect vibrant flavors and a buzzing crowd that keeps the energy high."
               />
               <AccordionItem
                 id="restaurants-4"
                 title="Bokashi (Pererenan)"
-                content="A Japanese-inspired restaurant and organic grocery, perfect for healthy bites and good coffee."
+                content="A Japanese-inspired restaurant and organic grocery, perfect for healthy bites and good coffee. The calm, minimalist space invites you to slow down and savor clean, seasonal ingredients."
               />
               <AccordionItem
                 id="restaurants-5"
                 title="Sensorium (Canggu)"
-                content="Creative Asian-fusion brunches in a cool, design-led space — very Instagram-worthy."
+                content="Creative Asian-fusion brunches in a cool, design-led space — very Instagram-worthy. Bold flavors and artful presentation make every dish as photogenic as it is delicious."
               />
               <AccordionItem
                 id="restaurants-6"
                 title="Mamasan (Seminyak)"
-                content="A Bali icon serving bold Southeast Asian flavors in a stylish, colonial-style restaurant."
+                content="A Bali icon serving bold Southeast Asian flavors in a stylish, colonial-style restaurant. The mood is sophisticated yet welcoming, with dishes that pack a punch in both taste and presentation."
               />
               <AccordionItem
                 id="restaurants-7"
                 title="Riviera Bistro (Canggu)"
-                content="Breezy Mediterranean dining with a coastal vibe, ideal for a laid-back evening."
+                content="Breezy Mediterranean dining with a coastal vibe, ideal for a laid-back evening. Where sun-kissed flavors, relaxed rhythms, and effortless charm come together in every moment."
               />
               <AccordionItem
                 id="restaurants-8"
                 title="Bartolo (Uluwatu)"
-                content="A chic wine bar and modern European restaurant, perfect for sunset dinners after the beach."
+                content="A chic wine bar and modern European restaurant, perfect for sunset dinners after the beach. The carefully curated wine list and elegant dishes create an intimate, upscale experience."
+              />
+              <AccordionItem
+                id="restaurants-9"
+                title="Meimei (Canggu)"
+                content="A cozy hideaway with warm ambience, brings you comforting Southeast Asian fusion dishes that feel both familiar and unforgettable."
               />
             </motion.div>
           )}
@@ -581,32 +596,32 @@ export default function Baliguide() {
               <AccordionItem
                 id="clubs-1"
                 title="Potato Head Beach Club (Seminyak)"
-                content="Iconic beachfront club with infinity pools, creative cocktails, and sunset DJs."
+                content="Iconic beachfront club with infinity pools, creative cocktails, and sunset DJs. A must-visit destination where beach culture meets world-class music and design."
               />
               <AccordionItem
                 id="clubs-2"
                 title="The Lawn (Canggu)"
-                content="Relaxed yet stylish beachfront hangout. Perfect for sundowners and casual bites."
+                content="Relaxed yet stylish beachfront hangout. Perfect for sundowners and casual bites. The laid-back vibe and ocean views make it ideal for unwinding after a day at the beach."
               />
               <AccordionItem
                 id="clubs-3"
                 title="Finns Beach Club (Canggu)"
-                content="Iconic all-day beach club with pools, DJs, and sunset views. Best for cocktails and lively energy."
+                content="Iconic all-day beach club with pools, DJs, and sunset views. Best for cocktails and lively energy. A vibrant hub where the party flows from day to night with an effortlessly cool atmosphere."
               />
               <AccordionItem
                 id="clubs-4"
                 title="CP Lounge (Ubud)"
-                content="A more relaxed garden-style bar with live music, pool tables, and friendly atmosphere."
+                content="A more relaxed garden-style bar with live music, pool tables, and friendly atmosphere. For those who seek a chilled evening without the beach club scene."
               />
               <AccordionItem
                 id="clubs-5"
                 title="Rock Bar at AYANA (Jimbaran)"
-                content="World-famous clifftop bar at Ayana Resort. Unbeatable for sunset cocktails over the ocean."
+                content="World-famous clifftop bar at Ayana Resort. Unbeatable for sunset cocktails over the ocean. Arrive early to secure a spot and witness one of Bali's most breathtaking sunset views."
               />
               <AccordionItem
                 id="clubs-6"
                 title="Savaya (Uluwatu)"
-                content="Dramatic cliffside beach club with occasional international DJs."
+                content="Dramatic cliffside beach club with occasional international DJs. A stunning venue that combines natural beauty with world-class entertainment and sophisticated vibes."
               />
             </motion.div>
           )}

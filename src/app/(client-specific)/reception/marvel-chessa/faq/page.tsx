@@ -21,7 +21,7 @@ const FAQItem = ({
         className="flex w-full justify-center"
         type="button"
       >
-        <h3 className="font-cormorant text-[16px] tracking-tight lg:text-[18px] 2xl:text-[25px]">
+        <h3 className="font-cormorant text-[16px] tracking-tight lg:text-[18px] 2xl:text-[20px]">
           {question}
         </h3>
       </button>
@@ -79,44 +79,48 @@ export default function FAQ() {
 
   const faqs = [
     {
-      question: "WHAT IS THE DRESS CODE?",
-      answer:
-        "We request our guests to dress in formal attire. For gentlemen, a suit and tie or traditional formal wear. For ladies, cocktail dresses, evening gowns, or traditional formal attire. Please avoid wearing white or ivory as these colors are reserved for the bride.",
+      question: "WHAT IS THE CHECK-IN AND CHECK-OUT TIME OF THE ACCOMMODATION?",
+      answer: "Check-in begins at 3:00 PM, and check-out is at 12:00 PM.",
     },
     {
       question: "CAN I BRING A PLUS ONE?",
       answer:
-        "We have made our invitations based on our venue capacity. If your invitation includes a plus one, it will be indicated on your invitation. If you have any questions, please contact us directly.",
+        "We’d love to include everyone, but unfortunately our venue capacity is limited. If your invitation includes a plus one, you’ll see it indicated in your RSVP form. If you’re unsure, feel free to reach out to us directly!",
     },
     {
-      question: "WILL TRANSPORTATION BE PROVIDED?",
+      question: "WILL WE BE ASSIGNED ROOMMATES?",
       answer:
-        "Shuttle services to SKY Ayana will be available only for guests staying at the arranged accommodation (Bali Paragon Resort Hotel). Detailed schedule and pickup points will be shared closer to the wedding date.",
+        "We’ll ask for your preference in the RSVP form. Otherwise, we’ll allocate the room accordingly.",
     },
     {
-      question: "WHAT TIME SHOULD I ARRIVE?",
+      question: "IS BREAKFAST PROVIDED?",
       answer:
-        "We recommend arriving at least 30 minutes before the ceremony starts to allow time for parking and finding your seats. The Holy Matrimony begins at 4:00 PM WITA.",
+        "Yes, hotel breakfast is included for all guests staying at our arranged accommodations.",
     },
     {
-      question: "IS THE VENUE CHILD-FRIENDLY?",
+      question: "IS THE VENUE INDOOR OR OUTDOOR?",
       answer:
-        "Yes, children are welcome at our wedding. However, please note that the venue has outdoor areas near water features, so parental supervision is essential for the safety of younger guests.",
+        "It’s a fully outdoor venue. We recommend comfortable shoes or block heels since there’s plenty of grass.",
     },
     {
-      question: "ARE PHOTOS AND VIDEOS ALLOWED DURING THE CEREMONY?",
+      question: "WHAT TIME SHOULD WE ARRIVE BEFORE THE CEREMONY STARTS?",
       answer:
-        "We have hired professional photographers and videographers to capture our special day. We kindly ask that you enjoy the ceremony unplugged and refrain from taking photos during the ceremony itself. Feel free to take photos during the reception!",
+        "Seating for the holy matrimony is limited and on a first-come, first-served basis. Please arrive 15 minutes early.",
     },
     {
-      question: "WHAT ABOUT DIETARY RESTRICTIONS?",
+      question: "ARE BABIES ALLOWED AT THE WEDDING?",
       answer:
-        "We will be serving a variety of dishes at the reception. If you have specific dietary requirements or allergies, please inform us in advance so we can coordinate with our caterers.",
+        "Yes, little ones are welcome! Just let us know beforehand so we can make any necessary arrangements.",
     },
     {
-      question: "WHERE CAN I PARK?",
+      question: "WHAT TIME DOES THE RECEPTION END?",
       answer:
-        "Parking is available at AYANA Resort. Valet parking services will be provided for guests attending the wedding. Please follow the signage and staff directions upon arrival.",
+        "Dinner will be followed by an after-party. You’re welcome to stay as long as you’d like or head off earlier — just remember to say goodbye so we can get a photo with you!",
+    },
+    {
+      question: "ANY BALI-RELEVANT PRECAUTIONS WE NEED TO TAKE NOTE OFF?",
+      answer:
+        "Please be mindful of “Bali Belly” — avoid tap water and stick to bottled water. The sun can get strong around midday, so sunscreen is recommended. It’s also a good idea to use mosquito repellent, especially for outdoor areas and evenings.",
     },
   ];
 
