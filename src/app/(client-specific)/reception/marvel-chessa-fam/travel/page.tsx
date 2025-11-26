@@ -104,20 +104,20 @@ export default function Travel() {
                 <p className="mb-2 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
                   Completed arrival card (
                   <a
-                    href="https://allindonesia.imigrasi.co.id"
+                    href="https://allindonesia.imigrasi.go.id"
                     className="underline hover:text-[#CCCCCC]"
                   >
-                    https://allindonesia.imigrasi.co.id
+                    https://allindonesia.imigrasi.go.id
                   </a>
                   )
                 </p>
                 <p className="mb-2 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
                   Foreigner only: Paid Bali Tourism Levy (
                   <a
-                    href="https://lovabali.baliprov.go.id"
+                    href="https://lovebali.baliprov.go.id"
                     className="underline hover:text-[#CCCCCC]"
                   >
-                    https://lovabali.baliprov.go.id
+                    https://lovebali.baliprov.go.id
                   </a>
                   )
                 </p>
