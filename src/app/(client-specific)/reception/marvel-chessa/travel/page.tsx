@@ -98,13 +98,30 @@ export default function Travel() {
                 Fly in to Ngurah Rai International Airport — what to prepare?
               </h3>
               <div className="mx-auto text-center">
-                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
+                <p className="mb-2 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
                   Passport with at least 6 months before expiry date
                 </p>
-                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
-                  Completed eCD form (https://ecd.beacukai.go.id)
+                <p className="mb-2 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
+                  Completed arrival card (
+                  <a
+                    href="https://allindonesia.imigrasi.co.id"
+                    className="underline hover:text-[#CCCCCC]"
+                  >
+                    https://allindonesia.imigrasi.co.id
+                  </a>
+                  )
                 </p>
-                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
+                <p className="mb-2 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
+                  Foreigner only: Paid Bali Tourism Levy (
+                  <a
+                    href="https://lovabali.baliprov.go.id"
+                    className="underline hover:text-[#CCCCCC]"
+                  >
+                    https://lovabali.baliprov.go.id
+                  </a>
+                  )
+                </p>
+                <p className="mb-2 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
                   Arrival visa VOA application (if required)
                 </p>
               </div>
@@ -122,13 +139,13 @@ export default function Travel() {
                 Getting to Bali Paragon
               </h3>
               <div className="text-center">
-                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
+                <p className="mb-2 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
                   Approx. 20 minutes from Ngurah Rai Airport by car.
                 </p>
-                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
+                <p className="mb-2 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
                   Cabs / Ride Hailing services available at the airport.
                 </p>
-                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
+                <p className="mb-2 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
                   Check-in time: 3 PM WITA
                 </p>
               </div>
@@ -161,7 +178,7 @@ export default function Travel() {
           <div className="lg:w-[90%] xl:mx-auto xl:text-center">
             <motion.hr
               ref={divider1Ref}
-              className="mx-auto mb-8 md:mb-10 w-72 border-t border-[#FFFFFF] lg:mb-10 xl:hidden"
+              className="mx-auto mb-8 w-72 border-t border-[#FFFFFF] md:mb-10 lg:mb-10 xl:hidden"
               initial={{ opacity: 0, y: 10 }}
               style={{
                 opacity: divider1.opacity,
@@ -224,7 +241,7 @@ export default function Travel() {
               <div className="">
                 <motion.hr
                   ref={divider2Ref}
-                  className="mx-auto mb-8 md:mb-10 w-72 border-t border-[#FFFFFF] lg:mb-10 xl:hidden"
+                  className="mx-auto mb-8 w-72 border-t border-[#FFFFFF] md:mb-10 lg:mb-10 xl:hidden"
                   initial={{ opacity: 0, y: 10 }}
                   style={{
                     opacity: divider2.opacity,

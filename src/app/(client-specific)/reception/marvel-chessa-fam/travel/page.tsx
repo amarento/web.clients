@@ -98,13 +98,30 @@ export default function Travel() {
                 Fly in to Ngurah Rai International Airport — what to prepare?
               </h3>
               <div className="mx-auto text-center">
-                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
+                <p className="mb-2 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
                   Passport with at least 6 months before expiry date
                 </p>
-                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
-                  Completed eCD form (https://ecd.beacukai.go.id)
+                <p className="mb-2 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
+                  Completed arrival card (
+                  <a
+                    href="https://allindonesia.imigrasi.co.id"
+                    className="underline hover:text-[#CCCCCC]"
+                  >
+                    https://allindonesia.imigrasi.co.id
+                  </a>
+                  )
                 </p>
-                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
+                <p className="mb-2 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
+                  Foreigner only: Paid Bali Tourism Levy (
+                  <a
+                    href="https://lovabali.baliprov.go.id"
+                    className="underline hover:text-[#CCCCCC]"
+                  >
+                    https://lovabali.baliprov.go.id
+                  </a>
+                  )
+                </p>
+                <p className="mb-2 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
                   Arrival visa VOA application (if required)
                 </p>
               </div>
@@ -122,13 +139,13 @@ export default function Travel() {
                 Getting to RIMBA
               </h3>
               <div className="text-center">
-                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
+                <p className="mb-2 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
                   Approx. 30 minutes from Ngurah Rai Airport by car.
                 </p>
-                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
+                <p className="mb-2 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
                   Cabs / Ride Hailing services available at the airport.
                 </p>
-                <p className="mb-1 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
+                <p className="mb-2 font-hanken text-[12px] font-light md:text-[14px] xl:mb-2 xl:text-[16px] 2xl:text-[20px]">
                   Check-in time: 3 PM WITA
                 </p>
               </div>

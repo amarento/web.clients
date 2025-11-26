@@ -501,15 +501,6 @@ export default function Homepage() {
                 THE WEDDING
               </button>
               <button
-                onClick={() => scrollToSection("dresscode")}
-                className="px-3 py-2 font-cormorant text-[14px] text-[#F0F0F0] transition-colors duration-200 hover:text-white xl:text-[16px] 2xl:text-[20px]"
-                style={{
-                  color: `rgb(${246 - Math.min(229, Math.max(0, ((lastScrollY - 100) / 100) * 229))}, ${244 - Math.min(227, Math.max(0, ((lastScrollY - 100) / 100) * 227))}, ${241 - Math.min(224, Math.max(0, ((lastScrollY - 100) / 100) * 224))})`,
-                }}
-              >
-                DRESSCODE
-              </button>
-              <button
                 onClick={() => scrollToSection("bali-guide")}
                 className="px-3 py-2 font-cormorant text-[14px] text-[#F0F0F0] transition-colors duration-200 hover:text-white xl:text-[16px] 2xl:text-[20px]"
                 style={{
@@ -526,6 +517,15 @@ export default function Homepage() {
                 }}
               >
                 LOVE GIFTS
+              </button>
+              <button
+                onClick={() => scrollToSection("faq")}
+                className="px-3 py-2 font-cormorant text-[14px] text-[#F0F0F0] transition-colors duration-200 hover:text-white xl:text-[16px] 2xl:text-[20px]"
+                style={{
+                  color: `rgb(${246 - Math.min(229, Math.max(0, ((lastScrollY - 100) / 100) * 229))}, ${244 - Math.min(227, Math.max(0, ((lastScrollY - 100) / 100) * 227))}, ${241 - Math.min(224, Math.max(0, ((lastScrollY - 100) / 100) * 224))})`,
+                }}
+              >
+                FAQ
               </button>
             </div>
           </nav>
