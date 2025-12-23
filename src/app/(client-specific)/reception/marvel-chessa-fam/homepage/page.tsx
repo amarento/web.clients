@@ -153,6 +153,36 @@ export default function Homepage() {
     };
   }, []);
 
+  // Pause music when tab is not visible
+  useEffect(() => {
+    let isPlayed = false;
+
+    const handleVisibilityChange = () => {
+      if (!audioRef.current) return;
+
+      if (document.hidden) {
+        // Remember if music was playing before hiding
+        isPlayed = !audioRef.current.paused;
+        audioRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        // Resume if music was playing before tab was hidden
+        if (isPlayed) {
+          audioRef.current.play().catch(() => {
+            setIsPlaying(false);
+          });
+          setIsPlaying(true);
+        }
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
+
   // Force video autoplay immediately
   useEffect(() => {
     const video = videoRef.current;
