@@ -81,38 +81,42 @@ export default function Dresscode() {
         DRESS CODE
       </motion.h1>
 
-      {/* 6 Small Circles */}
-      <div className="flex flex-col items-center md:mb-12 md:flex-row md:justify-center md:gap-3 lg:mb-16">
-        <div className="mx-auto mb-2 flex gap-4 md:mx-0 md:mb-0">
-          <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#EBEBEB] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
-          <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#D6D1C3] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
-          <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#C9C4B9] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
-          <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#AFA699] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
-        </div>
-        <div className="mx-auto mb-8 flex gap-4 md:mx-0 md:mb-0">
-          <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#908375] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
-          <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#696158] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
-          <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#A2967D] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
-          <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#000000] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
-        </div>
-      </div>
-
       <motion.div
         ref={welcomeRef}
-        className="mx-auto mb-10 flex w-[80%] flex-col items-center text-center md:mb-12 lg:mb-16"
+        className="mx-auto mb-8 flex w-[80%] flex-col items-center text-center md:mb-12 lg:mb-16"
         style={{
           opacity: welcome.opacity,
           y: welcome.y,
         }}
       >
+        <h3 className="mb-6 font-cormorant text-[16px] drop-shadow-2xl md:mb-8 md:text-[18px] lg:mb-10 lg:text-[22px]">
+          EVENING GOWN FOR HER
+        </h3>
+
+        {/* 6 Small Circles */}
+        <div className="flex flex-col items-center md:mb-10 md:flex-row md:justify-center md:gap-3 lg:mb-12">
+          <div className="mx-auto mb-2 flex gap-4 md:mx-0 md:mb-0">
+            <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#EBEBEB] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
+            <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#D6D1C3] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
+            <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#C9C4B9] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
+            <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#AFA699] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
+          </div>
+          <div className="mx-auto mb-8 flex gap-4 md:mx-0 md:mb-0">
+            <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#908375] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
+            <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#696158] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
+            <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#A2967D] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
+            <div className="h-10 w-10 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#000000] md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
+          </div>
+        </div>
+
         <h3 className="mb-2 font-cormorant text-[18px] drop-shadow-2xl md:text-[20px] lg:text-[25px]">
           SHADES OF BEIGE | TAUPE | BLACK
         </h3>
         <h5 className="mb-[6px] font-freight text-[14px] font-light drop-shadow-2xl md:text-[16px] lg:text-[18px]">
           If you don’t have any of these colours, please opt for neutral tones
           and kindly{" "}
-          <span className="font-medium underline underline-offset-4">
-            avoid white
+          <span className="font-medium underline decoration-1 underline-offset-4">
+            avoid white.
           </span>
         </h5>
       </motion.div>
@@ -124,8 +128,14 @@ export default function Dresscode() {
           y: ceremony.y,
         }}
       >
+        <h3 className="mb-5 font-cormorant text-[16px] drop-shadow-2xl md:mb-7 md:text-[18px] lg:mb-8 lg:text-[22px]">
+          FORMAL SUIT FOR HIM
+        </h3>
+
+        <div className="mx-auto mb-6 flex h-10 w-10 gap-4 rounded-full border-[0.5px] border-[#CCCCCC] bg-[#000000] md:mb-8 md:h-12 md:w-12 lg:mb-10 lg:h-14 lg:w-14 xl:h-16 xl:w-16"></div>
+
         <h3 className="mb-2 text-center font-cormorant text-[18px] drop-shadow-2xl md:text-[20px] lg:text-[25px]">
-          LONG DRESS | BLACK SUIT | NO BATIK
+          BLACK SUIT | NO BATIK
         </h3>
         <h5 className="mb-[6px] font-freight text-[14px] font-light drop-shadow-2xl md:text-[16px] lg:text-[18px]">
           We recommend bringing a scarf or light wrap, as it may get
