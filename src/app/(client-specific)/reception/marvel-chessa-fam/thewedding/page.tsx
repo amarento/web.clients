@@ -100,7 +100,7 @@ export default function Thewedding() {
           6.30 pm — WITA
         </h3>
         <h4 className="mb-[6px] font-hanken text-[12px] font-light drop-shadow-2xl lg:text-[14px] 2xl:text-[16px]">
-          Warung Laota, Jimbaran (2nd floor)
+          Liu Li Palace, Rimba Ayana
         </h4>
         <h5 className="mb-5 font-freight text-[14px] tracking-wide drop-shadow-2xl lg:text-[16px] 2xl:text-[18px]">
           (Family Only)
