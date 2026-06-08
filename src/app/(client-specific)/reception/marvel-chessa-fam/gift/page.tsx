@@ -59,7 +59,7 @@ export default function LoveStory() {
     _event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ): void {
     void navigator.clipboard
-      .writeText("90200022976")
+      .writeText("90260022976")
       .then(() => {
         setCopiedBankTransfer(true);
         setTimeout(() => setCopiedBankTransfer(false), 1500);
