@@ -59,7 +59,7 @@ export default function LoveStory() {
     _event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ): void {
     void navigator.clipboard
-      .writeText("90200022976")
+      .writeText("90260022976")
       .then(() => {
         setCopiedBankTransfer(true);
         setTimeout(() => setCopiedBankTransfer(false), 1500);
@@ -146,10 +146,10 @@ export default function LoveStory() {
               Name: Marvel Wijaya
             </h4>
             <h4 className="mb-1 font-hanken text-[12px] font-light drop-shadow-2xl lg:text-[14px] 2xl:text-[16px]">
-              Bank: SMBC Indonesia (BTPN / Jenius)
+              Bank: SMBC Indonesia
             </h4>
             <h4 className="mb-5 font-hanken text-[12px] font-light drop-shadow-2xl lg:text-[14px] 2xl:text-[16px]">
-              Account Number: 90200022976
+              Account Number: 90260022976
             </h4>
             <Button
               className="mb-10 rounded-none border-[1px] border-[#EEEEEE] px-5 py-2 font-cormorant text-[12px] text-[#EEEEEE] md:w-20 xl:mb-8"
