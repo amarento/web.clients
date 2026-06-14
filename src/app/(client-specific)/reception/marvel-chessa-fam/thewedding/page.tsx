@@ -226,7 +226,7 @@ export default function Thewedding() {
             COCKTAIL & CANAPES
           </h2>
           <h3 className="mb-[6px] font-freight text-[16px] tracking-wide drop-shadow-2xl lg:text-[18px] 2xl:text-[20px]">
-            6.30 pm — WITA
+            5.30 pm — WITA
           </h3>
           <h4 className="mb-5 font-hanken text-[12px] font-light drop-shadow-2xl lg:mb-[52px] lg:text-[14px] 2xl:text-[16px]">
             SKY Lower Lawn, AYANA Resort Bali
